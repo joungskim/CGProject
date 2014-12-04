@@ -13,8 +13,18 @@ namespace CGProject
 
 
 
-        public void addCard(Card card)
+        public void createCard()
         {
+            // need to read in something here, sql stuffs
+
+            string name = "";
+            string value = "";
+            string description = "";
+            string imageName = "";
+            string cost = "";
+            string type = "";
+
+            Card card = new Card(name, value, description, imageName, cost, type);
             Cards.Add(card);
         }
 
