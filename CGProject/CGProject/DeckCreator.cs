@@ -13,19 +13,10 @@ namespace CGProject
 
 
 
-        public void createCard()
+        public Card createCard(string name, string value, string description, string imageName, string cost, string type)
         {
-            // need to read in something here, sql stuffs
-
-            string name = "";
-            string value = "";
-            string description = "";
-            string imageName = "";
-            string cost = "";
-            string type = "";
-
             Card card = new Card(name, value, description, imageName, cost, type);
-            Cards.Add(card);
+            return card;
         }
 
         public List<Game> getGames()
