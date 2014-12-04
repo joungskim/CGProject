@@ -23,7 +23,6 @@ namespace CGProject
         private string Description;
         private string ImageName;
         private string Type;
-        private string GameMaker;
 
 
         /*
@@ -31,7 +30,7 @@ namespace CGProject
          *  Decks will be rebuilt for every update to ensure that database is
          *  consistent with the displayed information.
          */
-        public Card(string Name, string Value, string Description, string ImageName, string Cost, string Type, string GameMaker)
+        public Card(string Name, string Value, string Description, string ImageName, string Cost, string Type)
         {
             this.Name = Name;
             this.Cost = Cost;
@@ -39,7 +38,6 @@ namespace CGProject
             this.Description = Description;
             this.ImageName = ImageName;
             this.Type = Type;
-            this.GameMaker = GameMaker;
         }
 
         /*
@@ -69,11 +67,6 @@ namespace CGProject
         public string getType()
         {
             return Type;
-        }
-
-        public string getGameMaker()
-        {
-            return GameMaker;
         }
     }
 }
