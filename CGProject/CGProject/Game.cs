@@ -8,17 +8,36 @@ namespace CGProject
 {
     /*
      * Class that defines every game
-     * 
+     * Manfact
+     * List of Cards 
+     * int GID
      * 
      * */
     public class Game
     {
-        private string gameName;
-
-        public Game(string gameName)
+        private string GameName;
+        private string MadeBy;
+        private string GId;
+        private List<Card> Deck;
+        public Game(string gameName, string madeBy, string gID, List<Card> Deck)
         {
-            this.gameName = gameName;
-
+            this.GameName = gameName;
+            this.MadeBy = madeBy;
+            this.GId = gID;
+            this.Deck = Deck;
         }
+        public string GetName()
+        {
+            return GameName;
+        }
+        public string GetMadeBy()
+        {
+            return MadeBy;
+        }
+        public string GetGId()
+        {
+            return GId;
+        }
+       
     }
 }
