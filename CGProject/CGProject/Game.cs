@@ -8,6 +8,6 @@ namespace CGProject
 {
     public class Game
     {
-        private string name;
+        private string gameName;
     }
 }
