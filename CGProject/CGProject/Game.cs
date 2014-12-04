@@ -38,6 +38,10 @@ namespace CGProject
         {
             return GId;
         }
+        public void AddList(List<Card> Deck)
+        {
+            this.Deck = Deck;
+        }
        
     }
 }
