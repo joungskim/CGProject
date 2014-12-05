@@ -11,32 +11,49 @@ namespace CGProject
 {
     public class Server
     {
+<<<<<<< HEAD
         public static string user;
         public static string pass;
-        
+
+        public void MakeConnection()
+=======
         private  MySqlConnection myConn;
+        private string user;
+        private string pass;
+        public Server(string user, string pass)
+        {
+            this.user = user;
+            this.pass = pass;
 
-
-                
-  	public MySqlDataReader MakeConnection(string query)
+        }
+        public MySqlDataReader MakeConnection(string query)
+>>>>>>> origin/Alex
         {
                 //This line will be used a lot 
                 
-                string myConnection = "datasource=70.179.174.145;port=3306;username=" + user + ";password=" + pass;
+                string myConnection = "datasource=70.179.174.145;port=3306;username=Sven;password=jkim";
                 myConn = new MySqlConnection(myConnection);
                 MySqlCommand cb = new MySqlCommand(query,myConn);
                 MySqlDataReader myReader;
                 myConn.Open();
+<<<<<<< HEAD
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+=======
                 myReader = cb.ExecuteReader();
                 return myReader;
                 
+>>>>>>> origin/Alex
         }
         public void CloseConnection()
         {
             myConn.Close();
         }
     }
-
-
 
 }
