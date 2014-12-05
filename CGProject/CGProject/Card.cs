@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
+using System.Windows.Forms;
 
 
 /*
@@ -24,13 +26,66 @@ namespace CGProject
         private string ImageName;
         private string Type;
 
+        private MySqlDataReader read;
+
+        /*
+         * Gets the cards from a specific game from the DB in alphabetical order
+         */
+        
+         public void cardsAlpha(string GameID)
+        {
+            try { 
+             //Server s = new Server()
+             //read = s.querry(
+            return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+            finally
+            {
+                //s.closeConnection()
+            }
+        }
+
+         /*
+          * Gets the cards from a specific game from the DB referenced by type in alphabetical order,then by name in alphabetical order
+         */
+
+         public void cardsTypeAlpha(string GameID)
+         {
+
+             return;
+         }
+         
+        /*
+         * Gets the cards from a specific game from the DB referenced by cost in increasing order,then by name in alphabetical order
+         */
+
+         public void cardsCostAlpha(string GameID)
+         {
+
+             return;
+         }
+
+         /*
+          * Gets the cards from a specific game from the DB referenced by value in alphabetical order,then by name in alphabetical order
+         */
+
+         public void cardsValueAlpha(string GameID)
+         {
+
+             return;
+         }
 
         /*
          *  Constructor to set values for cards.
          *  Decks will be rebuilt for every update to ensure that database is
          *  consistent with the displayed information.
          */
-        public Card(string Name, string Value, string Description, string ImageName, string Cost, string Type)
+        private Card(string Name, string Value, string Description, string ImageName, string Cost, string Type)
         {
             this.Name = Name;
             this.Cost = Cost;
