@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
+using System.Data;
 
 namespace CGProject
 {
     public class Server
     {
+        private  MySqlConnection myConn;
         private string user;
         private string pass;
         public Server(string user, string pass)
@@ -18,31 +20,22 @@ namespace CGProject
             this.pass = pass;
 
         }
-        public void MakeConnection()
+        public MySqlDataReader MakeConnection(string query)
         {
-            try
-            {
-                s
-                string myConnection = "datasoure=localhost;port=3306;username=root;password=root";
-                MySqlConnection myConn = new MySqlConnection(myConnection);
-                MySqlDataAdapter myDataAdapter = new MySqlDataAdapter();
-                myDataAdapter.SelectCommand = new MySqlCommand(" select * database.edata ;", myConn);
-                MySqlCommandBuilder cb = new MySqlCommandBuilder(myDataAdapter);
+                //This line will be used a lot 
+                
+                string myConnection = "datasource=70.179.174.145;port=3306;username=Sven;password=jkim";
+                myConn = new MySqlConnection(myConnection);
+                MySqlCommand cb = new MySqlCommand(query,myConn);
+                MySqlDataReader myReader;
                 myConn.Open();
-                DataSet ds = new DataSet();
-                MessageBox.Show(Success!);
-                myConn.close();
-
-            }
-            catch(Exeception ex)
-            {
-                MessageBox.Show(ex.message);
-            }
-
+                myReader = cb.ExecuteReader();
+                return myReader;
+                
         }
         public void CloseConnection()
         {
-            
+            myConn.Close();
         }
     }
 
