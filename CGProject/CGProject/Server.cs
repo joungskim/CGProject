@@ -22,6 +22,7 @@ namespace CGProject
         {
             try
             {
+                s
                 string myConnection = "datasoure=localhost;port=3306;username=root;password=root";
                 MySqlConnection myConn = new MySqlConnection(myConnection);
                 MySqlDataAdapter myDataAdapter = new MySqlDataAdapter();
