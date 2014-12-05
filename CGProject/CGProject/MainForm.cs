@@ -82,10 +82,10 @@ namespace CGProject
                 Server s = new Server();
                 try
                 {
-                    read = s.MakeConnection("Select * from sakila.actor where sakila.actor.first_name like '%" + search + "%' ;");
+                    read = s.MakeConnection("Select * from ccdb.game where ccdb.game.name like '%" + search + "%' ;");
                     while (read.Read())
                     {
-                        gameListBox.Items.Add(read.GetString("first_name"));
+                        gameListBox.Items.Add(read.GetString("name"));
                     }
                 }
                 catch (Exception ex)
@@ -101,10 +101,10 @@ namespace CGProject
                 Server s = new Server();
                 try
                 {
-                    read = s.MakeConnection("Select * from sakila.actor ;");
+                    read = s.MakeConnection("Select * from ccdb.game ;");
                     while (read.Read())
                     {
-                        gameListBox.Items.Add(read.GetString("first_name"));
+                        gameListBox.Items.Add(read.GetString("name"));
                     }
                 }
                 catch (Exception ex)
@@ -134,6 +134,36 @@ namespace CGProject
             {
 
             }
+        }
+
+        private void addGamesButton_Click(object sender, EventArgs e)
+        {
+            AddGame addForm = new AddGame();
+            addForm.ShowDialog();
+            gameListBox.Items.Clear();
+            populateGameList(searchGameTextBox.Text.ToString());
+        }
+
+        private void addCardButton_Click(object sender, EventArgs e)
+        {
+            int gameId;
+
+            Server s = new Server();
+            try
+            {
+                read = s.MakeConnection("Select * from ccdb.game where ccdb.game.name like '%" + gameListBox.SelectedItem.ToString() + "' ;" );
+                read.Read();
+                gameId = read.GetInt16("id_game");
+                MessageBox.Show(gameId.ToString());
+                AddCardsForm addForm = new AddCardsForm(gameId);
+                addForm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Application.Exit();
+            }
+            s.CloseConnection();
         }
     }
 }

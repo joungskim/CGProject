@@ -19,6 +19,39 @@ namespace CGProject
          * Fields for properties that make up cards.    
          */
 
+        /*Below shows how to create the card table.
+         *
+              CREATE TABLE `ccdb`.`card` (
+              `name` VARCHAR(255) NULL,
+              `cost` INT NULL,
+              `rarity` VARCHAR(255) NULL,
+              `description` VARCHAR(255) NULL,
+              `type` VARCHAR(255) NULL,
+              `id_image` INT NULL,
+              `id_card` INT NOT NULL AUTO_INCREMENT,
+              PRIMARY KEY (`id_card`),
+              UNIQUE INDEX `id_card_UNIQUE` (`id_card` ASC));
+         * 
+         * 
+         * Creates the Game Table
+         *    CREATE TABLE `ccdb`.`game` (
+              `id_game` INT NOT NULL AUTO_INCREMENT,
+              `made_by` VARCHAR(100) NULL,
+              `name` VARCHAR(45) NULL,
+              PRIMARY KEY (`id_game`),
+              UNIQUE INDEX `made_by_UNIQUE` (`made_by` ASC),
+              UNIQUE INDEX `id_game_UNIQUE` (`id_game` ASC))
+              COMMENT = 'Game Manufactorer table';\
+         * 
+         *    CREATE TABLE `ccdb`.`gc_connector` (
+              `id_card` INT NOT NULL,
+              `id_game` INT NOT NULL,
+              PRIMARY KEY (`id_card`),
+              UNIQUE INDEX `id_card_UNIQUE` (`id_card` ASC));
+
+         */
+
+
         private string Name;
         private string Cost;
         private string Value;

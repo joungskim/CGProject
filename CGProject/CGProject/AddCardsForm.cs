@@ -12,9 +12,16 @@ namespace CGProject
 {
     public partial class AddCardsForm : Form
     {
-        public AddCardsForm()
+        private int gameId;
+        public AddCardsForm(int gameId)
         {
             InitializeComponent();
+            this.gameId = gameId;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

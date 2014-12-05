@@ -50,7 +50,9 @@
             this.typeTextBox = new System.Windows.Forms.TextBox();
             this.descriptionRichTextBox = new System.Windows.Forms.RichTextBox();
             this.importImageButton = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // exitButton
@@ -117,6 +119,7 @@
             this.addGamesButton.Text = "Add Games";
             this.addGamesButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.addGamesButton.UseVisualStyleBackColor = false;
+            this.addGamesButton.Click += new System.EventHandler(this.addGamesButton_Click);
             // 
             // addCardButton
             // 
@@ -129,6 +132,7 @@
             this.addCardButton.Text = "Add Cards";
             this.addCardButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.addCardButton.UseVisualStyleBackColor = false;
+            this.addCardButton.Click += new System.EventHandler(this.addCardButton_Click);
             // 
             // editGamesButton
             // 
@@ -293,12 +297,21 @@
             this.importImageButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.importImageButton.UseVisualStyleBackColor = false;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(148, 520);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(130, 159);
+            this.pictureBox1.TabIndex = 24;
+            this.pictureBox1.TabStop = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1080, 720);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.importImageButton);
             this.Controls.Add(this.descriptionRichTextBox);
             this.Controls.Add(this.typeTextBox);
@@ -329,6 +342,7 @@
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -357,5 +371,6 @@
         private System.Windows.Forms.TextBox typeTextBox;
         private System.Windows.Forms.RichTextBox descriptionRichTextBox;
         private System.Windows.Forms.Button importImageButton;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
