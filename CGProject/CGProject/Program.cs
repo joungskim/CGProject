@@ -15,7 +15,6 @@ namespace CGProject
         [STAThread]
         static void Main()
         {
-            MySqlDataReader myReader;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new LoginForm());             
