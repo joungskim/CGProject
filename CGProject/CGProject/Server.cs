@@ -15,7 +15,7 @@ namespace CGProject
         public static string pass;
         
         private  MySqlConnection myConn;
-
+        
 
                 
   	public MySqlDataReader MakeConnection(string query)
@@ -25,6 +25,7 @@ namespace CGProject
                 MySqlCommand cb = new MySqlCommand(query,myConn);
                 MySqlDataReader myReader;
                 myConn.Open();
+                
                 myReader = cb.ExecuteReader();
                 return myReader;
         }
