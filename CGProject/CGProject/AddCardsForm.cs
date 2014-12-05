@@ -14,36 +14,33 @@ namespace CGProject
 {
     public partial class AddCardsForm : Form
     {
+        private MySqlDataReader read;
         private int gameId;
         public AddCardsForm(int gameId)
         {
             InitializeComponent();
             this.gameId = gameId;
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
+            Server s = new Server();
             string line;
             OpenFileDialog x = new OpenFileDialog();
-            DialogResult result = x.ShowDialog();
-            if (result == DialogResult.OK)
+            if (x.ShowDialog() == DialogResult.OK)
             {
-                System.IO.StreamReader file = new System.IO.StreamReader(result.ToString());
+                System.IO.StreamReader file = new System.IO.StreamReader(x.FileName);
                 try
                 {
+                    file.ReadLine();
                     while(file.ReadLine()!= null)
                     {
-
-                        int card_ID = 1;
                         line = file.ReadLine();
                         string[] values = line.Split(',');
-                        
+                    
+                        read = s.MakeConnection("INSERT INTO ccdb.card " +
+                            "(name, cost, rarity, description, type, id_image, id_game) " +
+                            "VALUES " +
+                            "('" + values[0].ToString() + "'" + ", '" + Convert.ToInt16(values[1]) + "'" + ", '" + values[2].ToString() + "'" + ", '" + values[3].ToString() + "'" + ", '" + values[4].ToString() + "'" + ", '" + 0 +"', '" + gameId + "') ;");
                     }
                 }
                 catch(IOException)
