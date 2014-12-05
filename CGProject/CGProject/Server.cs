@@ -20,8 +20,6 @@ namespace CGProject
                 
   	public MySqlDataReader MakeConnection(string query)
         {
-                //This line will be used a lot 
-                
                 string myConnection = "datasource=70.179.174.145;port=3306;username=" + user + ";password=" + pass;
                 myConn = new MySqlConnection(myConnection);
                 MySqlCommand cb = new MySqlCommand(query,myConn);
@@ -29,7 +27,6 @@ namespace CGProject
                 myConn.Open();
                 myReader = cb.ExecuteReader();
                 return myReader;
-                
         }
         public void CloseConnection()
         {
