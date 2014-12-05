@@ -10,14 +10,9 @@ namespace CGProject
 {
     public class Server
     {
-        private string user;
-        private string pass;
-        public Server(string user, string pass)
-        {
-            this.user = user;
-            this.pass = pass;
+        public static string user;
+        public static string pass;
 
-        }
         public void MakeConnection()
         {
             try
@@ -28,14 +23,11 @@ namespace CGProject
                 myDataAdapter.SelectCommand = new MySqlCommand(" select * database.edata ;", myConn);
                 MySqlCommandBuilder cb = new MySqlCommandBuilder(myDataAdapter);
                 myConn.Open();
-                DataSet ds = new DataSet();
-                MessageBox.Show(Success!);
-                myConn.close();
 
             }
-            catch(Exeception ex)
+            catch(Exception ex)
             {
-                MessageBox.Show(ex.message);
+                MessageBox.Show(ex.Message);
             }
 
         }

@@ -46,7 +46,13 @@ namespace CGProject
             {
                 username = userTextBox.Text.ToString();
                 password = passwordTextBox.Text.ToString();
-                MessageBox.Show("Login Successful! User: " + username + "Pass: " + password);
+
+                Server.user = username;
+                Server.pass = password;
+
+                this.Hide();
+                MainForm mainForm = new MainForm();
+                mainForm.ShowDialog();
             }
 
         }

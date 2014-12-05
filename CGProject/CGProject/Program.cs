@@ -19,7 +19,6 @@ namespace CGProject
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new LoginForm());
 
-
         }
     }
 }
