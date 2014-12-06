@@ -24,7 +24,8 @@ namespace CGProject
         {
             InitializeComponent();
             populateGameList("");
-            if(!(gameListBox.Items.Count == 0)) gameListBox.SetSelected(0, true);
+            populatePlayersListBox();
+            if (!(gameListBox.Items.Count == 0)) gameListBox.SetSelected(0, true);
         }
 
         /**************************************************************************/
@@ -141,7 +142,7 @@ namespace CGProject
 
         private void updateCardCount(string gameID)
         {
-            if(Convert.ToInt32(gameID) > 0)
+            if (Convert.ToInt32(gameID) > 0)
             {
                 Server s = new Server();
                 try
@@ -214,10 +215,10 @@ namespace CGProject
             Server s = new Server();
             try
             {
-                AddCardsForm addForm = new AddCardsForm(Convert.ToInt32(gameListBox.SelectedItem.ToString().Substring( 0,gameListBox.SelectedItem.ToString().IndexOf(":"))));
+                AddCardsForm addForm = new AddCardsForm(Convert.ToInt32(gameListBox.SelectedItem.ToString().Substring(0, gameListBox.SelectedItem.ToString().IndexOf(":"))));
                 addForm.ShowDialog();
                 cardListBox.Items.Clear();
-                populateCardList(searchCardTextBox.Text.ToString(), gameListBox.SelectedItem.ToString().Substring( 0,gameListBox.SelectedItem.ToString().IndexOf(":")));
+                populateCardList(searchCardTextBox.Text.ToString(), gameListBox.SelectedItem.ToString().Substring(0, gameListBox.SelectedItem.ToString().IndexOf(":")));
                 if (!(cardListBox.Items.Count == 0)) cardListBox.SetSelected(0, true);
             }
             catch (Exception ex)
@@ -285,16 +286,16 @@ namespace CGProject
             Server s = new Server();
             try
             {
-                _querry_string = "Select * from ccdb.card as card where card.name = '" + cardID +"' ;"; //Need to change card.name to card.id_card
+                _querry_string = "Select * from ccdb.card as card where card.name = '" + cardID + "' ;"; //Need to change card.name to card.id_card
                 read = s.MakeConnection(_querry_string);
                 read.Read();
-                
+
                 cardNameTextBox.Text = read.GetString("name");
 
                 var checkNull = read.GetOrdinal("rarity");
 
                 if (!read.IsDBNull(checkNull)) rarityTextBox.Text = read.GetString("rarity");
-                
+
                 else rarityTextBox.Text = "N/A";
 
                 checkNull = read.GetOrdinal("cost");
@@ -377,7 +378,75 @@ namespace CGProject
         }
 
 
+        /**************************************************************************/
+        /* 
+         * The Text box for players
+         * Anything to deal with players in THIS section
+         */
+        private void populatePlayersListBox()
+        {
+            Server s = new Server();
+            try
+            {
+                read = s.MakeConnection("Select * from ccdb.player ;");
+                while (read.Read())
+                {
+                    playerListBox.Items.Add(read.GetInt32("id_player") + ": " + read.GetString("player_name"));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Application.Exit();
+            }
+            s.CloseConnection();
+        }
 
+
+
+
+        private void addPlayerButton_Click_1(object sender, EventArgs e)
+        {
+            addPlayer addPlayerForm = new addPlayer();
+            addPlayerForm.ShowDialog();
+            playerListBox.Items.Clear();
+            populatePlayersListBox();
+        }
+
+        private void playerListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cardListBox.Items.Clear();
+            try
+            {
+                string selected = playerListBox.SelectedItem.ToString();
+                string[] selectedID = selected.Split(':');
+                populatePlayerInformation(selectedID[0].ToString());
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void populatePlayerInformation(string id_player)
+        {
+            Server s = new Server();
+            try
+            {
+                _querry_string = "Select * from ccdb.player as player where player.id_player = '" + id_player + "' ;"; //Need to change card.name to card.id_card
+                read = s.MakeConnection(_querry_string);
+                read.Read();
+                player1NameTextBox.Text = read.GetString("player_name");
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Application.Exit();
+            }
+            s.CloseConnection();
+        }
 
 
         /**************************************************************************/

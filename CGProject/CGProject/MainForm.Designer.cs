@@ -73,6 +73,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.deleteCardButton = new System.Windows.Forms.Button();
             this.gameCardCountLabel = new System.Windows.Forms.Label();
+            this.addPlayerButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.cardImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.manufacturerImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -372,8 +373,9 @@
             this.playerListBox.FormattingEnabled = true;
             this.playerListBox.Location = new System.Drawing.Point(728, 194);
             this.playerListBox.Name = "playerListBox";
-            this.playerListBox.Size = new System.Drawing.Size(119, 199);
+            this.playerListBox.Size = new System.Drawing.Size(119, 173);
             this.playerListBox.TabIndex = 30;
+            this.playerListBox.SelectedIndexChanged += new System.EventHandler(this.playerListBox_SelectedIndexChanged);
             // 
             // button1
             // 
@@ -583,6 +585,19 @@
             this.gameCardCountLabel.TabIndex = 69;
             this.gameCardCountLabel.Text = "Game Card Count";
             // 
+            // addPlayerButton
+            // 
+            this.addPlayerButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addPlayerButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.addPlayerButton.Location = new System.Drawing.Point(728, 375);
+            this.addPlayerButton.Name = "addPlayerButton";
+            this.addPlayerButton.Size = new System.Drawing.Size(119, 23);
+            this.addPlayerButton.TabIndex = 70;
+            this.addPlayerButton.Text = "Add Player";
+            this.addPlayerButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.addPlayerButton.UseVisualStyleBackColor = false;
+            this.addPlayerButton.Click += new System.EventHandler(this.addPlayerButton_Click_1);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -590,6 +605,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(861, 720);
+            this.Controls.Add(this.addPlayerButton);
             this.Controls.Add(this.gameCardCountLabel);
             this.Controls.Add(this.deleteCardButton);
             this.Controls.Add(this.button2);
@@ -696,5 +712,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button deleteCardButton;
         private System.Windows.Forms.Label gameCardCountLabel;
+        private System.Windows.Forms.Button addPlayerButton;
     }
 }
