@@ -54,46 +54,26 @@
             this.editCardButton = new System.Windows.Forms.Button();
             this.importGameImageButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.player1ListBox = new System.Windows.Forms.ListBox();
+            this.playerListBox = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
             this.aboutButton = new System.Windows.Forms.Button();
-            this.player2ListBox = new System.Windows.Forms.ListBox();
-            this.player1GamesPlayedListBox = new System.Windows.Forms.ListBox();
-            this.player2GamesPlayedListBox = new System.Windows.Forms.ListBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.playthroughHistoryList = new System.Windows.Forms.ListBox();
             this.player1NameLabel = new System.Windows.Forms.Label();
             this.win1Label = new System.Windows.Forms.Label();
             this.player1NameTextBox = new System.Windows.Forms.TextBox();
-            this.player2NameTextBox = new System.Windows.Forms.TextBox();
-            this.player2NameLabel = new System.Windows.Forms.Label();
             this.loss1Label = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.player1WinTextBox = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.player2LossTextBox = new System.Windows.Forms.TextBox();
-            this.player2WinTextBox = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.player2LossLabel = new System.Windows.Forms.Label();
             this.textBox10 = new System.Windows.Forms.TextBox();
-            this.player2WinLabel = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.player1HistoryListBox = new System.Windows.Forms.ListBox();
             this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.player12HistoryListBox = new System.Windows.Forms.ListBox();
-            this.player2HistoryListBox = new System.Windows.Forms.ListBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.createMatchButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.cardImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.manufacturerImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // exitButton
@@ -101,7 +81,7 @@
             this.exitButton.BackColor = System.Drawing.Color.Black;
             this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.exitButton.Location = new System.Drawing.Point(1044, 12);
+            this.exitButton.Location = new System.Drawing.Point(824, 11);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(24, 24);
             this.exitButton.TabIndex = 0;
@@ -114,7 +94,7 @@
             this.minimizeButton.BackColor = System.Drawing.Color.Black;
             this.minimizeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.minimizeButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.minimizeButton.Location = new System.Drawing.Point(1014, 12);
+            this.minimizeButton.Location = new System.Drawing.Point(794, 11);
             this.minimizeButton.Name = "minimizeButton";
             this.minimizeButton.Size = new System.Drawing.Size(24, 24);
             this.minimizeButton.TabIndex = 2;
@@ -382,15 +362,15 @@
             this.pictureBox1.TabIndex = 28;
             this.pictureBox1.TabStop = false;
             // 
-            // player1ListBox
+            // playerListBox
             // 
-            this.player1ListBox.BackColor = System.Drawing.Color.Black;
-            this.player1ListBox.ForeColor = System.Drawing.Color.LimeGreen;
-            this.player1ListBox.FormattingEnabled = true;
-            this.player1ListBox.Location = new System.Drawing.Point(414, 41);
-            this.player1ListBox.Name = "player1ListBox";
-            this.player1ListBox.Size = new System.Drawing.Size(121, 147);
-            this.player1ListBox.TabIndex = 30;
+            this.playerListBox.BackColor = System.Drawing.Color.Black;
+            this.playerListBox.ForeColor = System.Drawing.Color.LimeGreen;
+            this.playerListBox.FormattingEnabled = true;
+            this.playerListBox.Location = new System.Drawing.Point(728, 194);
+            this.playerListBox.Name = "playerListBox";
+            this.playerListBox.Size = new System.Drawing.Size(119, 199);
+            this.playerListBox.TabIndex = 30;
             // 
             // button1
             // 
@@ -409,7 +389,7 @@
             this.aboutButton.BackColor = System.Drawing.Color.Black;
             this.aboutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.aboutButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.aboutButton.Location = new System.Drawing.Point(984, 12);
+            this.aboutButton.Location = new System.Drawing.Point(764, 11);
             this.aboutButton.Name = "aboutButton";
             this.aboutButton.Size = new System.Drawing.Size(24, 24);
             this.aboutButton.TabIndex = 32;
@@ -417,55 +397,15 @@
             this.aboutButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.aboutButton.UseVisualStyleBackColor = false;
             // 
-            // player2ListBox
+            // playthroughHistoryList
             // 
-            this.player2ListBox.BackColor = System.Drawing.Color.Black;
-            this.player2ListBox.ForeColor = System.Drawing.Color.LimeGreen;
-            this.player2ListBox.FormattingEnabled = true;
-            this.player2ListBox.Location = new System.Drawing.Point(947, 41);
-            this.player2ListBox.Name = "player2ListBox";
-            this.player2ListBox.Size = new System.Drawing.Size(121, 147);
-            this.player2ListBox.TabIndex = 33;
-            // 
-            // player1GamesPlayedListBox
-            // 
-            this.player1GamesPlayedListBox.BackColor = System.Drawing.Color.Black;
-            this.player1GamesPlayedListBox.ForeColor = System.Drawing.Color.LimeGreen;
-            this.player1GamesPlayedListBox.FormattingEnabled = true;
-            this.player1GamesPlayedListBox.Location = new System.Drawing.Point(541, 41);
-            this.player1GamesPlayedListBox.Name = "player1GamesPlayedListBox";
-            this.player1GamesPlayedListBox.Size = new System.Drawing.Size(176, 147);
-            this.player1GamesPlayedListBox.TabIndex = 34;
-            // 
-            // player2GamesPlayedListBox
-            // 
-            this.player2GamesPlayedListBox.BackColor = System.Drawing.Color.Black;
-            this.player2GamesPlayedListBox.ForeColor = System.Drawing.Color.LimeGreen;
-            this.player2GamesPlayedListBox.FormattingEnabled = true;
-            this.player2GamesPlayedListBox.Location = new System.Drawing.Point(765, 41);
-            this.player2GamesPlayedListBox.Name = "player2GamesPlayedListBox";
-            this.player2GamesPlayedListBox.Size = new System.Drawing.Size(176, 147);
-            this.player2GamesPlayedListBox.TabIndex = 37;
-            // 
-            // button4
-            // 
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button4.Location = new System.Drawing.Point(949, 194);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(119, 23);
-            this.button4.TabIndex = 40;
-            this.button4.Text = "Edit Games";
-            this.button4.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.button4.UseVisualStyleBackColor = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Location = new System.Drawing.Point(947, 227);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(119, 171);
-            this.pictureBox2.TabIndex = 41;
-            this.pictureBox2.TabStop = false;
+            this.playthroughHistoryList.BackColor = System.Drawing.Color.Black;
+            this.playthroughHistoryList.ForeColor = System.Drawing.Color.LimeGreen;
+            this.playthroughHistoryList.FormattingEnabled = true;
+            this.playthroughHistoryList.Location = new System.Drawing.Point(416, 41);
+            this.playthroughHistoryList.Name = "playthroughHistoryList";
+            this.playthroughHistoryList.Size = new System.Drawing.Size(431, 147);
+            this.playthroughHistoryList.TabIndex = 34;
             // 
             // player1NameLabel
             // 
@@ -499,29 +439,6 @@
             this.player1NameTextBox.Size = new System.Drawing.Size(91, 13);
             this.player1NameTextBox.TabIndex = 44;
             this.player1NameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // player2NameTextBox
-            // 
-            this.player2NameTextBox.AccessibleName = "";
-            this.player2NameTextBox.BackColor = System.Drawing.Color.White;
-            this.player2NameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.player2NameTextBox.ForeColor = System.Drawing.Color.Black;
-            this.player2NameTextBox.Location = new System.Drawing.Point(777, 227);
-            this.player2NameTextBox.Name = "player2NameTextBox";
-            this.player2NameTextBox.ReadOnly = true;
-            this.player2NameTextBox.Size = new System.Drawing.Size(91, 13);
-            this.player2NameTextBox.TabIndex = 45;
-            this.player2NameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // player2NameLabel
-            // 
-            this.player2NameLabel.AutoSize = true;
-            this.player2NameLabel.ForeColor = System.Drawing.Color.Ivory;
-            this.player2NameLabel.Location = new System.Drawing.Point(874, 227);
-            this.player2NameLabel.Name = "player2NameLabel";
-            this.player2NameLabel.Size = new System.Drawing.Size(67, 13);
-            this.player2NameLabel.TabIndex = 46;
-            this.player2NameLabel.Text = "Player Name";
             // 
             // loss1Label
             // 
@@ -582,65 +499,6 @@
             this.textBox6.TabIndex = 51;
             this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox7
-            // 
-            this.textBox7.AccessibleName = "";
-            this.textBox7.BackColor = System.Drawing.Color.White;
-            this.textBox7.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox7.ForeColor = System.Drawing.Color.Black;
-            this.textBox7.Location = new System.Drawing.Point(777, 305);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.ReadOnly = true;
-            this.textBox7.Size = new System.Drawing.Size(91, 13);
-            this.textBox7.TabIndex = 59;
-            this.textBox7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // player2LossTextBox
-            // 
-            this.player2LossTextBox.AccessibleName = "";
-            this.player2LossTextBox.BackColor = System.Drawing.Color.White;
-            this.player2LossTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.player2LossTextBox.ForeColor = System.Drawing.Color.Black;
-            this.player2LossTextBox.Location = new System.Drawing.Point(777, 279);
-            this.player2LossTextBox.Name = "player2LossTextBox";
-            this.player2LossTextBox.ReadOnly = true;
-            this.player2LossTextBox.Size = new System.Drawing.Size(91, 13);
-            this.player2LossTextBox.TabIndex = 58;
-            this.player2LossTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // player2WinTextBox
-            // 
-            this.player2WinTextBox.AccessibleName = "";
-            this.player2WinTextBox.BackColor = System.Drawing.Color.White;
-            this.player2WinTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.player2WinTextBox.ForeColor = System.Drawing.Color.Black;
-            this.player2WinTextBox.Location = new System.Drawing.Point(777, 253);
-            this.player2WinTextBox.Name = "player2WinTextBox";
-            this.player2WinTextBox.ReadOnly = true;
-            this.player2WinTextBox.Size = new System.Drawing.Size(91, 13);
-            this.player2WinTextBox.TabIndex = 57;
-            this.player2WinTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.ForeColor = System.Drawing.Color.Ivory;
-            this.label6.Location = new System.Drawing.Point(874, 305);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(67, 13);
-            this.label6.TabIndex = 56;
-            this.label6.Text = "Player Name";
-            // 
-            // player2LossLabel
-            // 
-            this.player2LossLabel.AutoSize = true;
-            this.player2LossLabel.ForeColor = System.Drawing.Color.Ivory;
-            this.player2LossLabel.Location = new System.Drawing.Point(874, 279);
-            this.player2LossLabel.Name = "player2LossLabel";
-            this.player2LossLabel.Size = new System.Drawing.Size(40, 13);
-            this.player2LossLabel.TabIndex = 55;
-            this.player2LossLabel.Text = "Loss %";
-            // 
             // textBox10
             // 
             this.textBox10.AccessibleName = "";
@@ -654,16 +512,6 @@
             this.textBox10.TabIndex = 54;
             this.textBox10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // player2WinLabel
-            // 
-            this.player2WinLabel.AutoSize = true;
-            this.player2WinLabel.ForeColor = System.Drawing.Color.Ivory;
-            this.player2WinLabel.Location = new System.Drawing.Point(874, 253);
-            this.player2WinLabel.Name = "player2WinLabel";
-            this.player2WinLabel.Size = new System.Drawing.Size(37, 13);
-            this.player2WinLabel.TabIndex = 53;
-            this.player2WinLabel.Text = "Win %";
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -674,29 +522,6 @@
             this.label9.TabIndex = 52;
             this.label9.Text = "Player Name";
             // 
-            // textBox11
-            // 
-            this.textBox11.AccessibleName = "";
-            this.textBox11.BackColor = System.Drawing.Color.White;
-            this.textBox11.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox11.ForeColor = System.Drawing.Color.Black;
-            this.textBox11.Location = new System.Drawing.Point(777, 328);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.ReadOnly = true;
-            this.textBox11.Size = new System.Drawing.Size(91, 13);
-            this.textBox11.TabIndex = 61;
-            this.textBox11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.ForeColor = System.Drawing.Color.Ivory;
-            this.label10.Location = new System.Drawing.Point(874, 328);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(67, 13);
-            this.label10.TabIndex = 60;
-            this.label10.Text = "Player Name";
-            // 
             // player1HistoryListBox
             // 
             this.player1HistoryListBox.BackColor = System.Drawing.Color.Black;
@@ -704,7 +529,7 @@
             this.player1HistoryListBox.FormattingEnabled = true;
             this.player1HistoryListBox.Location = new System.Drawing.Point(416, 404);
             this.player1HistoryListBox.Name = "player1HistoryListBox";
-            this.player1HistoryListBox.Size = new System.Drawing.Size(192, 277);
+            this.player1HistoryListBox.Size = new System.Drawing.Size(431, 303);
             this.player1HistoryListBox.TabIndex = 62;
             // 
             // button5
@@ -719,38 +544,6 @@
             this.button5.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.button5.UseVisualStyleBackColor = false;
             // 
-            // button6
-            // 
-            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button6.Location = new System.Drawing.Point(811, 375);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(130, 23);
-            this.button6.TabIndex = 64;
-            this.button6.Text = "Import Card Image";
-            this.button6.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.button6.UseVisualStyleBackColor = false;
-            // 
-            // player12HistoryListBox
-            // 
-            this.player12HistoryListBox.BackColor = System.Drawing.Color.Black;
-            this.player12HistoryListBox.ForeColor = System.Drawing.Color.LimeGreen;
-            this.player12HistoryListBox.FormattingEnabled = true;
-            this.player12HistoryListBox.Location = new System.Drawing.Point(644, 404);
-            this.player12HistoryListBox.Name = "player12HistoryListBox";
-            this.player12HistoryListBox.Size = new System.Drawing.Size(192, 277);
-            this.player12HistoryListBox.TabIndex = 65;
-            // 
-            // player2HistoryListBox
-            // 
-            this.player2HistoryListBox.BackColor = System.Drawing.Color.Black;
-            this.player2HistoryListBox.ForeColor = System.Drawing.Color.LimeGreen;
-            this.player2HistoryListBox.FormattingEnabled = true;
-            this.player2HistoryListBox.Location = new System.Drawing.Point(874, 404);
-            this.player2HistoryListBox.Name = "player2HistoryListBox";
-            this.player2HistoryListBox.Size = new System.Drawing.Size(192, 277);
-            this.player2HistoryListBox.TabIndex = 66;
-            // 
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -763,73 +556,30 @@
             this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.button2.UseVisualStyleBackColor = false;
             // 
-            // button3
-            // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button3.Location = new System.Drawing.Point(811, 347);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(130, 23);
-            this.button3.TabIndex = 68;
-            this.button3.Text = "Import Card Image";
-            this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.button3.UseVisualStyleBackColor = false;
-            // 
-            // createMatchButton
-            // 
-            this.createMatchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.createMatchButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.createMatchButton.Location = new System.Drawing.Point(681, 361);
-            this.createMatchButton.Name = "createMatchButton";
-            this.createMatchButton.Size = new System.Drawing.Size(119, 23);
-            this.createMatchButton.TabIndex = 69;
-            this.createMatchButton.Text = "Create New Match";
-            this.createMatchButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.createMatchButton.UseVisualStyleBackColor = false;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1080, 720);
-            this.Controls.Add(this.createMatchButton);
-            this.Controls.Add(this.button3);
+            this.ClientSize = new System.Drawing.Size(861, 720);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.player2HistoryListBox);
-            this.Controls.Add(this.player12HistoryListBox);
-            this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.player1HistoryListBox);
-            this.Controls.Add(this.textBox11);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.textBox7);
-            this.Controls.Add(this.player2LossTextBox);
-            this.Controls.Add(this.player2WinTextBox);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.player2LossLabel);
             this.Controls.Add(this.textBox10);
-            this.Controls.Add(this.player2WinLabel);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.player1WinTextBox);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.loss1Label);
-            this.Controls.Add(this.player2NameLabel);
-            this.Controls.Add(this.player2NameTextBox);
             this.Controls.Add(this.player1NameTextBox);
             this.Controls.Add(this.win1Label);
             this.Controls.Add(this.player1NameLabel);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.player2GamesPlayedListBox);
-            this.Controls.Add(this.player1GamesPlayedListBox);
-            this.Controls.Add(this.player2ListBox);
+            this.Controls.Add(this.playthroughHistoryList);
             this.Controls.Add(this.aboutButton);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.player1ListBox);
+            this.Controls.Add(this.playerListBox);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.importGameImageButton);
             this.Controls.Add(this.editCardButton);
@@ -866,7 +616,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.cardImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.manufacturerImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -899,41 +648,22 @@
         private System.Windows.Forms.Button editCardButton;
         private System.Windows.Forms.Button importGameImageButton;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.ListBox player1ListBox;
+        private System.Windows.Forms.ListBox playerListBox;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button aboutButton;
-        private System.Windows.Forms.ListBox player2ListBox;
-        private System.Windows.Forms.ListBox player1GamesPlayedListBox;
-        private System.Windows.Forms.ListBox player2GamesPlayedListBox;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.ListBox playthroughHistoryList;
         private System.Windows.Forms.Label player1NameLabel;
         private System.Windows.Forms.Label win1Label;
         private System.Windows.Forms.TextBox player1NameTextBox;
-        private System.Windows.Forms.TextBox player2NameTextBox;
-        private System.Windows.Forms.Label player2NameLabel;
         private System.Windows.Forms.Label loss1Label;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox player1WinTextBox;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox player2LossTextBox;
-        private System.Windows.Forms.TextBox player2WinTextBox;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label player2LossLabel;
         private System.Windows.Forms.TextBox textBox10;
-        private System.Windows.Forms.Label player2WinLabel;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox11;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ListBox player1HistoryListBox;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.ListBox player12HistoryListBox;
-        private System.Windows.Forms.ListBox player2HistoryListBox;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button createMatchButton;
     }
 }
