@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.exitButton = new System.Windows.Forms.Button();
             this.minimizeButton = new System.Windows.Forms.Button();
             this.gameListBox = new System.Windows.Forms.ListBox();
@@ -702,7 +701,7 @@
             this.player1HistoryListBox.BackColor = System.Drawing.Color.Black;
             this.player1HistoryListBox.ForeColor = System.Drawing.Color.LimeGreen;
             this.player1HistoryListBox.FormattingEnabled = true;
-            this.player1HistoryListBox.Location = new System.Drawing.Point(416, 430);
+            this.player1HistoryListBox.Location = new System.Drawing.Point(416, 404);
             this.player1HistoryListBox.Name = "player1HistoryListBox";
             this.player1HistoryListBox.Size = new System.Drawing.Size(192, 277);
             this.player1HistoryListBox.TabIndex = 62;
@@ -736,7 +735,7 @@
             this.player12HistoryListBox.BackColor = System.Drawing.Color.Black;
             this.player12HistoryListBox.ForeColor = System.Drawing.Color.LimeGreen;
             this.player12HistoryListBox.FormattingEnabled = true;
-            this.player12HistoryListBox.Location = new System.Drawing.Point(659, 430);
+            this.player12HistoryListBox.Location = new System.Drawing.Point(644, 404);
             this.player12HistoryListBox.Name = "player12HistoryListBox";
             this.player12HistoryListBox.Size = new System.Drawing.Size(192, 277);
             this.player12HistoryListBox.TabIndex = 65;
@@ -746,7 +745,7 @@
             this.player2HistoryListBox.BackColor = System.Drawing.Color.Black;
             this.player2HistoryListBox.ForeColor = System.Drawing.Color.LimeGreen;
             this.player2HistoryListBox.FormattingEnabled = true;
-            this.player2HistoryListBox.Location = new System.Drawing.Point(877, 431);
+            this.player2HistoryListBox.Location = new System.Drawing.Point(874, 404);
             this.player2HistoryListBox.Name = "player2HistoryListBox";
             this.player2HistoryListBox.Size = new System.Drawing.Size(192, 277);
             this.player2HistoryListBox.TabIndex = 66;
@@ -792,7 +791,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1080, 720);
             this.Controls.Add(this.createMatchButton);
