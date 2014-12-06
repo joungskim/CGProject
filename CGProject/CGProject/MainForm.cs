@@ -216,6 +216,9 @@ namespace CGProject
             {
                 AddCardsForm addForm = new AddCardsForm(Convert.ToInt32(gameListBox.SelectedItem.ToString().Substring( 0,gameListBox.SelectedItem.ToString().IndexOf(":"))));
                 addForm.ShowDialog();
+                cardListBox.Items.Clear();
+                populateCardList(searchCardTextBox.Text.ToString(), gameListBox.SelectedItem.ToString().Substring( 0,gameListBox.SelectedItem.ToString().IndexOf(":")));
+                if (!(cardListBox.Items.Count == 0)) cardListBox.SetSelected(0, true);
             }
             catch (Exception ex)
             {
@@ -226,6 +229,13 @@ namespace CGProject
 
         private void deleteCardButton_Click(object sender, EventArgs e)
         {
+            cardNameTextBox.Clear();
+            rarityTextBox.Clear();
+            costTextBox.Clear();
+            typeTextBox.Clear();
+            descriptionRichTextBox.Clear();
+
+
             Server s = new Server();
             if (!(cardListBox.SelectedIndex == -1))
             {
@@ -252,7 +262,16 @@ namespace CGProject
 
         private void cardListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            populateInformationFields(cardListBox.SelectedItem.ToString());
+
+            try
+            {
+                populateInformationFields(cardListBox.SelectedItem.ToString());
+            }
+
+            catch (Exception ex)
+            {
+
+            }
         }
 
         /**************************************************************************/
@@ -262,11 +281,6 @@ namespace CGProject
 
         private void populateInformationFields(string cardID)
         {
-            cardNameTextBox.Clear();
-            rarityTextBox.Clear();
-            costTextBox.Clear();
-            typeTextBox.Clear();
-            descriptionRichTextBox.Clear();
 
             Server s = new Server();
             try

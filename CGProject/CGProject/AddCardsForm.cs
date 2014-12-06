@@ -77,7 +77,6 @@ namespace CGProject
                         MessageBox.Show("File does not include required field name!");
                     }
                 return true;
-                this.Hide();
             }catch (Exception ex)
             {
                 //MessageBox.Show(ex.Message);
@@ -94,15 +93,23 @@ namespace CGProject
         {
             List<string> header = new List<string>();
             List<string> resultString = new List<string>();
+            string results = "";
+            int testInt;
 
             if(cardNameTextBox.Text.Equals(""))
             {
                 MessageBox.Show("You must enter a name.");
             }
 
+            else if(!(int.TryParse(costTextBox.Text, out testInt)) && !(costTextBox.Text.Equals("")))
+            {
+                MessageBox.Show("You must enter a number in Cost Field.");
+            }
+
             else
             {
                 header.Add("name");
+                resultString.Add(cardNameTextBox.Text.ToString());
 
                 if (!costTextBox.Text.Equals(""))
                 {
@@ -125,9 +132,56 @@ namespace CGProject
                     resultString.Add(typeTextBox1.Text.ToString());
                 }
 
-                //AddCard(header.ToArray(),resultString.ToArray());
+                for(int i = 0; i < header.Count() - 1; i++)
+                {
+                    results += header[i] + ",";
+                }
+                results += header[header.Count() - 1];
+
+                AddCard(results,resultString.ToArray());
+
+
+
+                cardNameTextBox.Clear();
+                costTextBox.Clear();
+                rarityTextBox.Clear();
+                descriptionRichTextBox.Clear();
+                typeTextBox1.Clear();
+
+                createdIndicatorLabel.Visible = true;
             }
 
         }
+
+        /**************************************************************************
+         * All click functions that are aesthetic towards the form.
+         */
+
+        private void cardNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            createdIndicatorLabel.Visible = false;
+        }
+
+        private void rarityTextBox_TextChanged(object sender, EventArgs e)
+        {
+            createdIndicatorLabel.Visible = false;
+        }
+
+        private void costTextBox_TextChanged(object sender, EventArgs e)
+        {
+            createdIndicatorLabel.Visible = false;
+        }
+
+        private void typeTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            createdIndicatorLabel.Visible = false;
+        }
+
+        private void descriptionRichTextBox_TextChanged(object sender, EventArgs e)
+        {
+            createdIndicatorLabel.Visible = false;
+        }
+
+        /**************************************************************************/
     }
 }

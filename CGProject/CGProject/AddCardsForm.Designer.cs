@@ -42,6 +42,7 @@
             this.descriptionRichTextBox = new System.Windows.Forms.RichTextBox();
             this.createCardButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.createdIndicatorLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // importCSVButton
@@ -67,6 +68,7 @@
             this.cardNameTextBox.Size = new System.Drawing.Size(91, 13);
             this.cardNameTextBox.TabIndex = 47;
             this.cardNameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.cardNameTextBox.TextChanged += new System.EventHandler(this.cardNameTextBox_TextChanged);
             // 
             // nameLabel
             // 
@@ -111,6 +113,7 @@
             this.rarityTextBox.Size = new System.Drawing.Size(91, 13);
             this.rarityTextBox.TabIndex = 49;
             this.rarityTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.rarityTextBox.TextChanged += new System.EventHandler(this.rarityTextBox_TextChanged);
             // 
             // costTextBox
             // 
@@ -123,6 +126,7 @@
             this.costTextBox.Size = new System.Drawing.Size(91, 13);
             this.costTextBox.TabIndex = 51;
             this.costTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.costTextBox.TextChanged += new System.EventHandler(this.costTextBox_TextChanged);
             // 
             // costLabel
             // 
@@ -145,6 +149,7 @@
             this.typeTextBox1.Size = new System.Drawing.Size(91, 13);
             this.typeTextBox1.TabIndex = 53;
             this.typeTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.typeTextBox1.TextChanged += new System.EventHandler(this.typeTextBox1_TextChanged);
             // 
             // typeTextBox
             // 
@@ -173,6 +178,7 @@
             this.descriptionRichTextBox.Size = new System.Drawing.Size(91, 78);
             this.descriptionRichTextBox.TabIndex = 55;
             this.descriptionRichTextBox.Text = "";
+            this.descriptionRichTextBox.TextChanged += new System.EventHandler(this.descriptionRichTextBox_TextChanged);
             // 
             // createCardButton
             // 
@@ -199,6 +205,17 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
+            // createdIndicatorLabel
+            // 
+            this.createdIndicatorLabel.AutoSize = true;
+            this.createdIndicatorLabel.ForeColor = System.Drawing.Color.LimeGreen;
+            this.createdIndicatorLabel.Location = new System.Drawing.Point(199, 69);
+            this.createdIndicatorLabel.Name = "createdIndicatorLabel";
+            this.createdIndicatorLabel.Size = new System.Drawing.Size(72, 13);
+            this.createdIndicatorLabel.TabIndex = 58;
+            this.createdIndicatorLabel.Text = "Card Created!";
+            this.createdIndicatorLabel.Visible = false;
+            // 
             // AddCardsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -206,6 +223,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(284, 175);
+            this.Controls.Add(this.createdIndicatorLabel);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.createCardButton);
             this.Controls.Add(this.descriptionRichTextBox);
@@ -245,5 +263,6 @@
         private System.Windows.Forms.RichTextBox descriptionRichTextBox;
         private System.Windows.Forms.Button createCardButton;
         private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Label createdIndicatorLabel;
     }
 }
