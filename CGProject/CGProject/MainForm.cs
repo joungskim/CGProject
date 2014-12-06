@@ -23,8 +23,13 @@ namespace CGProject
         {
             InitializeComponent();
             populateGameList("");
+            cardListBox.Items.Add("Please select game...");
         }
 
+        /**************************************************************************/
+        /* MainForm
+         * Allows for controlling the movements of the MainForm
+         */
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
             _dragging = true;
@@ -62,17 +67,31 @@ namespace CGProject
             }
         }
 
-        private void searchGameTextBox_Click(object sender, EventArgs e)
+
+        /**************************************************************************/
+        /* Games Listbox
+         * This contains anything that deals with game 
+         */
+        private void gameListBox_Click(object sender, EventArgs e)
         {
-            searchGameTextBox.Text = "";
+            cardListBox.Items.Clear();
+            try
+            {
+                string selected = gameListBox.SelectedItem.ToString();
+                populateCardList(searchGameTextBox.Text.ToString(), selected);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
-        private void searchGameTextBox_Leave(object sender, EventArgs e)
+        private void addGamesButton_Click(object sender, EventArgs e)
         {
-            if(searchGameTextBox.Text.Equals(""))
-            {
-                searchGameTextBox.Text = "Search Games...";
-            }
+            AddGame addForm = new AddGame();
+            addForm.ShowDialog();
+            gameListBox.Items.Clear();
+            populateGameList(searchGameTextBox.Text.ToString());
         }
 
         private void populateGameList(string search)
@@ -116,33 +135,52 @@ namespace CGProject
             }
         }
 
-        private void searchGameTextBox_TextChanged(object sender, EventArgs e)
+        /**************************************************************************/
+        /* Cards Listbox
+         * This contains anything that deals with card
+         */
+        private void populateCardList(string search, string gameName)
         {
-            gameListBox.Items.Clear();
-            populateGameList(searchGameTextBox.Text.ToString());
-        }
-
-        private void gameListBox_Click(object sender, EventArgs e)
-        {
-            cardListBox.Items.Clear();
-            try
+            if (!search.Equals("Search Cards..."))
             {
-                string selected = gameListBox.SelectedItem.ToString();
-                cardListBox.Items.Add(selected);
+                Server s = new Server();
+                try
+                {
+                    read = s.MakeConnection("Select * from ccdb.card, ccdb.game where ccdb.card.name like '%" + search + "%' and ccdb.game.name like '%" + gameName + "%' "
+                        + "and ccdb.card.id_game = ccdb.game.id_game "
+                        + ";");
+                    while (read.Read())
+                    {
+                        cardListBox.Items.Add(read.GetString("name"));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    Application.Exit();
+                }
+                s.CloseConnection();
             }
-            catch(Exception ex)
+
+            else
             {
-
+                Server s = new Server();
+                try
+                {
+                    read = s.MakeConnection("Select * from ccdb.card where ccdb.card.name like '%" + gameName + "%' ;");
+                    while (read.Read())
+                    {
+                        cardListBox.Items.Add(read.GetString("name"));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    Application.Exit();
+                }
+                s.CloseConnection();
             }
-        }
-
-        private void addGamesButton_Click(object sender, EventArgs e)
-        {
-            AddGame addForm = new AddGame();
-            addForm.ShowDialog();
-            gameListBox.Items.Clear();
-            populateGameList(searchGameTextBox.Text.ToString());
-        }
+        } //Needs Fixing
 
         private void addCardButton_Click(object sender, EventArgs e)
         {
@@ -151,7 +189,7 @@ namespace CGProject
             Server s = new Server();
             try
             {
-                read = s.MakeConnection("Select * from ccdb.game where ccdb.game.name like '%" + gameListBox.SelectedItem.ToString() + "' ;" );
+                read = s.MakeConnection("Select * from ccdb.game where ccdb.game.name like '%" + gameListBox.SelectedItem.ToString() + "' ;");
                 read.Read();
                 gameId = read.GetInt16("id_game");
                 MessageBox.Show(gameId.ToString());
@@ -165,5 +203,44 @@ namespace CGProject
             }
             s.CloseConnection();
         }
+
+        /**************************************************************************/
+        /* SEARCH BOXES
+         * All the textbox event inserts for the MainForm
+         */
+        private void searchGameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            gameListBox.Items.Clear();
+            populateGameList(searchGameTextBox.Text.ToString());
+        }
+
+        private void searchGameTextBox_Click(object sender, EventArgs e)
+        {
+            searchGameTextBox.Text = "";
+        }
+
+        private void searchGameTextBox_Leave(object sender, EventArgs e)
+        {
+            if (searchGameTextBox.Text.Equals(""))
+            {
+                searchGameTextBox.Text = "Search Games...";
+            }
+        }
+
+        private void searchCardTextBox_Click(object sender, EventArgs e)
+        {
+            searchCardTextBox.Text = "";
+        }
+
+        private void searchCardTextBox_Leave(object sender, EventArgs e)
+        {
+            if (searchCardTextBox.Text.Equals(""))
+            {
+                searchCardTextBox.Text = "Search Cards...";
+            }
+        }
+  
+
+        /**************************************************************************/
     }
 }
