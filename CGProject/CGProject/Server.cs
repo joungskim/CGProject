@@ -41,35 +41,41 @@ namespace CGProject
         {
 
 
-            using (var conn = new MySqlConnection("datasource=70.179.174.145;port=3306;username=" + user + ";password=" + pass))
-            using (var cmd = conn.CreateCommand())
+            using (myConn = new MySqlConnection("datasource=70.179.174.145;port=3306;username=" + user + ";password=" + pass))
+            using (var cmd = myConn.CreateCommand())
             {
+                myConn.Open();
                 cmd.CommandText = query;
                 cmd.Parameters.AddWithValue("?Image", image);
-                conn.Open();
                 cmd.ExecuteNonQuery();
+                CloseConnection();
             }
         }
 
 
         public byte[] MakeImageConnectionExtract(string querry)
         {
-            using (var conn = new MySqlConnection("datasource=70.179.174.145;port=3306;username=" + user + ";password=" + pass))
-            using (var cmd = conn.CreateCommand())
+
+
+            
+            using (myConn = new MySqlConnection("datasource=70.179.174.145;port=3306;username=" + user + ";password=" + pass))
+            using (var cmd = myConn.CreateCommand())
             {
+                myConn.Open();
                 cmd.CommandText = querry;
-                conn.Open();
+                MySqlCommand command = new MySqlCommand(querry, myConn);
                 using (var reader = cmd.ExecuteReader())
                 {
+
                     if (!reader.Read())
                     {
-                        return null;
+                        return null; //Keeps returning Null? Sql Command Seems fine
                     }
-                    DataTable dt = new DataTable();
-                    MySqlDataAdapter sda = new MySqlDataAdapter(querry,conn);
-                    sda.Fill(dt);
-                    byte[] bits = new byte[0];
-                    return (byte[])dt.Rows[0][0];
+                    reader.Read();
+
+                    byte[] bits = (byte[])reader[1];
+                    return bits;
+                    //return (byte[])dt.Rows[0][0];
                     /*
                     const int CHUNK_SIZE = 2 * 1024;
                     byte[] buffer = new byte[CHUNK_SIZE];
@@ -85,6 +91,12 @@ namespace CGProject
                         return stream.ToArray();
                     }
                      */
+
+
+
+
+                   // DataTable dt = new DataTable();
+                   // MySqlDataAdapter sda = new MySqlDataAdapter(querry, myConn);//Here
                 }
             }
         }

@@ -382,6 +382,7 @@ namespace CGProject
                 {
                     return;
                 }
+                
                 MemoryStream stream = new MemoryStream(image);
                 cardImage.Image = System.Drawing.Bitmap.FromStream(stream); 
                 //Image.FromStream(stream);

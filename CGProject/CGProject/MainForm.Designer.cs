@@ -213,6 +213,7 @@
             this.cardImage.Location = new System.Drawing.Point(280, 328);
             this.cardImage.Name = "cardImage";
             this.cardImage.Size = new System.Drawing.Size(130, 186);
+            this.cardImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.cardImage.TabIndex = 10;
             this.cardImage.TabStop = false;
             this.cardImage.MouseLeave += new System.EventHandler(this.cardImage_MouseLeave);
@@ -331,7 +332,7 @@
             this.importCardImageButton.Name = "importCardImageButton";
             this.importCardImageButton.Size = new System.Drawing.Size(60, 23);
             this.importCardImageButton.TabIndex = 23;
-            this.importCardImageButton.Text = "Import";
+            this.importCardImageButton.Text = " ";
             this.importCardImageButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.importCardImageButton.UseVisualStyleBackColor = false;
             this.importCardImageButton.Click += new System.EventHandler(this.importCardImageButton_Click);
