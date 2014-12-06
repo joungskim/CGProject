@@ -299,6 +299,12 @@ namespace CGProject
         private void cardListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+            //I think this removes all the memory used for it I dont remember
+            if(cardImage.Image !=null)
+            {
+                cardImage.Image.Dispose();
+            }
+            cardImage.Image = null;
             try
             {
                 importCardImageButton.Enabled = true;
