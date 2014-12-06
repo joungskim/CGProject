@@ -99,7 +99,7 @@
             // exitButton
             // 
             this.exitButton.BackColor = System.Drawing.Color.Black;
-            this.exitButton.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.exitButton.Location = new System.Drawing.Point(1044, 12);
             this.exitButton.Name = "exitButton";
@@ -112,7 +112,7 @@
             // minimizeButton
             // 
             this.minimizeButton.BackColor = System.Drawing.Color.Black;
-            this.minimizeButton.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.minimizeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.minimizeButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.minimizeButton.Location = new System.Drawing.Point(1014, 12);
             this.minimizeButton.Name = "minimizeButton";
@@ -151,7 +151,7 @@
             // 
             // addGamesButton
             // 
-            this.addGamesButton.Font = new System.Drawing.Font("Modern No. 20", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addGamesButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addGamesButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.addGamesButton.Location = new System.Drawing.Point(14, 269);
             this.addGamesButton.Name = "addGamesButton";
@@ -164,7 +164,7 @@
             // 
             // addCardButton
             // 
-            this.addCardButton.Font = new System.Drawing.Font("Modern No. 20", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addCardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addCardButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.addCardButton.Location = new System.Drawing.Point(12, 685);
             this.addCardButton.Name = "addCardButton";
@@ -177,7 +177,7 @@
             // 
             // editGameButton
             // 
-            this.editGameButton.Font = new System.Drawing.Font("Modern No. 20", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.editGameButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editGameButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.editGameButton.Location = new System.Drawing.Point(137, 269);
             this.editGameButton.Name = "editGameButton";
@@ -209,6 +209,7 @@
             this.searchCardTextBox.TabIndex = 9;
             this.searchCardTextBox.Text = "Search Cards...";
             this.searchCardTextBox.Click += new System.EventHandler(this.searchCardTextBox_Click);
+            this.searchCardTextBox.TextChanged += new System.EventHandler(this.searchCardTextBox_TextChanged);
             this.searchCardTextBox.Leave += new System.EventHandler(this.searchCardTextBox_Leave);
             // 
             // imageList1
@@ -320,7 +321,7 @@
             // descriptionRichTextBox
             // 
             this.descriptionRichTextBox.BackColor = System.Drawing.Color.White;
-            this.descriptionRichTextBox.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.descriptionRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.descriptionRichTextBox.Location = new System.Drawing.Point(280, 176);
             this.descriptionRichTextBox.Name = "descriptionRichTextBox";
             this.descriptionRichTextBox.ReadOnly = true;
@@ -331,7 +332,7 @@
             // 
             // importCardImageButton
             // 
-            this.importCardImageButton.Font = new System.Drawing.Font("Modern No. 20", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.importCardImageButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.importCardImageButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.importCardImageButton.Location = new System.Drawing.Point(280, 298);
             this.importCardImageButton.Name = "importCardImageButton";
@@ -351,7 +352,7 @@
             // 
             // editCardButton
             // 
-            this.editCardButton.Font = new System.Drawing.Font("Modern No. 20", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.editCardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editCardButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.editCardButton.Location = new System.Drawing.Point(137, 685);
             this.editCardButton.Name = "editCardButton";
@@ -363,7 +364,7 @@
             // 
             // importGameImageButton
             // 
-            this.importGameImageButton.Font = new System.Drawing.Font("Modern No. 20", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.importGameImageButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.importGameImageButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.importGameImageButton.Location = new System.Drawing.Point(280, 520);
             this.importGameImageButton.Name = "importGameImageButton";
@@ -393,7 +394,7 @@
             // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("Modern No. 20", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.button1.Location = new System.Drawing.Point(414, 194);
             this.button1.Name = "button1";
@@ -406,7 +407,7 @@
             // aboutButton
             // 
             this.aboutButton.BackColor = System.Drawing.Color.Black;
-            this.aboutButton.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.aboutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.aboutButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.aboutButton.Location = new System.Drawing.Point(984, 12);
             this.aboutButton.Name = "aboutButton";
@@ -448,7 +449,7 @@
             // 
             // button4
             // 
-            this.button4.Font = new System.Drawing.Font("Modern No. 20", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.button4.Location = new System.Drawing.Point(949, 194);
             this.button4.Name = "button4";
@@ -708,7 +709,7 @@
             // 
             // button5
             // 
-            this.button5.Font = new System.Drawing.Font("Modern No. 20", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button5.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.button5.Location = new System.Drawing.Point(541, 375);
             this.button5.Name = "button5";
@@ -720,7 +721,7 @@
             // 
             // button6
             // 
-            this.button6.Font = new System.Drawing.Font("Modern No. 20", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button6.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.button6.Location = new System.Drawing.Point(811, 375);
             this.button6.Name = "button6";
@@ -752,7 +753,7 @@
             // 
             // button2
             // 
-            this.button2.Font = new System.Drawing.Font("Modern No. 20", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.button2.Location = new System.Drawing.Point(541, 347);
             this.button2.Name = "button2";
@@ -764,7 +765,7 @@
             // 
             // button3
             // 
-            this.button3.Font = new System.Drawing.Font("Modern No. 20", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.button3.Location = new System.Drawing.Point(811, 347);
             this.button3.Name = "button3";
@@ -776,7 +777,7 @@
             // 
             // createMatchButton
             // 
-            this.createMatchButton.Font = new System.Drawing.Font("Modern No. 20", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.createMatchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.createMatchButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.createMatchButton.Location = new System.Drawing.Point(681, 361);
             this.createMatchButton.Name = "createMatchButton";

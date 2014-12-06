@@ -16,6 +16,7 @@ namespace CGProject
         private bool _dragging = false;
         private Point _offset;
         private Point _start_point = new Point(0, 0);
+        private string _querry_string;
 
         private MySqlDataReader read;
 
@@ -78,11 +79,12 @@ namespace CGProject
             try
             {
                 string selected = gameListBox.SelectedItem.ToString();
-                populateCardList(searchGameTextBox.Text.ToString(), selected);
+                string selectedID = selected.Substring(0, selected.IndexOf(":"));
+                populateCardList(searchCardTextBox.Text.ToString(), selectedID);
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -96,15 +98,16 @@ namespace CGProject
 
         private void populateGameList(string search)
         {
-            if (!search.Equals("Search Games..."))
+            if (!search.Equals("Search Games...") && !search.Equals(""))
             {
                 Server s = new Server();
                 try
                 {
-                    read = s.MakeConnection("Select * from ccdb.game where ccdb.game.name like '%" + search + "%' ;");
+                    _querry_string = "Select * from ccdb.game where ccdb.game.name like '%" + search + "%' ;";
+                    read = s.MakeConnection(_querry_string);
                     while (read.Read())
                     {
-                        gameListBox.Items.Add(read.GetString("name"));
+                        gameListBox.Items.Add(read.GetInt32("id_game") + ": " + read.GetString("name"));
                     }
                 }
                 catch (Exception ex)
@@ -123,7 +126,7 @@ namespace CGProject
                     read = s.MakeConnection("Select * from ccdb.game ;");
                     while (read.Read())
                     {
-                        gameListBox.Items.Add(read.GetString("name"));
+                        gameListBox.Items.Add(read.GetInt32("id_game") + ": " + read.GetString("name"));
                     }
                 }
                 catch (Exception ex)
@@ -139,16 +142,16 @@ namespace CGProject
         /* Cards Listbox
          * This contains anything that deals with card
          */
-        private void populateCardList(string search, string gameName)
+        private void populateCardList(string search, string gameID)
         {
-            if (!search.Equals("Search Cards..."))
+            if (!search.Equals("Search Cards...") && !search.Equals(""))
             {
                 Server s = new Server();
                 try
                 {
-                    read = s.MakeConnection("Select * from ccdb.card, ccdb.game where ccdb.card.name like '%" + search + "%' and ccdb.game.name like '%" + gameName + "%' "
-                        + "and ccdb.card.id_game = ccdb.game.id_game "
-                        + ";");
+                    _querry_string = "Select * from ccdb.card as card, ccdb.game as game where card.id_game = game.id_game and"
+                    + " game.id_game = '" + gameID + "' and card.name like '%" + search + "%' ;";
+                    read = s.MakeConnection(_querry_string);
                     while (read.Read())
                     {
                         cardListBox.Items.Add(read.GetString("name"));
@@ -167,7 +170,8 @@ namespace CGProject
                 Server s = new Server();
                 try
                 {
-                    read = s.MakeConnection("Select * from ccdb.card where ccdb.card.name like '%" + gameName + "%' ;");
+                    _querry_string = "Select * from ccdb.card where ccdb.card.id_game = '" + gameID + "' ;";
+                    read = s.MakeConnection(_querry_string);
                     while (read.Read())
                     {
                         cardListBox.Items.Add(read.GetString("name"));
@@ -184,16 +188,11 @@ namespace CGProject
 
         private void addCardButton_Click(object sender, EventArgs e)
         {
-            int gameId;
-
             Server s = new Server();
             try
             {
-                read = s.MakeConnection("Select * from ccdb.game where ccdb.game.name like '%" + gameListBox.SelectedItem.ToString() + "' ;");
-                read.Read();
-                gameId = read.GetInt16("id_game");
-                MessageBox.Show(gameId.ToString());
-                AddCardsForm addForm = new AddCardsForm(gameId);
+
+                AddCardsForm addForm = new AddCardsForm(Convert.ToInt32(gameListBox.SelectedItem.ToString().Substring( 0,gameListBox.SelectedItem.ToString().IndexOf(":"))));
                 addForm.ShowDialog();
             }
             catch (Exception ex)
@@ -201,7 +200,6 @@ namespace CGProject
                 MessageBox.Show(ex.Message);
                 Application.Exit();
             }
-            s.CloseConnection();
         }
 
         /**************************************************************************/
@@ -227,6 +225,7 @@ namespace CGProject
             }
         }
 
+
         private void searchCardTextBox_Click(object sender, EventArgs e)
         {
             searchCardTextBox.Text = "";
@@ -238,6 +237,14 @@ namespace CGProject
             {
                 searchCardTextBox.Text = "Search Cards...";
             }
+        }
+
+        private void searchCardTextBox_TextChanged(object sender, EventArgs e)
+        {
+            cardListBox.Items.Clear();
+            string selected = gameListBox.SelectedItem.ToString();
+            string selectedID = selected.Substring(0, selected.IndexOf(":"));
+            populateCardList(searchCardTextBox.Text.ToString(), selectedID);
         }
   
 

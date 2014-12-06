@@ -31,7 +31,13 @@ namespace CGProject
         }
         public void CloseConnection()
         {
-            myConn.Close();
+            try
+            {
+                myConn.Close();
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 
