@@ -245,7 +245,7 @@ namespace CGProject
                     if (cardListBox.SelectedIndex > 0) index = cardListBox.SelectedIndex - 1;
                     else index = 0;
 
-                    string deleteValue = "SET SQL_SAFE_UPDATES = 0; Delete from ccdb.card where ccdb.card.name = '" + cardListBox.SelectedItem.ToString() + "' ;";
+                    string deleteValue = "SET SQL_SAFE_UPDATES = 0; Delete from ccdb.card where ccdb.card.id_game = '" + gameListBox.SelectedItem.ToString().Substring(0, gameListBox.SelectedItem.ToString().IndexOf(":")) + "' and ccdb.card.name = '" + cardListBox.SelectedItem.ToString() + "' ;";
                     read = s.MakeConnection(deleteValue);
                     cardListBox.Items.Clear();
                     populateCardList(searchCardTextBox.Text.ToString(), gameListBox.SelectedItem.ToString().Substring(0, gameListBox.SelectedItem.ToString().IndexOf(":")));
