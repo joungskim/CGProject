@@ -31,46 +31,58 @@ namespace CGProject
                 System.IO.StreamReader file = new System.IO.StreamReader(x.FileName);
                 try
                 {
-                    line = file.ReadLine();
-                    string[] header = line.Split(',');
-                    if (header.Contains("name"))
-                    {
-                        string insertString = "";
-                        foreach (string Str in header)
+                    string line1 = file.ReadLine();
+                        while ((line = file.ReadLine()) != null)
                         {
-                            insertString += (Str + ",");
-                        }
-                        while (file.ReadLine() != null)
-                        {
-                            line = file.ReadLine();
-                            string[] values = line.Split(',');
-                            string insert = "INSERT INTO ccdb.card (" + insertString + " id_game) VALUES  (";
-                            for (int i = 0; i < values.Count() ;i++ )
+                            if (!AddCard(line1, line.Split(',')))
                             {
-                                if (header[i] == "cost")
+                               // MessageBox.Show("There was an error reading the file\nWith columns " + line1 + " and the line read in as " + line);
+                                
+                            }
+                        }
+                }
+                catch(IOException ex)
+                {
+                    MessageBox.Show("Invalid Format\n" + ex.Message);
+                }
+            }
+
+        }
+        public bool AddCard(string colNames, string[] colVals)
+        {
+            try
+            {
+                if (colNames.Contains("name"))
+                    {
+                        Server s = new Server();
+                        string[] colName = colNames.Split(',');
+                            string insert = "INSERT INTO ccdb.card (" + colNames + ",id_game) VALUES  (";
+                            for (int i = 0; i < colVals.Count() ;i++ )
+                            {
+                                if (colName[i] == "cost")
                                 {
-                                    insert += values[i] + ",";
+                                    insert += colVals[i] + ",";
                                 }
                                 else
                                 {
-                                    insert += "'" + values[i] + "'" + ",";
+                                    insert += "'" + colVals[i] + "'" + ",";
                                 }
                             }
                             insert += "'" + gameId + "') ;";
                             read = s.MakeConnection(insert);
                             s.CloseConnection();
                         }
-                    }
                     else
                     {
                         MessageBox.Show("File does not include required field name!");
                     }
-                }
-                catch(IOException ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                return true;
+            }catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);
+                return false;
             }
+
         }
     }
 }
