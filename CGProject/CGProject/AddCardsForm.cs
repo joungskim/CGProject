@@ -21,6 +21,13 @@ namespace CGProject
             InitializeComponent();
             this.gameId = gameId;
         }
+        
+
+        /*
+         * This isn't actually adding cards to the database
+         * 12/06/2014 5:22 PM
+         * 
+         * */
         private void button1_Click(object sender, EventArgs e)
         {
             importNotificationLabel.Visible = false;
@@ -42,7 +49,7 @@ namespace CGProject
                         {
                             if (!AddCard(line1, line.Split(',')))
                             {
-                               // MessageBox.Show("There was an error reading the file\nWith columns " + line1 + " and the line read in as " + line);
+                               MessageBox.Show("There was an error reading the file\nWith columns " + line1 + " and the line read in as " + line);
 
                             }
 
@@ -65,6 +72,8 @@ namespace CGProject
 
   
         }
+
+        //This is wrong? No DataBase is getting added anymore. 5:25PM
         public bool AddCard(string colNames, string[] colVals)
         {
             try
