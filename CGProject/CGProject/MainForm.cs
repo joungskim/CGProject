@@ -73,7 +73,7 @@ namespace CGProject
         /* Games Listbox
          * This contains anything that deals with game 
          */
-        private void gameListBox_Click(object sender, EventArgs e)
+        private void gameListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             cardListBox.Items.Clear();
             try
@@ -81,6 +81,7 @@ namespace CGProject
                 string selected = gameListBox.SelectedItem.ToString();
                 string selectedID = selected.Substring(0, selected.IndexOf(":"));
                 populateCardList(searchCardTextBox.Text.ToString(), selectedID);
+                updateCardCount(selectedID);
             }
             catch (Exception ex)
             {
@@ -138,6 +139,28 @@ namespace CGProject
             }
         }
 
+        private void updateCardCount(string gameID)
+        {
+            if(Convert.ToInt32(gameID) > 0)
+            {
+                Server s = new Server();
+                try
+                {
+                    //SELECT COUNT(*) FROM fooTable;
+                    string _querry_string = "Select Count(*) as count from ccdb.card as card where card.id_game = " + gameID + ";";
+                    read = s.MakeConnection(_querry_string);
+                    read.Read();
+                    gameCardCountLabel.Text = "Game Card Count: " + read.GetString("count");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    Application.Exit();
+                }
+                s.CloseConnection();
+            }
+        }
+
         /**************************************************************************/
         /* Cards Listbox
          * This contains anything that deals with card
@@ -184,7 +207,7 @@ namespace CGProject
                 }
                 s.CloseConnection();
             }
-        } //Needs Fixing
+        }
 
         private void addCardButton_Click(object sender, EventArgs e)
         {
@@ -200,7 +223,6 @@ namespace CGProject
                 Application.Exit();
             }
         }
-
 
         private void deleteCardButton_Click(object sender, EventArgs e)
         {
@@ -227,7 +249,66 @@ namespace CGProject
                 s.CloseConnection();
             }
         }
-  
+
+        private void cardListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            populateInformationFields(cardListBox.SelectedItem.ToString());
+        }
+
+        /**************************************************************************/
+        /* Card Information and Images
+         * This contains anything that deals with Information or images relating to cards/games
+         */
+
+        private void populateInformationFields(string cardID)
+        {
+            cardNameTextBox.Clear();
+            rarityTextBox.Clear();
+            costTextBox.Clear();
+            typeTextBox.Clear();
+            descriptionRichTextBox.Clear();
+
+            Server s = new Server();
+            try
+            {
+                _querry_string = "Select * from ccdb.card as card where card.name = '" + cardID +"' ;"; //Need to change card.name to card.id_card
+                read = s.MakeConnection(_querry_string);
+                read.Read();
+                
+                cardNameTextBox.Text = read.GetString("name");
+
+                var checkNull = read.GetOrdinal("rarity");
+
+                if (!read.IsDBNull(checkNull)) rarityTextBox.Text = read.GetString("rarity");
+                
+                else rarityTextBox.Text = "N/A";
+
+                checkNull = read.GetOrdinal("cost");
+
+                if (!read.IsDBNull(checkNull)) costTextBox.Text = read.GetString("cost");
+
+                else costTextBox.Text = "N/A";
+
+                checkNull = read.GetOrdinal("type");
+
+                if (!read.IsDBNull(checkNull)) typeTextBox.Text = read.GetString("type");
+
+                else typeTextBox.Text = "N/A";
+
+                checkNull = read.GetOrdinal("description");
+
+                if (!read.IsDBNull(checkNull)) descriptionRichTextBox.Text = read.GetString("description");
+
+                else descriptionRichTextBox.Text = "No Description Available";
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Application.Exit();
+            }
+            s.CloseConnection();
+        }
 
 
         /**************************************************************************/
@@ -280,6 +361,10 @@ namespace CGProject
             AboutForm aboutForm = new AboutForm();
             aboutForm.ShowDialog();
         }
+
+
+
+
 
         /**************************************************************************/
     }

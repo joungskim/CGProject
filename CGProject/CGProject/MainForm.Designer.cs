@@ -41,7 +41,7 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.cardImage = new System.Windows.Forms.PictureBox();
             this.rarityLabel = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.cardNameTextBox = new System.Windows.Forms.TextBox();
             this.costLabel = new System.Windows.Forms.Label();
             this.typeLabel = new System.Windows.Forms.Label();
             this.rarityTextBox = new System.Windows.Forms.TextBox();
@@ -72,6 +72,7 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.deleteCardButton = new System.Windows.Forms.Button();
+            this.gameCardCountLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.cardImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.manufacturerImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -113,7 +114,7 @@
             this.gameListBox.Name = "gameListBox";
             this.gameListBox.Size = new System.Drawing.Size(244, 225);
             this.gameListBox.TabIndex = 3;
-            this.gameListBox.Click += new System.EventHandler(this.gameListBox_Click);
+            this.gameListBox.SelectedIndexChanged += new System.EventHandler(this.gameListBox_SelectedIndexChanged);
             // 
             // searchGameTextBox
             // 
@@ -177,6 +178,7 @@
             this.cardListBox.Name = "cardListBox";
             this.cardListBox.Size = new System.Drawing.Size(243, 355);
             this.cardListBox.TabIndex = 8;
+            this.cardListBox.SelectedIndexChanged += new System.EventHandler(this.cardListBox_SelectedIndexChanged);
             // 
             // searchCardTextBox
             // 
@@ -217,18 +219,18 @@
             this.rarityLabel.TabIndex = 14;
             this.rarityLabel.Text = "Rarity";
             // 
-            // textBox2
+            // cardNameTextBox
             // 
-            this.textBox2.AccessibleName = "";
-            this.textBox2.BackColor = System.Drawing.Color.White;
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.ForeColor = System.Drawing.Color.Black;
-            this.textBox2.Location = new System.Drawing.Point(280, 41);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(128, 13);
-            this.textBox2.TabIndex = 15;
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.cardNameTextBox.AccessibleName = "";
+            this.cardNameTextBox.BackColor = System.Drawing.Color.White;
+            this.cardNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.cardNameTextBox.ForeColor = System.Drawing.Color.Black;
+            this.cardNameTextBox.Location = new System.Drawing.Point(280, 41);
+            this.cardNameTextBox.Name = "cardNameTextBox";
+            this.cardNameTextBox.ReadOnly = true;
+            this.cardNameTextBox.Size = new System.Drawing.Size(128, 13);
+            this.cardNameTextBox.TabIndex = 15;
+            this.cardNameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // costLabel
             // 
@@ -571,6 +573,16 @@
             this.deleteCardButton.UseVisualStyleBackColor = false;
             this.deleteCardButton.Click += new System.EventHandler(this.deleteCardButton_Click);
             // 
+            // gameCardCountLabel
+            // 
+            this.gameCardCountLabel.AutoSize = true;
+            this.gameCardCountLabel.ForeColor = System.Drawing.Color.Ivory;
+            this.gameCardCountLabel.Location = new System.Drawing.Point(280, 279);
+            this.gameCardCountLabel.Name = "gameCardCountLabel";
+            this.gameCardCountLabel.Size = new System.Drawing.Size(91, 13);
+            this.gameCardCountLabel.TabIndex = 69;
+            this.gameCardCountLabel.Text = "Game Card Count";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -578,6 +590,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(861, 720);
+            this.Controls.Add(this.gameCardCountLabel);
             this.Controls.Add(this.deleteCardButton);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button5);
@@ -608,7 +621,7 @@
             this.Controls.Add(this.rarityTextBox);
             this.Controls.Add(this.typeLabel);
             this.Controls.Add(this.costLabel);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.cardNameTextBox);
             this.Controls.Add(this.rarityLabel);
             this.Controls.Add(this.cardImage);
             this.Controls.Add(this.searchCardTextBox);
@@ -651,7 +664,7 @@
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.PictureBox cardImage;
         private System.Windows.Forms.Label rarityLabel;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox cardNameTextBox;
         private System.Windows.Forms.Label costLabel;
         private System.Windows.Forms.Label typeLabel;
         private System.Windows.Forms.TextBox rarityTextBox;
@@ -682,5 +695,6 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button deleteCardButton;
+        private System.Windows.Forms.Label gameCardCountLabel;
     }
 }
