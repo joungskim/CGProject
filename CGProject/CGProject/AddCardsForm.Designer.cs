@@ -34,13 +34,21 @@
             this.addGamesButton = new System.Windows.Forms.Button();
             this.rarityLabel = new System.Windows.Forms.Label();
             this.rarityTextBox = new System.Windows.Forms.TextBox();
+            this.costTextBox = new System.Windows.Forms.TextBox();
+            this.costLabel = new System.Windows.Forms.Label();
+            this.typeTextBox1 = new System.Windows.Forms.TextBox();
+            this.typeTextBox = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.descriptionRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.createCardButton = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // importCSVButton
             // 
             this.importCSVButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.importCSVButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.importCSVButton.Location = new System.Drawing.Point(15, 105);
+            this.importCSVButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.importCSVButton.Location = new System.Drawing.Point(197, 143);
             this.importCSVButton.Name = "importCSVButton";
             this.importCSVButton.Size = new System.Drawing.Size(75, 23);
             this.importCSVButton.TabIndex = 0;
@@ -56,7 +64,6 @@
             this.cardNameTextBox.ForeColor = System.Drawing.Color.Black;
             this.cardNameTextBox.Location = new System.Drawing.Point(85, 12);
             this.cardNameTextBox.Name = "cardNameTextBox";
-            this.cardNameTextBox.ReadOnly = true;
             this.cardNameTextBox.Size = new System.Drawing.Size(91, 13);
             this.cardNameTextBox.TabIndex = 47;
             this.cardNameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -101,17 +108,112 @@
             this.rarityTextBox.ForeColor = System.Drawing.Color.Black;
             this.rarityTextBox.Location = new System.Drawing.Point(85, 31);
             this.rarityTextBox.Name = "rarityTextBox";
-            this.rarityTextBox.ReadOnly = true;
             this.rarityTextBox.Size = new System.Drawing.Size(91, 13);
             this.rarityTextBox.TabIndex = 49;
             this.rarityTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // costTextBox
+            // 
+            this.costTextBox.AccessibleName = "";
+            this.costTextBox.BackColor = System.Drawing.Color.White;
+            this.costTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.costTextBox.ForeColor = System.Drawing.Color.Black;
+            this.costTextBox.Location = new System.Drawing.Point(85, 50);
+            this.costTextBox.Name = "costTextBox";
+            this.costTextBox.Size = new System.Drawing.Size(91, 13);
+            this.costTextBox.TabIndex = 51;
+            this.costTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // costLabel
+            // 
+            this.costLabel.AutoSize = true;
+            this.costLabel.ForeColor = System.Drawing.Color.Ivory;
+            this.costLabel.Location = new System.Drawing.Point(12, 50);
+            this.costLabel.Name = "costLabel";
+            this.costLabel.Size = new System.Drawing.Size(28, 13);
+            this.costLabel.TabIndex = 50;
+            this.costLabel.Text = "Cost";
+            // 
+            // typeTextBox1
+            // 
+            this.typeTextBox1.AccessibleName = "";
+            this.typeTextBox1.BackColor = System.Drawing.Color.White;
+            this.typeTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.typeTextBox1.ForeColor = System.Drawing.Color.Black;
+            this.typeTextBox1.Location = new System.Drawing.Point(85, 69);
+            this.typeTextBox1.Name = "typeTextBox1";
+            this.typeTextBox1.Size = new System.Drawing.Size(91, 13);
+            this.typeTextBox1.TabIndex = 53;
+            this.typeTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // typeTextBox
+            // 
+            this.typeTextBox.AutoSize = true;
+            this.typeTextBox.ForeColor = System.Drawing.Color.Ivory;
+            this.typeTextBox.Location = new System.Drawing.Point(12, 69);
+            this.typeTextBox.Name = "typeTextBox";
+            this.typeTextBox.Size = new System.Drawing.Size(31, 13);
+            this.typeTextBox.TabIndex = 52;
+            this.typeTextBox.Text = "Type";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.Ivory;
+            this.label3.Location = new System.Drawing.Point(12, 108);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(60, 13);
+            this.label3.TabIndex = 54;
+            this.label3.Text = "Description";
+            // 
+            // descriptionRichTextBox
+            // 
+            this.descriptionRichTextBox.Location = new System.Drawing.Point(85, 88);
+            this.descriptionRichTextBox.Name = "descriptionRichTextBox";
+            this.descriptionRichTextBox.Size = new System.Drawing.Size(91, 78);
+            this.descriptionRichTextBox.TabIndex = 55;
+            this.descriptionRichTextBox.Text = "";
+            // 
+            // createCardButton
+            // 
+            this.createCardButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.createCardButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.createCardButton.Location = new System.Drawing.Point(197, 12);
+            this.createCardButton.Name = "createCardButton";
+            this.createCardButton.Size = new System.Drawing.Size(75, 23);
+            this.createCardButton.TabIndex = 56;
+            this.createCardButton.Text = "Create Card";
+            this.createCardButton.UseVisualStyleBackColor = true;
+            this.createCardButton.Click += new System.EventHandler(this.createCardButton_Click);
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.cancelButton.Location = new System.Drawing.Point(197, 41);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.TabIndex = 57;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // AddCardsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.CancelButton = this.cancelButton;
+            this.ClientSize = new System.Drawing.Size(284, 175);
+            this.Controls.Add(this.cancelButton);
+            this.Controls.Add(this.createCardButton);
+            this.Controls.Add(this.descriptionRichTextBox);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.typeTextBox1);
+            this.Controls.Add(this.typeTextBox);
+            this.Controls.Add(this.costTextBox);
+            this.Controls.Add(this.costLabel);
             this.Controls.Add(this.rarityTextBox);
             this.Controls.Add(this.rarityLabel);
             this.Controls.Add(this.cardNameTextBox);
@@ -119,8 +221,9 @@
             this.Controls.Add(this.addGamesButton);
             this.Controls.Add(this.importCSVButton);
             this.ForeColor = System.Drawing.Color.LimeGreen;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "AddCardsForm";
-            this.Text = "AddCardsForm";
+            this.Text = "Add Cards";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -134,5 +237,13 @@
         private System.Windows.Forms.Button addGamesButton;
         private System.Windows.Forms.Label rarityLabel;
         private System.Windows.Forms.TextBox rarityTextBox;
+        private System.Windows.Forms.TextBox costTextBox;
+        private System.Windows.Forms.Label costLabel;
+        private System.Windows.Forms.TextBox typeTextBox1;
+        private System.Windows.Forms.Label typeTextBox;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.RichTextBox descriptionRichTextBox;
+        private System.Windows.Forms.Button createCardButton;
+        private System.Windows.Forms.Button cancelButton;
     }
 }

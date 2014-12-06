@@ -65,11 +65,57 @@ namespace CGProject
                     {
                         MessageBox.Show("File does not include required field name!");
                     }
+
+                    this.Hide();
                 }
                 catch(IOException ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
+            }
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
+        private void createCardButton_Click(object sender, EventArgs e)
+        {
+            List<string> header = new List<string>();
+            List<string> resultString = new List<string>();
+
+            if(cardNameTextBox.Text.Equals(""))
+            {
+                MessageBox.Show("You must enter a name.");
+            }
+
+            else
+            {
+                header.Add("name");
+
+                if (!costTextBox.Text.Equals(""))
+                {
+                    header.Add("cost");
+                    resultString.Add(costTextBox.Text.ToString());
+                }
+                if (!rarityTextBox.Text.Equals(""))
+                {
+                    header.Add("rarity");
+                    resultString.Add(rarityTextBox.Text.ToString());
+                }
+                if(!descriptionRichTextBox.Text.Equals(""))
+                {
+                    header.Add("description");
+                    resultString.Add(descriptionRichTextBox.Text.ToString());
+                }
+                if(!typeTextBox1.Text.Equals(""))
+                {
+                    header.Add("type");
+                    resultString.Add(typeTextBox1.Text.ToString());
+                }
+
+                //AddCard(header.ToArray(),resultString.ToArray());
             }
         }
     }
