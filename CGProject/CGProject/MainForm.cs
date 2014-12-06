@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 using MySql.Data.MySqlClient;
 
 namespace CGProject
@@ -17,6 +18,10 @@ namespace CGProject
         private Point _offset;
         private Point _start_point = new Point(0, 0);
         private string _querry_string;
+        private string _current_card_image_path;
+        private string _current_game_id;
+        private string _current_game_name;
+        private string _card_path;
 
         private MySqlDataReader read;
 
@@ -25,6 +30,9 @@ namespace CGProject
             InitializeComponent();
             populateGameList("");
             if(!(gameListBox.Items.Count == 0)) gameListBox.SetSelected(0, true);
+            addCardButton.Enabled = false;
+            if(!allGameRadio.Checked) allGameRadio.PerformClick();
+            importCardImageButton.Enabled = false;
         }
 
         /**************************************************************************/
@@ -75,17 +83,21 @@ namespace CGProject
          */
         private void gameListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cardListBox.Items.Clear();
-            try
+            addCardButton.Enabled = true;
+            if (!(gameListBox.SelectedIndex < 0))
             {
-                string selected = gameListBox.SelectedItem.ToString();
-                string selectedID = selected.Substring(0, selected.IndexOf(":"));
-                populateCardList(searchCardTextBox.Text.ToString(), selectedID);
-                updateCardCount(selectedID);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                cardListBox.Items.Clear();
+                try
+                {
+                    _current_game_name = gameListBox.SelectedItem.ToString();
+                    _current_game_id = _current_game_name.Substring(0, _current_game_name.IndexOf(":"));
+                    populateCardList(searchCardTextBox.Text.ToString(), _current_game_name);
+                    updateCardCount(_current_game_id);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
@@ -161,10 +173,31 @@ namespace CGProject
             }
         }
 
+        private void searchGameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            gameListBox.Items.Clear();
+            populateGameList(searchGameTextBox.Text.ToString());
+        }
+
+        private void searchGameTextBox_Click(object sender, EventArgs e)
+        {
+            searchGameTextBox.Text = "";
+        }
+
+        private void searchGameTextBox_Leave(object sender, EventArgs e)
+        {
+            if (searchGameTextBox.Text.Equals(""))
+            {
+                searchGameTextBox.Text = "Search Games...";
+            }
+        }
+
         /**************************************************************************/
-        /* Cards Listbox
+        /* Cards
          * This contains anything that deals with card
          */
+
+        //populates the card list when called.
         private void populateCardList(string search, string gameID)
         {
             if (!search.Equals("Search Cards...") && !search.Equals(""))
@@ -209,6 +242,7 @@ namespace CGProject
             }
         }
 
+        //opens the addcard dialogue and refreshes the list of cards.
         private void addCardButton_Click(object sender, EventArgs e)
         {
             Server s = new Server();
@@ -227,6 +261,7 @@ namespace CGProject
             }
         }
 
+        //deletes the current selected card if a card is selected.
         private void deleteCardButton_Click(object sender, EventArgs e)
         {
             cardNameTextBox.Clear();
@@ -260,12 +295,15 @@ namespace CGProject
             }
         }
 
+        //selects when the index changes this changes the fields for card information.
         private void cardListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
             try
             {
+                importCardImageButton.Enabled = true;
                 populateInformationFields(cardListBox.SelectedItem.ToString());
+                displaySelectedCardImage();
             }
 
             catch (Exception ex)
@@ -274,27 +312,104 @@ namespace CGProject
             }
         }
 
-        /**************************************************************************/
-        /* Card Information and Images
-         * This contains anything that deals with Information or images relating to cards/games
-         */
+        //Opens connection to the database and stores the id_image to the selected card.
+        private void importCardImageButton_Click(object sender, EventArgs e)
+        {
+            _card_path = importCardImageFunction();
 
+            
+        }
+        private void saveImage_Click(object sender, EventArgs e)
+        {
+            if (!_card_path.Equals("") && !(cardImage.Image == null))
+            {
+                int imageId;
+                try
+                {
+                    Server s = new Server();
+                    string insert;
+                    using (var ms = new MemoryStream())
+                    {
+                        cardImage.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        insert = "INSERT INTO ccdb.images (image) VALUES (?Image)";
+                        s.MakeImageConnectionInsert(insert, ms.ToArray());
+                    }
+
+                    insert = " Select Max(ccdb.images.id_image) as id_image From ccdb.images ;";
+                    read = s.MakeConnection(insert);
+                    read.Read();
+                    imageId = read.GetInt32("id_image");
+                    s.CloseConnection();
+
+                    insert = "UPDATE ccdb.card SET id_image = " + imageId + " WHERE ccdb.card.name = '" + cardListBox.SelectedItem.ToString() + "' and ccdb.card.id_game = '" + _current_game_id + "' ; ";
+                    read = s.MakeConnection(insert);
+                    read.Read();
+                    s.CloseConnection();
+
+                    displaySelectedCardImage();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        //gets the card path and sets the card image picture to the selected image
+        private string importCardImageFunction()
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "JPG Files(*.jpg)|*.jpg|PNG Files (*.png)|*.png|All Files (*.*)|*.*";
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                string picPath = dlg.FileName.ToString();
+                cardImage.ImageLocation = picPath;
+                cardImage.SizeMode = PictureBoxSizeMode.StretchImage;
+                return picPath;
+            }
+
+            return "";
+        }
+
+        private void displaySelectedCardImage()
+        {
+            try
+            {
+                Server s = new Server();
+                byte[] image = s.MakeImageConnectionExtract("select * from ccdb.images, ccdb.card where ccdb.card.name = '" + cardListBox.SelectedItem.ToString() + "' and ccdb.card.id_image = ccdb.images.id_image ;");
+                if (image == null)
+                {
+                    return;
+                }
+                MemoryStream stream = new MemoryStream(image);
+                cardImage.Image = System.Drawing.Bitmap.FromStream(stream); 
+                //Image.FromStream(stream);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        
+
+        //populates the Information text box fields for the Card
         private void populateInformationFields(string cardID)
         {
 
             Server s = new Server();
             try
             {
-                _querry_string = "Select * from ccdb.card as card where card.name = '" + cardID +"' ;"; //Need to change card.name to card.id_card
+                _querry_string = "Select * from ccdb.card as card where card.name = '" + cardID + "' ;"; //Need to change card.name to card.id_card
                 read = s.MakeConnection(_querry_string);
                 read.Read();
-                
+
                 cardNameTextBox.Text = read.GetString("name");
 
                 var checkNull = read.GetOrdinal("rarity");
 
                 if (!read.IsDBNull(checkNull)) rarityTextBox.Text = read.GetString("rarity");
-                
+
                 else rarityTextBox.Text = "N/A";
 
                 checkNull = read.GetOrdinal("cost");
@@ -324,31 +439,6 @@ namespace CGProject
             s.CloseConnection();
         }
 
-
-        /**************************************************************************/
-        /* SEARCH BOXES
-         * All the textbox event inserts for the MainForm
-         */
-        private void searchGameTextBox_TextChanged(object sender, EventArgs e)
-        {
-            gameListBox.Items.Clear();
-            populateGameList(searchGameTextBox.Text.ToString());
-        }
-
-        private void searchGameTextBox_Click(object sender, EventArgs e)
-        {
-            searchGameTextBox.Text = "";
-        }
-
-        private void searchGameTextBox_Leave(object sender, EventArgs e)
-        {
-            if (searchGameTextBox.Text.Equals(""))
-            {
-                searchGameTextBox.Text = "Search Games...";
-            }
-        }
-
-
         private void searchCardTextBox_Click(object sender, EventArgs e)
         {
             searchCardTextBox.Text = "";
@@ -370,10 +460,50 @@ namespace CGProject
             populateCardList(searchCardTextBox.Text.ToString(), selectedID);
         }
 
+
+        /**************************************************************************/
+        /* Card Information and Images
+         * This contains anything that deals with Information or images relating to cards/games/players
+         */
+
+
+
+
+        /**************************************************************************/
+        /* All Events Aesthetics
+         * All the event inserts for the MainForm
+         */
+
         private void aboutButton_Click(object sender, EventArgs e)
         {
             AboutForm aboutForm = new AboutForm();
             aboutForm.ShowDialog();
+        }
+
+        private void currentGameRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if(currentGameRadio.Checked && allGameRadio.Checked)
+            {
+                allGameRadio.PerformClick();
+            }
+        }
+
+        private void allGameRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (allGameRadio.Checked && currentGameRadio.Checked)
+            {
+                currentGameRadio.PerformClick();
+            }
+        }
+
+        private void cardImage_MouseHover(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Cross;
+        }
+
+        private void cardImage_MouseLeave(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Arrow;
         }
 
 

@@ -23,8 +23,12 @@ namespace CGProject
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            importNotificationLabel.Visible = false;
+
             Server s = new Server();
             string line;
+            int countAdded = 0;
+
             OpenFileDialog x = new OpenFileDialog();
             if (x.ShowDialog() == DialogResult.OK)
             {
@@ -32,14 +36,26 @@ namespace CGProject
                 try
                 {
                     string line1 = file.ReadLine();
+                    int index = 0;
+
                         while ((line = file.ReadLine()) != null)
                         {
                             if (!AddCard(line1, line.Split(',')))
                             {
                                // MessageBox.Show("There was an error reading the file\nWith columns " + line1 + " and the line read in as " + line);
+
+                            }
+
+                            else
+                            {
                                 
+                                importNotificationLabel.Visible = true;
+                                string temp = line.Split(',')[line1.Split(',').ToList<string>().IndexOf("name")];
+                                importNotificationLabel.Text = "Adding Card: " + temp;
+                                countAdded++;
                             }
                         }
+                        importNotificationLabel.Text = "You have successfully uploaded: " + countAdded + " Cards.";
                 }
                 catch(IOException ex)
                 {
@@ -47,6 +63,7 @@ namespace CGProject
                 }
             }
 
+  
         }
         public bool AddCard(string colNames, string[] colVals)
         {
@@ -160,26 +177,31 @@ namespace CGProject
         private void cardNameTextBox_TextChanged(object sender, EventArgs e)
         {
             createdIndicatorLabel.Visible = false;
+            importNotificationLabel.Visible = false;
         }
 
         private void rarityTextBox_TextChanged(object sender, EventArgs e)
         {
             createdIndicatorLabel.Visible = false;
+            importNotificationLabel.Visible = false;
         }
 
         private void costTextBox_TextChanged(object sender, EventArgs e)
         {
             createdIndicatorLabel.Visible = false;
+            importNotificationLabel.Visible = false;
         }
 
         private void typeTextBox1_TextChanged(object sender, EventArgs e)
         {
             createdIndicatorLabel.Visible = false;
+            importNotificationLabel.Visible = false;
         }
 
         private void descriptionRichTextBox_TextChanged(object sender, EventArgs e)
         {
             createdIndicatorLabel.Visible = false;
+            importNotificationLabel.Visible = false;
         }
 
         /**************************************************************************/

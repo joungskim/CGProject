@@ -73,6 +73,9 @@
             this.button2 = new System.Windows.Forms.Button();
             this.deleteCardButton = new System.Windows.Forms.Button();
             this.gameCardCountLabel = new System.Windows.Forms.Label();
+            this.allGameRadio = new System.Windows.Forms.RadioButton();
+            this.currentGameRadio = new System.Windows.Forms.RadioButton();
+            this.saveImage = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.cardImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.manufacturerImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -133,6 +136,7 @@
             // 
             // addGamesButton
             // 
+            this.addGamesButton.BackColor = System.Drawing.Color.Gray;
             this.addGamesButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addGamesButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.addGamesButton.Location = new System.Drawing.Point(14, 269);
@@ -146,6 +150,7 @@
             // 
             // addCardButton
             // 
+            this.addCardButton.BackColor = System.Drawing.Color.Gray;
             this.addCardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addCardButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.addCardButton.Location = new System.Drawing.Point(12, 685);
@@ -159,6 +164,7 @@
             // 
             // editGameButton
             // 
+            this.editGameButton.BackColor = System.Drawing.Color.Gray;
             this.editGameButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editGameButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.editGameButton.Location = new System.Drawing.Point(137, 269);
@@ -203,11 +209,14 @@
             // 
             // cardImage
             // 
+            this.cardImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.cardImage.Location = new System.Drawing.Point(280, 328);
             this.cardImage.Name = "cardImage";
             this.cardImage.Size = new System.Drawing.Size(130, 186);
             this.cardImage.TabIndex = 10;
             this.cardImage.TabStop = false;
+            this.cardImage.MouseLeave += new System.EventHandler(this.cardImage_MouseLeave);
+            this.cardImage.MouseHover += new System.EventHandler(this.cardImage_MouseHover);
             // 
             // rarityLabel
             // 
@@ -315,15 +324,17 @@
             // 
             // importCardImageButton
             // 
+            this.importCardImageButton.BackColor = System.Drawing.Color.Gray;
             this.importCardImageButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.importCardImageButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.importCardImageButton.Location = new System.Drawing.Point(280, 298);
+            this.importCardImageButton.Location = new System.Drawing.Point(280, 299);
             this.importCardImageButton.Name = "importCardImageButton";
-            this.importCardImageButton.Size = new System.Drawing.Size(130, 23);
+            this.importCardImageButton.Size = new System.Drawing.Size(60, 23);
             this.importCardImageButton.TabIndex = 23;
-            this.importCardImageButton.Text = "Import Card Image";
+            this.importCardImageButton.Text = "Import";
             this.importCardImageButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.importCardImageButton.UseVisualStyleBackColor = false;
+            this.importCardImageButton.Click += new System.EventHandler(this.importCardImageButton_Click);
             // 
             // manufacturerImage
             // 
@@ -335,6 +346,7 @@
             // 
             // editCardButton
             // 
+            this.editCardButton.BackColor = System.Drawing.Color.Gray;
             this.editCardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editCardButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.editCardButton.Location = new System.Drawing.Point(137, 685);
@@ -347,6 +359,7 @@
             // 
             // importGameImageButton
             // 
+            this.importGameImageButton.BackColor = System.Drawing.Color.Gray;
             this.importGameImageButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.importGameImageButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.importGameImageButton.Location = new System.Drawing.Point(280, 520);
@@ -377,6 +390,7 @@
             // 
             // button1
             // 
+            this.button1.BackColor = System.Drawing.Color.Gray;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.button1.Location = new System.Drawing.Point(414, 194);
@@ -538,6 +552,7 @@
             // 
             // button5
             // 
+            this.button5.BackColor = System.Drawing.Color.Gray;
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button5.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.button5.Location = new System.Drawing.Point(541, 375);
@@ -550,6 +565,7 @@
             // 
             // button2
             // 
+            this.button2.BackColor = System.Drawing.Color.Gray;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.button2.Location = new System.Drawing.Point(541, 347);
@@ -562,6 +578,7 @@
             // 
             // deleteCardButton
             // 
+            this.deleteCardButton.BackColor = System.Drawing.Color.Gray;
             this.deleteCardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.deleteCardButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.deleteCardButton.Location = new System.Drawing.Point(139, 295);
@@ -583,6 +600,46 @@
             this.gameCardCountLabel.TabIndex = 69;
             this.gameCardCountLabel.Text = "Game Card Count";
             // 
+            // allGameRadio
+            // 
+            this.allGameRadio.AutoSize = true;
+            this.allGameRadio.ForeColor = System.Drawing.Color.LimeGreen;
+            this.allGameRadio.Location = new System.Drawing.Point(539, 200);
+            this.allGameRadio.Name = "allGameRadio";
+            this.allGameRadio.Size = new System.Drawing.Size(72, 17);
+            this.allGameRadio.TabIndex = 70;
+            this.allGameRadio.TabStop = true;
+            this.allGameRadio.Text = "All Games";
+            this.allGameRadio.UseVisualStyleBackColor = true;
+            this.allGameRadio.CheckedChanged += new System.EventHandler(this.allGameRadio_CheckedChanged);
+            // 
+            // currentGameRadio
+            // 
+            this.currentGameRadio.AutoSize = true;
+            this.currentGameRadio.ForeColor = System.Drawing.Color.Lime;
+            this.currentGameRadio.Location = new System.Drawing.Point(637, 200);
+            this.currentGameRadio.Name = "currentGameRadio";
+            this.currentGameRadio.Size = new System.Drawing.Size(90, 17);
+            this.currentGameRadio.TabIndex = 71;
+            this.currentGameRadio.TabStop = true;
+            this.currentGameRadio.Text = "Current Game";
+            this.currentGameRadio.UseVisualStyleBackColor = true;
+            this.currentGameRadio.CheckedChanged += new System.EventHandler(this.currentGameRadio_CheckedChanged);
+            // 
+            // saveImage
+            // 
+            this.saveImage.BackColor = System.Drawing.Color.Gray;
+            this.saveImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saveImage.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.saveImage.Location = new System.Drawing.Point(346, 298);
+            this.saveImage.Name = "saveImage";
+            this.saveImage.Size = new System.Drawing.Size(67, 23);
+            this.saveImage.TabIndex = 72;
+            this.saveImage.Text = "Save";
+            this.saveImage.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.saveImage.UseVisualStyleBackColor = false;
+            this.saveImage.Click += new System.EventHandler(this.saveImage_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -590,6 +647,9 @@
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(861, 720);
+            this.Controls.Add(this.saveImage);
+            this.Controls.Add(this.currentGameRadio);
+            this.Controls.Add(this.allGameRadio);
             this.Controls.Add(this.gameCardCountLabel);
             this.Controls.Add(this.deleteCardButton);
             this.Controls.Add(this.button2);
@@ -696,5 +756,8 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button deleteCardButton;
         private System.Windows.Forms.Label gameCardCountLabel;
+        private System.Windows.Forms.RadioButton allGameRadio;
+        private System.Windows.Forms.RadioButton currentGameRadio;
+        private System.Windows.Forms.Button saveImage;
     }
 }
