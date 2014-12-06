@@ -24,7 +24,7 @@ namespace CGProject
         {
             InitializeComponent();
             populateGameList("");
-            cardListBox.Items.Add("Please select game...");
+            if(!(gameListBox.Items.Count == 0)) gameListBox.SetSelected(0, true);
         }
 
         /**************************************************************************/
@@ -191,7 +191,6 @@ namespace CGProject
             Server s = new Server();
             try
             {
-
                 AddCardsForm addForm = new AddCardsForm(Convert.ToInt32(gameListBox.SelectedItem.ToString().Substring( 0,gameListBox.SelectedItem.ToString().IndexOf(":"))));
                 addForm.ShowDialog();
             }
@@ -201,6 +200,35 @@ namespace CGProject
                 Application.Exit();
             }
         }
+
+
+        private void deleteCardButton_Click(object sender, EventArgs e)
+        {
+            Server s = new Server();
+            if (!(cardListBox.SelectedIndex == -1))
+            {
+                try
+                {
+                    int index;
+                    if (cardListBox.SelectedIndex > 0) index = cardListBox.SelectedIndex - 1;
+                    else index = 0;
+
+                    string deleteValue = "SET SQL_SAFE_UPDATES = 0; Delete from ccdb.card where ccdb.card.name = '" + cardListBox.SelectedItem.ToString() + "' ;";
+                    read = s.MakeConnection(deleteValue);
+                    cardListBox.Items.Clear();
+                    populateCardList(searchCardTextBox.Text.ToString(), gameListBox.SelectedItem.ToString().Substring(0, gameListBox.SelectedItem.ToString().IndexOf(":")));
+                    if (!(cardListBox.Items.Count == 0)) cardListBox.SetSelected(index, true);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    Application.Exit();
+                }
+                s.CloseConnection();
+            }
+        }
+  
+
 
         /**************************************************************************/
         /* SEARCH BOXES
@@ -246,7 +274,12 @@ namespace CGProject
             string selectedID = selected.Substring(0, selected.IndexOf(":"));
             populateCardList(searchCardTextBox.Text.ToString(), selectedID);
         }
-  
+
+        private void aboutButton_Click(object sender, EventArgs e)
+        {
+            AboutForm aboutForm = new AboutForm();
+            aboutForm.ShowDialog();
+        }
 
         /**************************************************************************/
     }

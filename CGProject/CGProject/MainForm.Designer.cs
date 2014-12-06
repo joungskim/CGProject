@@ -71,6 +71,7 @@
             this.player1HistoryListBox = new System.Windows.Forms.ListBox();
             this.button5 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.deleteCardButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.cardImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.manufacturerImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -396,6 +397,7 @@
             this.aboutButton.Text = "?";
             this.aboutButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.aboutButton.UseVisualStyleBackColor = false;
+            this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
             // 
             // playthroughHistoryList
             // 
@@ -556,6 +558,19 @@
             this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.button2.UseVisualStyleBackColor = false;
             // 
+            // deleteCardButton
+            // 
+            this.deleteCardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deleteCardButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.deleteCardButton.Location = new System.Drawing.Point(139, 295);
+            this.deleteCardButton.Name = "deleteCardButton";
+            this.deleteCardButton.Size = new System.Drawing.Size(119, 23);
+            this.deleteCardButton.TabIndex = 68;
+            this.deleteCardButton.Text = "Delete Card";
+            this.deleteCardButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.deleteCardButton.UseVisualStyleBackColor = false;
+            this.deleteCardButton.Click += new System.EventHandler(this.deleteCardButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -563,6 +578,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(861, 720);
+            this.Controls.Add(this.deleteCardButton);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.player1HistoryListBox);
@@ -665,5 +681,6 @@
         private System.Windows.Forms.ListBox player1HistoryListBox;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button deleteCardButton;
     }
 }
