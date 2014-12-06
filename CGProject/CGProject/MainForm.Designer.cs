@@ -460,9 +460,9 @@
             this.label5.ForeColor = System.Drawing.Color.Ivory;
             this.label5.Location = new System.Drawing.Point(541, 305);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(67, 13);
+            this.label5.Size = new System.Drawing.Size(53, 13);
             this.label5.TabIndex = 48;
-            this.label5.Text = "Player Name";
+            this.label5.Text = "Win Total";
             // 
             // player1WinTextBox
             // 
@@ -522,9 +522,9 @@
             this.label9.ForeColor = System.Drawing.Color.Ivory;
             this.label9.Location = new System.Drawing.Point(541, 328);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(67, 13);
+            this.label9.Size = new System.Drawing.Size(56, 13);
             this.label9.TabIndex = 52;
-            this.label9.Text = "Player Name";
+            this.label9.Text = "Loss Total";
             // 
             // player1HistoryListBox
             // 
