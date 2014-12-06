@@ -35,7 +35,7 @@
             this.searchGameTextBox = new System.Windows.Forms.TextBox();
             this.addGamesButton = new System.Windows.Forms.Button();
             this.addCardButton = new System.Windows.Forms.Button();
-            this.editGamesButton = new System.Windows.Forms.Button();
+            this.editGameButton = new System.Windows.Forms.Button();
             this.cardListBox = new System.Windows.Forms.ListBox();
             this.searchCardTextBox = new System.Windows.Forms.TextBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -175,17 +175,17 @@
             this.addCardButton.UseVisualStyleBackColor = false;
             this.addCardButton.Click += new System.EventHandler(this.addCardButton_Click);
             // 
-            // editGamesButton
+            // editGameButton
             // 
-            this.editGamesButton.Font = new System.Drawing.Font("Modern No. 20", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.editGamesButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.editGamesButton.Location = new System.Drawing.Point(137, 269);
-            this.editGamesButton.Name = "editGamesButton";
-            this.editGamesButton.Size = new System.Drawing.Size(119, 23);
-            this.editGamesButton.TabIndex = 7;
-            this.editGamesButton.Text = "Edit Games";
-            this.editGamesButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.editGamesButton.UseVisualStyleBackColor = false;
+            this.editGameButton.Font = new System.Drawing.Font("Modern No. 20", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.editGameButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.editGameButton.Location = new System.Drawing.Point(137, 269);
+            this.editGameButton.Name = "editGameButton";
+            this.editGameButton.Size = new System.Drawing.Size(119, 23);
+            this.editGameButton.TabIndex = 7;
+            this.editGameButton.Text = "Edit Game";
+            this.editGameButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.editGameButton.UseVisualStyleBackColor = false;
             // 
             // cardListBox
             // 
@@ -357,7 +357,7 @@
             this.editCardButton.Name = "editCardButton";
             this.editCardButton.Size = new System.Drawing.Size(119, 23);
             this.editCardButton.TabIndex = 25;
-            this.editCardButton.Text = "Add Cards";
+            this.editCardButton.Text = "Edit Card";
             this.editCardButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.editCardButton.UseVisualStyleBackColor = false;
             // 
@@ -846,7 +846,7 @@
             this.Controls.Add(this.cardImage);
             this.Controls.Add(this.searchCardTextBox);
             this.Controls.Add(this.cardListBox);
-            this.Controls.Add(this.editGamesButton);
+            this.Controls.Add(this.editGameButton);
             this.Controls.Add(this.addCardButton);
             this.Controls.Add(this.addGamesButton);
             this.Controls.Add(this.searchGameTextBox);
@@ -879,7 +879,7 @@
         private System.Windows.Forms.TextBox searchGameTextBox;
         private System.Windows.Forms.Button addGamesButton;
         private System.Windows.Forms.Button addCardButton;
-        private System.Windows.Forms.Button editGamesButton;
+        private System.Windows.Forms.Button editGameButton;
         private System.Windows.Forms.ListBox cardListBox;
         private System.Windows.Forms.TextBox searchCardTextBox;
         private System.Windows.Forms.ImageList imageList1;
