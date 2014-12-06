@@ -31,21 +31,44 @@ namespace CGProject
                 System.IO.StreamReader file = new System.IO.StreamReader(x.FileName);
                 try
                 {
-                    file.ReadLine();
-                    while(file.ReadLine()!= null)
+                    line = file.ReadLine();
+                    string[] header = line.Split(',');
+                    if (header.Contains("name"))
                     {
-                        line = file.ReadLine();
-                        string[] values = line.Split(',');
-                    
-                        read = s.MakeConnection("INSERT INTO ccdb.card " +
-                            "(name, cost, rarity, description, type, id_image, id_game) " +
-                            "VALUES " +
-                            "('" + values[0].ToString() + "'" + ", '" + Convert.ToInt16(values[1]) + "'" + ", '" + values[2].ToString() + "'" + ", '" + values[3].ToString() + "'" + ", '" + values[4].ToString() + "'" + ", '" + 0 +"', '" + gameId + "') ;");
+                        string insertString = "";
+                        foreach (string Str in header)
+                        {
+                            insertString += (Str + ",");
+                        }
+                        while (file.ReadLine() != null)
+                        {
+                            line = file.ReadLine();
+                            string[] values = line.Split(',');
+                            string insert = "INSERT INTO ccdb.card (" + insertString + " id_game) VALUES  (";
+                            for (int i = 0; i < values.Count() ;i++ )
+                            {
+                                if (header[i] == "cost")
+                                {
+                                    insert += values[i] + ",";
+                                }
+                                else
+                                {
+                                    insert += "'" + values[i] + "'" + ",";
+                                }
+                            }
+                            insert += "'" + gameId + "') ;";
+                            read = s.MakeConnection(insert);
+                            s.CloseConnection();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("File does not include required field name!");
                     }
                 }
-                catch(IOException)
+                catch(IOException ex)
                 {
-
+                    MessageBox.Show(ex.Message);
                 }
             }
         }
