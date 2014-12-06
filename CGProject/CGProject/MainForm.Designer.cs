@@ -350,7 +350,7 @@
             this.importGameImageButton.Name = "importGameImageButton";
             this.importGameImageButton.Size = new System.Drawing.Size(130, 23);
             this.importGameImageButton.TabIndex = 26;
-            this.importGameImageButton.Text = "Import Company Image";
+            this.importGameImageButton.Text = "Import  Game Image";
             this.importGameImageButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.importGameImageButton.UseVisualStyleBackColor = false;
             // 
