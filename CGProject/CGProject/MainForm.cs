@@ -415,7 +415,7 @@ namespace CGProject
 
         private void playerListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cardListBox.Items.Clear();
+            //cardListBox.Items.Clear();
             try
             {
                 string selected = playerListBox.SelectedItem.ToString();
