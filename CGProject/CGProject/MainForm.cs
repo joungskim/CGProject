@@ -32,7 +32,6 @@ namespace CGProject
         {
             InitializeComponent();
             populateGameList("");
-            populatePlayListForGame();
             populatePlayersListBox();
             if (!(gameListBox.Items.Count == 0)) gameListBox.SetSelected(0, true);
 
@@ -117,26 +116,28 @@ namespace CGProject
         {
             if(!gameListBox.SelectedIndex.Equals(-1))
             {
+                playthroughHistoryList.Items.Clear();
                 Server s = new Server();
                 try
                 {
-                    _querry_string = "Select player.player_name as name, hist.playthrough as play from ccdb.history as hist, ccdb.game as game, ccdb.card as card, ccdb.player as player where game.id_game = " + selectedID +
-                        " and card.id_game = game.id_game and hist.id_card = card.id_card and card.id_card = hist.id_card ORDER BY hist.playthrough and hist.id_player = player.id_player";
+                    _querry_string = "SELECT Distinct play.playthrough as p, player.player_name as n FROM ccdb.history as play, ccdb.player as player, (select ccdb.card.id_card as id, ccdb.card.name as cname " +
+                        "from ccdb.card, ccdb.game where ccdb.card.id_game = ccdb.game.id_game and ccdb.game.id_game = " + selectedID + ") as temp where play.id_card = temp.id and player.id_player = play.id_player " +
+                        "ORDER BY playthrough;";
                     read = s.MakeConnection(_querry_string);
                     int playNum = 0;
                     int count = 0;
                     string temp = "";
                     while (read.Read())
                     {
-                        int NewplayNum = read.GetInt32("play");
+                        int NewplayNum = read.GetInt32("p");
                         if(NewplayNum == playNum)
                         {
-                            temp += read.GetString("name") + " ";
+                            temp += read.GetString("n") + " ";
                         }
                         else
                         {
                             if (playNum > 0) playthroughHistoryList.Items.Add(temp);
-                            temp = count++ + read.GetString("name") + " ";
+                            temp = ++count + ": " + read.GetString("n") + " ";
                             playNum = NewplayNum;
                         }
                     }
@@ -749,33 +750,6 @@ namespace CGProject
                 Application.Exit();
             }
         }
-        /***************************************************************************/
-        /*
-         * 
-            Play history?
-         * 
-         *  
-         */
-       private void populatePlayListForGame()
-       {
-           Server s = new Server();
-           try
-           {
-               read = s.MakeConnection("Select * from ccdb.history ;");
-               while (read.Read())
-               {
-                   playthroughHistoryList.Items.Add(read.GetInt32("playthrough") + ": " + read.GetInt32("id_player")+"     "+read.GetInt32("play_num")+"   "+read.GetInt32("id_card"));
-               }
-           }
-           catch (Exception ex)
-           {
-               MessageBox.Show(ex.Message);
-               Application.Exit();
-           }
-           s.CloseConnection();
-        }
-
-
         /**************************************************************************/
     }
 }

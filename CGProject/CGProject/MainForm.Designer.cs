@@ -385,8 +385,8 @@
             // 
             // editPlayer
             // 
-            this.editPlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editPlayer.BackColor = System.Drawing.Color.Gray;
+            this.editPlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editPlayer.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.editPlayer.Location = new System.Drawing.Point(414, 194);
             this.editPlayer.Name = "editPlayer";
@@ -595,19 +595,6 @@
             this.gameCardCountLabel.TabIndex = 69;
             this.gameCardCountLabel.Text = "Game Card Count";
             // 
-            // AddPlay
-            // 
-            this.AddPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddPlay.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.AddPlay.Location = new System.Drawing.Point(414, 11);
-            this.AddPlay.Name = "AddPlay";
-            this.AddPlay.Size = new System.Drawing.Size(119, 23);
-            this.AddPlay.TabIndex = 70;
-            this.AddPlay.Text = "New Play";
-            this.AddPlay.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.AddPlay.UseVisualStyleBackColor = false;
-            this.AddPlay.Click += new System.EventHandler(this.AddPlay_Click);
-            // 
             // allGameRadio
             // 
             this.allGameRadio.AutoSize = true;
@@ -621,6 +608,18 @@
             this.allGameRadio.UseVisualStyleBackColor = true;
             this.allGameRadio.CheckedChanged += new System.EventHandler(this.allGameRadio_CheckedChanged);
             // 
+            // AddPlay
+            // 
+            this.AddPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AddPlay.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.AddPlay.Location = new System.Drawing.Point(414, 11);
+            this.AddPlay.Name = "AddPlay";
+            this.AddPlay.Size = new System.Drawing.Size(119, 23);
+            this.AddPlay.TabIndex = 70;
+            this.AddPlay.Text = "New Play";
+            this.AddPlay.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.AddPlay.UseVisualStyleBackColor = false;
+            this.AddPlay.Click += new System.EventHandler(this.AddPlay_Click);
             // 
             // currentGameRadio
             // 
@@ -709,7 +708,6 @@
             this.button3.Text = " Import";
             this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.button3.UseVisualStyleBackColor = false;
-            //this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
