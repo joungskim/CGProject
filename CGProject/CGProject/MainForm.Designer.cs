@@ -739,6 +739,7 @@
             this.deletePlayerButton.Text = "Delete Player";
             this.deletePlayerButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.deletePlayerButton.UseVisualStyleBackColor = false;
+            this.deletePlayerButton.Click += new System.EventHandler(this.deletePlayerButton_Click);
             // 
             // MainForm
             // 

@@ -49,6 +49,7 @@ namespace CGProject
         /* MainForm
          * Allows for controlling the movements of the MainForm
          */
+
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
             _dragging = true;
@@ -499,6 +500,7 @@ namespace CGProject
                 MessageBox.Show(ex.ToString());
             }
         }
+
         //populates the Information text box fields for the Card
         private void populateInformationFields(string cardID)
         {
@@ -674,10 +676,9 @@ namespace CGProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+
             }
         }
-
 
         private void populatePlayerInformation(string id_player)
         {
@@ -805,6 +806,32 @@ namespace CGProject
                 Application.Exit();
             }
             s.CloseConnection();
+        }
+
+        private void deletePlayerButton_Click(object sender, EventArgs e)
+        {
+            Server s = new Server();
+            if (!(playerListBox.SelectedIndex == -1))
+            {
+                try
+                {
+                    int index;
+                    if (playerListBox.SelectedIndex > 0) index = playerListBox.SelectedIndex - 1;
+                    else index = 0;
+
+                    string deleteValue = "SET SQL_SAFE_UPDATES = 0; Delete from ccdb.player where ccdb.player.id_player = '" + _player_id + "' ;";
+                    read = s.MakeConnection(deleteValue);
+                    playerListBox.Items.Clear();
+                    populatePlayersListBox();
+                    if (!(cardListBox.Items.Count == 0)) cardListBox.SetSelected(index, true);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    Application.Exit();
+                }
+                s.CloseConnection();
+            }
         }
 
 
