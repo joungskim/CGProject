@@ -27,7 +27,6 @@ namespace CGProject
          * inserting cards one at a time from the csv file until the file has been read.  It also keeps track of successful and failed
          * number of cards added.
          */
-         * */
         private void button1_Click(object sender, EventArgs e)
         {
             importNotificationLabel.Visible = false;
@@ -64,7 +63,6 @@ namespace CGProject
                         }
                         importNotificationLabel.Text = "You have successfully uploaded: " + countAdded + " Cards.";
                         if (fail > 0) MessageBox.Show("Failed to load " + fail + " cards");
-                }
                 }
                 catch(IOException ex)
                 {

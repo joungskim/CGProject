@@ -103,7 +103,7 @@ namespace CGProject
                     populateCardList(searchCardTextBox.Text.ToString(), _current_game_name);
                     updateCardCount(_current_game_id);
                     if (!(cardListBox.Items.Count == 0)) cardListBox.SetSelected(0, true);
-                updateHistory(selectedID);
+                    updateHistory(_current_game_id);
                     displaySelectedGameImage();
                 }
                 catch (Exception ex)
@@ -111,6 +111,7 @@ namespace CGProject
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
 
         private void updateHistory(string selectedID)
         {
@@ -119,7 +120,7 @@ namespace CGProject
                 Server s = new Server();
                 try
                 {
-                    _querry_string = "Select player.name as name, hist.playthrough as play from ccdb.history as hist, ccdb.game as game, ccdb.card as card where game.id_game = " + selectedID +
+                    _querry_string = "Select player.player_name as name, hist.playthrough as play from ccdb.history as hist, ccdb.game as game, ccdb.card as card, ccdb.player as player where game.id_game = " + selectedID +
                         " and card.id_game = game.id_game and hist.id_card = card.id_card and card.id_card = hist.id_card ORDER BY hist.playthrough and hist.id_player = player.id_player";
                     read = s.MakeConnection(_querry_string);
                     int playNum = 0;

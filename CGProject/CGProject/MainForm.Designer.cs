@@ -73,7 +73,7 @@
             this.deleteCardButton = new System.Windows.Forms.Button();
             this.gameCardCountLabel = new System.Windows.Forms.Label();
             this.allGameRadio = new System.Windows.Forms.RadioButton();
-            his.AddPlay = new System.Windows.Forms.Button();
+            this.AddPlay = new System.Windows.Forms.Button();
             this.currentGameRadio = new System.Windows.Forms.RadioButton();
             this.saveImage = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -709,7 +709,7 @@
             this.button3.Text = " Import";
             this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            //this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
