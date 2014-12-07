@@ -39,10 +39,11 @@ namespace CGProject
             OpenFileDialog x = new OpenFileDialog();
             if (x.ShowDialog() == DialogResult.OK)
             {
+
                 System.IO.StreamReader file = new System.IO.StreamReader(x.FileName);
                 try
                 {
-                    string line1 = file.ReadLine();
+                        string line1 = file.ReadLine();
 
                         while ((line = file.ReadLine()) != null)
                         {
@@ -78,29 +79,30 @@ namespace CGProject
             try
             {
                 if (colNames.Contains("name"))
-                    {
-                        Server s = new Server();
-                        string[] colName = colNames.Split(',');
-                            string insert = "INSERT INTO ccdb.card (" + colNames + ",id_game) VALUES  (";
-                            for (int i = 0; i < colVals.Count() ;i++ )
+                {
+                    Server s = new Server();
+
+                    string[] colName = colNames.Split(',');
+                        string insert = "INSERT INTO ccdb.card (" + colNames + ",id_game) VALUES  (";
+                        for (int i = 0; i < colVals.Count() ;i++ )
+                        {
+                            if (colName[i] == "cost")
                             {
-                                if (colName[i] == "cost")
-                                {
-                                    insert += colVals[i] + ",";
-                                }
-                                else
-                                {
-                                    insert += "'" + colVals[i] + "'" + ",";
-                                }
+                                insert += colVals[i] + ",";
                             }
-                            insert += "'" + gameId + "') ;";
-                            read = s.MakeConnection(insert);
-                            s.CloseConnection();
+                            else
+                            {
+                                insert += "'" + colVals[i] + "'" + ",";
+                            }
                         }
-                    else
-                    {
-                        MessageBox.Show("File does not include required field name!");
+                        insert += "'" + gameId + "') ;";
+                        read = s.MakeConnection(insert);
+                        s.CloseConnection();
                     }
+                else
+                {
+                    MessageBox.Show("File does not include required field name!");
+                }
                 return true;
             }catch (Exception ex)
             {
