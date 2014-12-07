@@ -52,7 +52,7 @@
             this.importCardImageButton = new System.Windows.Forms.Button();
             this.gameImage = new System.Windows.Forms.PictureBox();
             this.editCardButton = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.playerPictureBox = new System.Windows.Forms.PictureBox();
             this.playerListBox = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
             this.aboutButton = new System.Windows.Forms.Button();
@@ -79,11 +79,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.importManImageButton = new System.Windows.Forms.Button();
             this.saveManImageButton = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.playerImportButton = new System.Windows.Forms.Button();
+            this.playerSaveButton = new System.Windows.Forms.Button();
+            this.addPlayerButton = new System.Windows.Forms.Button();
+            this.deletePlayerButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.cardImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gameImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.playerPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // exitButton
@@ -364,13 +366,13 @@
             this.editCardButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.editCardButton.UseVisualStyleBackColor = false;
             // 
-            // pictureBox1
+            // playerPictureBox
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(416, 227);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(133, 142);
-            this.pictureBox1.TabIndex = 28;
-            this.pictureBox1.TabStop = false;
+            this.playerPictureBox.Location = new System.Drawing.Point(416, 227);
+            this.playerPictureBox.Name = "playerPictureBox";
+            this.playerPictureBox.Size = new System.Drawing.Size(133, 142);
+            this.playerPictureBox.TabIndex = 28;
+            this.playerPictureBox.TabStop = false;
             // 
             // playerListBox
             // 
@@ -379,7 +381,7 @@
             this.playerListBox.FormattingEnabled = true;
             this.playerListBox.Location = new System.Drawing.Point(728, 194);
             this.playerListBox.Name = "playerListBox";
-            this.playerListBox.Size = new System.Drawing.Size(119, 199);
+            this.playerListBox.Size = new System.Drawing.Size(119, 147);
             this.playerListBox.TabIndex = 30;
             // 
             // button1
@@ -682,32 +684,59 @@
             this.saveManImageButton.UseVisualStyleBackColor = false;
             this.saveManImageButton.Click += new System.EventHandler(this.saveManImageButton_Click);
             // 
-            // button3
+            // playerImportButton
             // 
-            this.button3.BackColor = System.Drawing.Color.Gray;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button3.Location = new System.Drawing.Point(416, 375);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(60, 23);
-            this.button3.TabIndex = 77;
-            this.button3.Text = " Import";
-            this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.playerImportButton.BackColor = System.Drawing.Color.Gray;
+            this.playerImportButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playerImportButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.playerImportButton.Location = new System.Drawing.Point(416, 375);
+            this.playerImportButton.Name = "playerImportButton";
+            this.playerImportButton.Size = new System.Drawing.Size(60, 23);
+            this.playerImportButton.TabIndex = 77;
+            this.playerImportButton.Text = " Import";
+            this.playerImportButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.playerImportButton.UseVisualStyleBackColor = false;
+            this.playerImportButton.Click += new System.EventHandler(this.playerImportButton_Click);
             // 
-            // button4
+            // playerSaveButton
             // 
-            this.button4.BackColor = System.Drawing.Color.Gray;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button4.Location = new System.Drawing.Point(482, 375);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(67, 23);
-            this.button4.TabIndex = 78;
-            this.button4.Text = "Save";
-            this.button4.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.button4.UseVisualStyleBackColor = false;
+            this.playerSaveButton.BackColor = System.Drawing.Color.Gray;
+            this.playerSaveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playerSaveButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.playerSaveButton.Location = new System.Drawing.Point(482, 375);
+            this.playerSaveButton.Name = "playerSaveButton";
+            this.playerSaveButton.Size = new System.Drawing.Size(67, 23);
+            this.playerSaveButton.TabIndex = 78;
+            this.playerSaveButton.Text = "Save";
+            this.playerSaveButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.playerSaveButton.UseVisualStyleBackColor = false;
+            // 
+            // addPlayerButton
+            // 
+            this.addPlayerButton.BackColor = System.Drawing.Color.Gray;
+            this.addPlayerButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addPlayerButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.addPlayerButton.Location = new System.Drawing.Point(727, 347);
+            this.addPlayerButton.Name = "addPlayerButton";
+            this.addPlayerButton.Size = new System.Drawing.Size(120, 23);
+            this.addPlayerButton.TabIndex = 79;
+            this.addPlayerButton.Text = "Add Player";
+            this.addPlayerButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.addPlayerButton.UseVisualStyleBackColor = false;
+            this.addPlayerButton.Click += new System.EventHandler(this.addPlayerButton_Click);
+            // 
+            // deletePlayerButton
+            // 
+            this.deletePlayerButton.BackColor = System.Drawing.Color.Gray;
+            this.deletePlayerButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deletePlayerButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.deletePlayerButton.Location = new System.Drawing.Point(727, 376);
+            this.deletePlayerButton.Name = "deletePlayerButton";
+            this.deletePlayerButton.Size = new System.Drawing.Size(120, 23);
+            this.deletePlayerButton.TabIndex = 80;
+            this.deletePlayerButton.Text = "Delete Player";
+            this.deletePlayerButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.deletePlayerButton.UseVisualStyleBackColor = false;
             // 
             // MainForm
             // 
@@ -716,8 +745,10 @@
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(861, 720);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.deletePlayerButton);
+            this.Controls.Add(this.addPlayerButton);
+            this.Controls.Add(this.playerSaveButton);
+            this.Controls.Add(this.playerImportButton);
             this.Controls.Add(this.saveManImageButton);
             this.Controls.Add(this.importManImageButton);
             this.Controls.Add(this.label3);
@@ -744,7 +775,7 @@
             this.Controls.Add(this.aboutButton);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.playerListBox);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.playerPictureBox);
             this.Controls.Add(this.editCardButton);
             this.Controls.Add(this.gameImage);
             this.Controls.Add(this.importCardImageButton);
@@ -778,7 +809,7 @@
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             ((System.ComponentModel.ISupportInitialize)(this.cardImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gameImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.playerPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -809,7 +840,7 @@
         private System.Windows.Forms.Button importCardImageButton;
         private System.Windows.Forms.PictureBox gameImage;
         private System.Windows.Forms.Button editCardButton;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox playerPictureBox;
         private System.Windows.Forms.ListBox playerListBox;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button aboutButton;
@@ -836,7 +867,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button importManImageButton;
         private System.Windows.Forms.Button saveManImageButton;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button playerImportButton;
+        private System.Windows.Forms.Button playerSaveButton;
+        private System.Windows.Forms.Button addPlayerButton;
+        private System.Windows.Forms.Button deletePlayerButton;
     }
 }

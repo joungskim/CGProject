@@ -649,10 +649,7 @@ namespace CGProject
             s.CloseConnection();
         }
 
-
-
-
-        private void addPlayerButton_Click_1(object sender, EventArgs e)
+        private void addPlayerButton_Click(object sender, EventArgs e)
         {
             addPlayer addPlayerForm = new addPlayer();
             addPlayerForm.ShowDialog();
@@ -675,6 +672,7 @@ namespace CGProject
                 MessageBox.Show(ex.Message);
             }
         }
+
         private void populatePlayerInformation(string id_player)
         {
             Server s = new Server();
@@ -694,9 +692,7 @@ namespace CGProject
             }
         }
         /***************************************************************************/
-        /*
-         * 
-            Play history?
+        /* Play history?
          * 
          *  
          */
@@ -718,6 +714,13 @@ namespace CGProject
            }
            s.CloseConnection();
         }
+
+       private void playerImportButton_Click(object sender, EventArgs e)
+       {
+
+       }
+
+
 
 
         /**************************************************************************/
