@@ -654,6 +654,7 @@ namespace CGProject
             s.CloseConnection();
         }
 
+        //adds the player
         private void addPlayerButton_Click(object sender, EventArgs e)
         {
             addPlayer addPlayerForm = new addPlayer();
