@@ -336,7 +336,7 @@
             this.importCardImageButton.BackColor = System.Drawing.Color.Gray;
             this.importCardImageButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.importCardImageButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.importCardImageButton.Location = new System.Drawing.Point(280, 299);
+            this.importCardImageButton.Location = new System.Drawing.Point(280, 295);
             this.importCardImageButton.Name = "importCardImageButton";
             this.importCardImageButton.Size = new System.Drawing.Size(60, 23);
             this.importCardImageButton.TabIndex = 23;
@@ -347,7 +347,7 @@
             // 
             // gameImage
             // 
-            this.gameImage.Location = new System.Drawing.Point(278, 564);
+            this.gameImage.Location = new System.Drawing.Point(280, 520);
             this.gameImage.Name = "gameImage";
             this.gameImage.Size = new System.Drawing.Size(130, 143);
             this.gameImage.TabIndex = 24;
@@ -628,7 +628,7 @@
             this.saveImage.BackColor = System.Drawing.Color.Gray;
             this.saveImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.saveImage.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.saveImage.Location = new System.Drawing.Point(346, 298);
+            this.saveImage.Location = new System.Drawing.Point(346, 295);
             this.saveImage.Name = "saveImage";
             this.saveImage.Size = new System.Drawing.Size(67, 23);
             this.saveImage.TabIndex = 72;
@@ -641,7 +641,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.Ivory;
-            this.label2.Location = new System.Drawing.Point(310, 324);
+            this.label2.Location = new System.Drawing.Point(310, 321);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(61, 13);
             this.label2.TabIndex = 73;
@@ -651,7 +651,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.Color.Ivory;
-            this.label3.Location = new System.Drawing.Point(291, 546);
+            this.label3.Location = new System.Drawing.Point(293, 669);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(102, 13);
             this.label3.TabIndex = 74;
@@ -662,7 +662,7 @@
             this.importManImageButton.BackColor = System.Drawing.Color.Gray;
             this.importManImageButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.importManImageButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.importManImageButton.Location = new System.Drawing.Point(280, 520);
+            this.importManImageButton.Location = new System.Drawing.Point(278, 685);
             this.importManImageButton.Name = "importManImageButton";
             this.importManImageButton.Size = new System.Drawing.Size(60, 23);
             this.importManImageButton.TabIndex = 75;
@@ -676,7 +676,7 @@
             this.saveManImageButton.BackColor = System.Drawing.Color.Gray;
             this.saveManImageButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.saveManImageButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.saveManImageButton.Location = new System.Drawing.Point(346, 520);
+            this.saveManImageButton.Location = new System.Drawing.Point(341, 685);
             this.saveManImageButton.Name = "saveManImageButton";
             this.saveManImageButton.Size = new System.Drawing.Size(67, 23);
             this.saveManImageButton.TabIndex = 76;

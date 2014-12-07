@@ -31,7 +31,8 @@ namespace CGProject
         private void button1_Click(object sender, EventArgs e)
         {
             importNotificationLabel.Visible = false;
-
+            int count = 0;
+            int countIns = 0;
             Server s = new Server();
             string line;
             int countAdded = 0;
@@ -43,31 +44,33 @@ namespace CGProject
                 System.IO.StreamReader file = new System.IO.StreamReader(x.FileName);
                 try
                 {
-                        string line1 = file.ReadLine();
+                    string line1 = file.ReadLine();
 
-                        while ((line = file.ReadLine()) != null)
+                    while ((line = file.ReadLine()) != null)
+                    {
+                        if (!AddCard(line1, line.Split(',')))
                         {
-                            if (!AddCard(line1, line.Split(',')))
-                            {
-                               MessageBox.Show("There was an error reading the file\nWith columns " + line1 + " and the line read in as " + line);
-
-                            }
-
-                            else
-                            {
-                                
-                                importNotificationLabel.Visible = true;
-                                string temp = line.Split(',')[line1.Split(',').ToList<string>().IndexOf("name")];
-                                importNotificationLabel.Text = "Adding Card: " + temp;
-                                countAdded++;
-                            }
+                            //MessageBox.Show("There was an error reading the file\nWith columns " + line1 + " and the line read in as " + line);
+                            count++;
                         }
-                        importNotificationLabel.Text = "You have successfully uploaded: " + countAdded + " Cards.";
+
+                        else
+                        {
+                            
+                            importNotificationLabel.Visible = true;
+                            string temp = line.Split(',')[line1.Split(',').ToList<string>().IndexOf("name")];
+                            importNotificationLabel.Text = "Adding Card: " + temp;
+                            countAdded++;
+                        }
+                    }
+                    importNotificationLabel.Text = "Cards inserted: " + countAdded + " - Cards not inserted: " + countIns;
+                    file.Close();
                 }
                 catch(IOException ex)
                 {
-                    MessageBox.Show("Invalid Format\n" + ex.Message);
+
                 }
+
             }
 
   
