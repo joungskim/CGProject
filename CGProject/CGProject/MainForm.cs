@@ -23,6 +23,9 @@ namespace CGProject
         private string _current_game_name;
         private string _card_path;
         private string _game_path;
+        private string _player_path;
+        private string _player_id;
+        private string _player_name;
 
         private MySqlDataReader read;
 
@@ -33,12 +36,13 @@ namespace CGProject
             populatePlayListForGame();
             populatePlayersListBox();
             if (!(gameListBox.Items.Count == 0)) gameListBox.SetSelected(0, true);
-
+            if (!(playerListBox.Items.Count == 0)) playerListBox.SetSelected(0, true);
             if(!allGameRadio.Checked) allGameRadio.PerformClick();
             importCardImageButton.Enabled = false;
             if (!(cardListBox.Items.Count == 0)) cardListBox.SetSelected(0, true);
             saveImage.Enabled = false;
             saveManImageButton.Enabled = false;
+            playerSaveButton.Enabled = false;
         }
 
         /**************************************************************************/
@@ -223,7 +227,6 @@ namespace CGProject
         {
             _game_path = importGameImageFunction();
         }
-
 
         private void saveManImageButton_Click(object sender, EventArgs e)
         {
@@ -657,21 +660,24 @@ namespace CGProject
             populatePlayersListBox();
         }
 
-        private void playerListBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void playerListBox_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             //cardListBox.Items.Clear();
             try
             {
                 string selected = playerListBox.SelectedItem.ToString();
                 string[] selectedID = selected.Split(':');
+                _player_id = selectedID[0];
+                _player_name = selectedID[1];
                 populatePlayerInformation(selectedID[0].ToString());
-
+                displaySelectedPlayerImage();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
+
 
         private void populatePlayerInformation(string id_player)
         {
@@ -691,34 +697,121 @@ namespace CGProject
                 Application.Exit();
             }
         }
+
+        private void playerImportButton_Click(object sender, EventArgs e)
+        {
+            _player_path = playerImportFunction();
+        }
+
+        private string playerImportFunction()
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "JPG Files(*.jpg)|*.jpg|PNG Files (*.png)|*.png|All Files (*.*)|*.*";
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                playerSaveButton.Enabled = true;
+                string picPath = dlg.FileName.ToString();
+                playerPictureBox.ImageLocation = picPath;
+                playerPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                return picPath;
+            }
+
+            return "";
+        }
+
+        private void playerSaveButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!_player_path.Equals("") && !(playerPictureBox.Image == null))
+                {
+                    int imageId;
+                    Server s = new Server();
+                    string insert;
+                    using (var ms = new MemoryStream())
+                    {
+                        playerPictureBox.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        insert = "INSERT INTO ccdb.images (image) VALUES (?Image)";
+                        s.MakeImageConnectionInsert(insert, ms.ToArray());
+                    }
+
+                    insert = " Select Max(ccdb.images.id_image) as id_image From ccdb.images ;";
+                    read = s.MakeConnection(insert);
+                    read.Read();
+                    imageId = read.GetInt32("id_image");
+                    s.CloseConnection();
+
+                    insert = "UPDATE ccdb.player SET id_image = " + imageId + " WHERE ccdb.player.id_player = '" + _player_id + "' ; ";
+                    read = s.MakeConnection(insert);
+                    read.Read();
+                    s.CloseConnection();
+
+                    displaySelectedPlayerImage();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            playerSaveButton.Enabled = false;
+        }
+
+        private void displaySelectedPlayerImage()
+        {
+            try
+            {
+                Server s = new Server();
+                byte[] image = s.MakeImageConnectionExtract("select * from ccdb.images, ccdb.player where ccdb.player.id_player = '" + _player_id + "' and ccdb.player.id_image = ccdb.images.id_image ;");
+                if (image == null)
+                {
+                    playerPictureBox.Image = null;
+                    return;
+                }
+
+                MemoryStream stream = new MemoryStream(image);
+                playerPictureBox.Image = System.Drawing.Bitmap.FromStream(stream);
+                playerPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                //Image.FromStream(stream);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+
         /***************************************************************************/
         /* Play history?
          * 
          *  
          */
-       private void populatePlayListForGame()
-       {
-           Server s = new Server();
-           try
-           {
-               read = s.MakeConnection("Select * from ccdb.history ;");
-               while (read.Read())
-               {
-                   playthroughHistoryList.Items.Add(read.GetInt32("playthrough") + ": " + read.GetInt32("id_player")+"     "+read.GetInt32("play_num")+"   "+read.GetInt32("id_card"));
-               }
-           }
-           catch (Exception ex)
-           {
-               MessageBox.Show(ex.Message);
-               Application.Exit();
-           }
-           s.CloseConnection();
+
+        private void populatePlayListForGame()
+        {
+            Server s = new Server();
+            try
+            {
+                read = s.MakeConnection("Select * from ccdb.history ;");
+                while (read.Read())
+                {
+                    playthroughHistoryList.Items.Add(read.GetInt32("playthrough") + ": " + read.GetInt32("id_player")+"     "+read.GetInt32("play_num")+"   "+read.GetInt32("id_card"));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Application.Exit();
+            }
+            s.CloseConnection();
         }
 
-       private void playerImportButton_Click(object sender, EventArgs e)
-       {
 
-       }
+
+
+ 
+
 
 
 

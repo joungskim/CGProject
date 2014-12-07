@@ -383,6 +383,7 @@
             this.playerListBox.Name = "playerListBox";
             this.playerListBox.Size = new System.Drawing.Size(119, 147);
             this.playerListBox.TabIndex = 30;
+            this.playerListBox.SelectedIndexChanged += new System.EventHandler(this.playerListBox_SelectedIndexChanged_1);
             // 
             // button1
             // 
@@ -710,6 +711,7 @@
             this.playerSaveButton.Text = "Save";
             this.playerSaveButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.playerSaveButton.UseVisualStyleBackColor = false;
+            this.playerSaveButton.Click += new System.EventHandler(this.playerSaveButton_Click);
             // 
             // addPlayerButton
             // 
