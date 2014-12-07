@@ -107,6 +107,7 @@ namespace CGProject
                     updateCardCount(_current_game_id);
                     if (!(cardListBox.Items.Count == 0)) cardListBox.SetSelected(0, true);
                     displaySelectedGameImage();
+                    populatePlayListForGame();
                 }
                 catch (Exception ex)
                 {
@@ -784,29 +785,49 @@ namespace CGProject
         }
 
 
-        /***************************************************************************/
-        /* Play history?
-         * 
-         *  
+        /***************************************************************************
+         * Give the List of playthorughs for the selected Game as an ordered set of 1 to however many games had been 
+         *  played followed by the players who played in the game.
          */
 
         private void populatePlayListForGame()
         {
-            Server s = new Server();
-            try
+            if (!gameListBox.SelectedIndex.Equals(-1))
             {
-                read = s.MakeConnection("Select * from ccdb.history ;");
-                while (read.Read())
+                playthroughHistoryList.Items.Clear();
+                Server s = new Server();
+                try
                 {
-                    playthroughHistoryList.Items.Add(read.GetInt32("playthrough") + ": " + read.GetInt32("id_player")+"     "+read.GetInt32("play_num")+"   "+read.GetInt32("id_card"));
+                    _querry_string = "SELECT Distinct play.playthrough as p, player.player_name as n FROM ccdb.history as play, ccdb.player as player, (select ccdb.card.id_card as id, ccdb.card.name as cname " +
+                        "from ccdb.card, ccdb.game where ccdb.card.id_game = ccdb.game.id_game and ccdb.game.id_game = " + _current_game_id + ") as temp where play.id_card = temp.id and player.id_player = play.id_player " +
+                        "ORDER BY playthrough;";
+                    read = s.MakeConnection(_querry_string);
+                    int playNum = 0;
+                    int count = 0;
+                    string temp = "";
+                    while (read.Read())
+                    {
+                        int NewplayNum = read.GetInt32("p");
+                        if (NewplayNum == playNum)
+                        {
+                            temp += read.GetString("n") + " ";
+                        }
+                        else
+                        {
+                            if (playNum > 0) playthroughHistoryList.Items.Add(temp);
+                            temp = ++count + ": " + read.GetString("n") + " ";
+                            playNum = NewplayNum;
+                        }
+                    }
+                    playthroughHistoryList.Items.Add(temp);
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    Application.Exit();
+                }
+                s.CloseConnection();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                Application.Exit();
-            }
-            s.CloseConnection();
         }
 
         private void deletePlayerButton_Click(object sender, EventArgs e)
@@ -831,6 +852,22 @@ namespace CGProject
                     MessageBox.Show(ex.Message);
                     Application.Exit();
                 }
+                s.CloseConnection();
+            }
+        }
+
+        private void AddPlay_Click(object sender, EventArgs e)
+        {
+            if (cardListBox.SelectedIndex.Equals(-1) || gameListBox.SelectedIndex.Equals(-1) || playerListBox.SelectedIndex.Equals(-1))
+                MessageBox.Show("You do not have all the nessisary fields selected");
+            else
+            {
+                _querry_string = "select max(ccdb.play.playthrough) as max from ccdb.play.playthrough;";
+                Server s = new Server();
+                read = s.MakeConnection(_querry_string);
+                read.Read();
+                _querry_string = "insert into ccdb.play(ccdb.play.id_player,ccdb.play.playthrough) VALUES( '" + playerListBox.SelectedItem.ToString() + "'," + (read.GetInt32("max") + 1) + ");";
+                s.MakeConnection(_querry_string);
                 s.CloseConnection();
             }
         }

@@ -68,7 +68,7 @@
             this.textBox10 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.player1HistoryListBox = new System.Windows.Forms.ListBox();
-            this.button5 = new System.Windows.Forms.Button();
+            this.AddPlay = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.deleteCardButton = new System.Windows.Forms.Button();
             this.gameCardCountLabel = new System.Windows.Forms.Label();
@@ -547,18 +547,19 @@
             this.player1HistoryListBox.Size = new System.Drawing.Size(431, 303);
             this.player1HistoryListBox.TabIndex = 62;
             // 
-            // button5
+            // AddPlay
             // 
-            this.button5.BackColor = System.Drawing.Color.Gray;
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button5.Location = new System.Drawing.Point(575, 375);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(130, 23);
-            this.button5.TabIndex = 63;
-            this.button5.Text = "Import Card Image";
-            this.button5.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.button5.UseVisualStyleBackColor = false;
+            this.AddPlay.BackColor = System.Drawing.Color.Gray;
+            this.AddPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AddPlay.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.AddPlay.Location = new System.Drawing.Point(419, 11);
+            this.AddPlay.Name = "AddPlay";
+            this.AddPlay.Size = new System.Drawing.Size(130, 23);
+            this.AddPlay.TabIndex = 63;
+            this.AddPlay.Text = "Add Play";
+            this.AddPlay.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.AddPlay.UseVisualStyleBackColor = false;
+            this.AddPlay.Click += new System.EventHandler(this.AddPlay_Click);
             // 
             // button2
             // 
@@ -762,7 +763,7 @@
             this.Controls.Add(this.gameCardCountLabel);
             this.Controls.Add(this.deleteCardButton);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.AddPlay);
             this.Controls.Add(this.player1HistoryListBox);
             this.Controls.Add(this.textBox10);
             this.Controls.Add(this.label9);
@@ -859,7 +860,7 @@
         private System.Windows.Forms.TextBox textBox10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ListBox player1HistoryListBox;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button AddPlay;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button deleteCardButton;
         private System.Windows.Forms.Label gameCardCountLabel;
