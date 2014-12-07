@@ -17,6 +17,8 @@ namespace CGProject
         private Point _offset;
         private Point _start_point = new Point(0, 0);
         private string _querry_string;
+        private string _current_player_id;
+        private string _current_plady_name;
 
         private MySqlDataReader read;
 
@@ -82,10 +84,49 @@ namespace CGProject
                 string selectedID = selected.Substring(0, selected.IndexOf(":"));
                 populateCardList(searchCardTextBox.Text.ToString(), selectedID);
                 updateCardCount(selectedID);
+                updateHistory(selectedID);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void updateHistory(string selectedID)
+        {
+            if(!gameListBox.SelectedIndex.Equals(-1))
+            {
+                Server s = new Server();
+                try
+                {
+                    _querry_string = "Select player.name as name, hist.playthrough as play from ccdb.history as hist, ccdb.game as game, ccdb.card as card where game.id_game = " + selectedID +
+                        " and card.id_game = game.id_game and hist.id_card = card.id_card and card.id_card = hist.id_card ORDER BY hist.playthrough and hist.id_player = player.id_player";
+                    read = s.MakeConnection(_querry_string);
+                    int playNum = 0;
+                    int count = 0;
+                    string temp = "";
+                    while (read.Read())
+                    {
+                        int NewplayNum = read.GetInt32("play");
+                        if(NewplayNum == playNum)
+                        {
+                            temp += read.GetString("name") + " ";
+                        }
+                        else
+                        {
+                            if (playNum > 0) playthroughHistoryList.Items.Add(temp);
+                            temp = count++ + read.GetString("name") + " ";
+                            playNum = NewplayNum;
+                        }
+                    }
+                    playthroughHistoryList.Items.Add(temp);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    Application.Exit();
+                }
+                s.CloseConnection();
             }
         }
 
@@ -374,6 +415,22 @@ namespace CGProject
         {
             AboutForm aboutForm = new AboutForm();
             aboutForm.ShowDialog();
+        }
+
+        private void AddPlay_Click(object sender, EventArgs e)
+        {
+            if (cardListBox.SelectedIndex.Equals(-1) || gameListBox.SelectedIndex.Equals(-1) || playerListBox.SelectedIndex.Equals(-1))
+                MessageBox.Show("You do not have all the nessisary fields selected");
+            else
+            {
+                _querry_string = "select max(ccdb.play.playthrough) as max from ccdb.play.playthrough;";
+                Server s = new Server();
+                read = s.MakeConnection(_querry_string);
+                read.Read();
+                _querry_string = "insert into ccdb.play(ccdb.play.id_player,ccdb.play.playthrough) VALUES( '" + playerListBox.SelectedItem.ToString() + "'," + (read.GetInt32("max") + 1) + ");";
+                s.MakeConnection(_querry_string);
+                s.CloseConnection();
+            }
         }
 
 

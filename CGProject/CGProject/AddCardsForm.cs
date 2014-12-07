@@ -21,9 +21,14 @@ namespace CGProject
             InitializeComponent();
             this.gameId = gameId;
         }
+
+        /*
+         * Reads a comma separated data file one line at a time determining what attributes are included in what order then 
+         * inserting cards one at a time from the csv file until the file has been read.  It also keeps track of successful and failed
+         * number of cards added.
+         */
         private void button1_Click(object sender, EventArgs e)
         {
-            Server s = new Server();
             string line;
             OpenFileDialog x = new OpenFileDialog();
             if (x.ShowDialog() == DialogResult.OK)
@@ -31,15 +36,17 @@ namespace CGProject
                 System.IO.StreamReader file = new System.IO.StreamReader(x.FileName);
                 try
                 {
+                    int fail = 0;
                     string line1 = file.ReadLine();
                         while ((line = file.ReadLine()) != null)
                         {
                             if (!AddCard(line1, line.Split(',')))
                             {
-                               // MessageBox.Show("There was an error reading the file\nWith columns " + line1 + " and the line read in as " + line);
-                                
+                                fail++;
                             }
+
                         }
+                        if (fail > 0) MessageBox.Show("Failed to load " + fail + " cards");
                 }
                 catch(IOException ex)
                 {
@@ -48,6 +55,9 @@ namespace CGProject
             }
 
         }
+        /*
+         * Function to add a single card to the DB.
+         */
         public bool AddCard(string colNames, string[] colVals)
         {
             try
