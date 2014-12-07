@@ -63,10 +63,6 @@
     <Compile Include="AddGame.Designer.cs">
       <DependentUpon>AddGame.cs</DependentUpon>
     </Compile>
-    <Compile Include="addPlayer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="addPlayer.Designer.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="EnloargeImageForm.cs">
       <SubType>Form</SubType>
@@ -99,7 +95,6 @@
     <EmbeddedResource Include="AddGame.resx">
       <DependentUpon>AddGame.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="addPlayer.resx" />
     <EmbeddedResource Include="EnloargeImageForm.resx">
       <DependentUpon>EnloargeImageForm.cs</DependentUpon>
     </EmbeddedResource>

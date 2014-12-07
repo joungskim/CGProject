@@ -73,7 +73,7 @@
             this.deleteCardButton = new System.Windows.Forms.Button();
             this.gameCardCountLabel = new System.Windows.Forms.Label();
             this.allGameRadio = new System.Windows.Forms.RadioButton();
-            this.AddPlay = new System.Windows.Forms.Button();
+            this.AddPlayOld = new System.Windows.Forms.Button();
             this.currentGameRadio = new System.Windows.Forms.RadioButton();
             this.saveImage = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -82,6 +82,7 @@
             this.saveManImageButton = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.AddPlay = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.cardImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gameImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -608,18 +609,17 @@
             this.allGameRadio.UseVisualStyleBackColor = true;
             this.allGameRadio.CheckedChanged += new System.EventHandler(this.allGameRadio_CheckedChanged);
             // 
-            // AddPlay
+            // AddPlayOld
             // 
-            this.AddPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddPlay.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.AddPlay.Location = new System.Drawing.Point(414, 11);
-            this.AddPlay.Name = "AddPlay";
-            this.AddPlay.Size = new System.Drawing.Size(119, 23);
-            this.AddPlay.TabIndex = 70;
-            this.AddPlay.Text = "New Play";
-            this.AddPlay.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.AddPlay.UseVisualStyleBackColor = false;
-            this.AddPlay.Click += new System.EventHandler(this.AddPlay_Click);
+            this.AddPlayOld.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AddPlayOld.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.AddPlayOld.Location = new System.Drawing.Point(414, 11);
+            this.AddPlayOld.Name = "AddPlayOld";
+            this.AddPlayOld.Size = new System.Drawing.Size(119, 23);
+            this.AddPlayOld.TabIndex = 70;
+            this.AddPlayOld.Text = "New Play Old";
+            this.AddPlayOld.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.AddPlayOld.UseVisualStyleBackColor = false;
             // 
             // currentGameRadio
             // 
@@ -722,6 +722,19 @@
             this.button4.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.button4.UseVisualStyleBackColor = false;
             // 
+            // AddPlay
+            // 
+            this.AddPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AddPlay.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.AddPlay.Location = new System.Drawing.Point(539, 12);
+            this.AddPlay.Name = "AddPlay";
+            this.AddPlay.Size = new System.Drawing.Size(119, 23);
+            this.AddPlay.TabIndex = 78;
+            this.AddPlay.Text = "New Play";
+            this.AddPlay.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.AddPlay.UseVisualStyleBackColor = false;
+            this.AddPlay.Click += new System.EventHandler(this.AddPlay_Click_1);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -730,6 +743,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(861, 720);
             this.Controls.Add(this.AddPlay);
+            this.Controls.Add(this.AddPlayOld);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.saveManImageButton);
             this.Controls.Add(this.importManImageButton);
@@ -842,7 +856,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button deleteCardButton;
         private System.Windows.Forms.Label gameCardCountLabel;
-        private System.Windows.Forms.Button AddPlay;
+        private System.Windows.Forms.Button AddPlayOld;
         private System.Windows.Forms.RadioButton allGameRadio;
         private System.Windows.Forms.RadioButton currentGameRadio;
         private System.Windows.Forms.Button saveImage;
@@ -852,5 +866,6 @@
         private System.Windows.Forms.Button saveManImageButton;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button AddPlay;
     }
 }

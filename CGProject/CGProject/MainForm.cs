@@ -690,33 +690,6 @@ namespace CGProject
             s.CloseConnection();
         }
 
-
-
-
-        private void addPlayerButton_Click_1(object sender, EventArgs e)
-        {
-            addPlayer addPlayerForm = new addPlayer();
-            addPlayerForm.ShowDialog();
-            playerListBox.Items.Clear();
-            populatePlayersListBox();
-        }
-
-        private void AddPlay_Click(object sender, EventArgs e)
-        {
-            if (cardListBox.SelectedIndex.Equals(-1) || gameListBox.SelectedIndex.Equals(-1) || playerListBox.SelectedIndex.Equals(-1))
-                MessageBox.Show("You do not have all the nessisary fields selected");
-            else
-            {
-                _querry_string = "select max(ccdb.play.playthrough) as max from ccdb.play.playthrough;";
-                Server s = new Server();
-                read = s.MakeConnection(_querry_string);
-                read.Read();
-                _querry_string = "insert into ccdb.play(ccdb.play.id_player,ccdb.play.playthrough) VALUES( '" + playerListBox.SelectedItem.ToString() + "'," + (read.GetInt32("max") + 1) + ");";
-                s.MakeConnection(_querry_string);
-                s.CloseConnection();
-            }
-        }
-
         private void playerListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             //cardListBox.Items.Clear();
@@ -748,6 +721,22 @@ namespace CGProject
             {
                 MessageBox.Show(ex.Message);
                 Application.Exit();
+            }
+        }
+
+        private void AddPlay_Click_1(object sender, EventArgs e)
+        {
+            if (cardListBox.SelectedIndex.Equals(-1) || gameListBox.SelectedIndex.Equals(-1) || playerListBox.SelectedIndex.Equals(-1))
+                MessageBox.Show("You do not have all the nessisary fields selected");
+            else
+            {
+                _querry_string = "select max(ccdb.play.playthrough) as max from ccdb.play.playthrough;";
+                Server s = new Server();
+                read = s.MakeConnection(_querry_string);
+                read.Read();
+                _querry_string = "insert into ccdb.play(ccdb.play.id_player,ccdb.play.playthrough) VALUES( '" + playerListBox.SelectedItem.ToString() + "'," + (read.GetInt32("max") + 1) + ");";
+                s.MakeConnection(_querry_string);
+                s.CloseConnection();
             }
         }
         /**************************************************************************/
