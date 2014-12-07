@@ -739,6 +739,11 @@ namespace CGProject
                 s.CloseConnection();
             }
         }
+
+        private void AddPlayOld_Click(object sender, EventArgs e)
+        {
+
+        }
         /**************************************************************************/
     }
 }

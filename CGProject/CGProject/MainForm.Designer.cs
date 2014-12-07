@@ -620,6 +620,7 @@
             this.AddPlayOld.Text = "New Play Old";
             this.AddPlayOld.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.AddPlayOld.UseVisualStyleBackColor = false;
+            this.AddPlayOld.Click += new System.EventHandler(this.AddPlayOld_Click);
             // 
             // currentGameRadio
             // 
