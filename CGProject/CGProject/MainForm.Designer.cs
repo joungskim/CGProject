@@ -52,7 +52,6 @@
             this.importCardImageButton = new System.Windows.Forms.Button();
             this.manufacturerImage = new System.Windows.Forms.PictureBox();
             this.editCardButton = new System.Windows.Forms.Button();
-            this.importGameImageButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.playerListBox = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -76,6 +75,10 @@
             this.allGameRadio = new System.Windows.Forms.RadioButton();
             this.currentGameRadio = new System.Windows.Forms.RadioButton();
             this.saveImage = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.importManImageButton = new System.Windows.Forms.Button();
+            this.saveManImageButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.cardImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.manufacturerImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -210,12 +213,13 @@
             // cardImage
             // 
             this.cardImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.cardImage.Location = new System.Drawing.Point(280, 328);
+            this.cardImage.Location = new System.Drawing.Point(280, 340);
             this.cardImage.Name = "cardImage";
-            this.cardImage.Size = new System.Drawing.Size(130, 186);
+            this.cardImage.Size = new System.Drawing.Size(130, 174);
             this.cardImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.cardImage.TabIndex = 10;
             this.cardImage.TabStop = false;
+            this.cardImage.DoubleClick += new System.EventHandler(this.cardImage_DoubleClick);
             this.cardImage.MouseLeave += new System.EventHandler(this.cardImage_MouseLeave);
             this.cardImage.MouseHover += new System.EventHandler(this.cardImage_MouseHover);
             // 
@@ -332,16 +336,16 @@
             this.importCardImageButton.Name = "importCardImageButton";
             this.importCardImageButton.Size = new System.Drawing.Size(60, 23);
             this.importCardImageButton.TabIndex = 23;
-            this.importCardImageButton.Text = " ";
+            this.importCardImageButton.Text = " Import";
             this.importCardImageButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.importCardImageButton.UseVisualStyleBackColor = false;
             this.importCardImageButton.Click += new System.EventHandler(this.importCardImageButton_Click);
             // 
             // manufacturerImage
             // 
-            this.manufacturerImage.Location = new System.Drawing.Point(280, 549);
+            this.manufacturerImage.Location = new System.Drawing.Point(278, 564);
             this.manufacturerImage.Name = "manufacturerImage";
-            this.manufacturerImage.Size = new System.Drawing.Size(130, 159);
+            this.manufacturerImage.Size = new System.Drawing.Size(130, 143);
             this.manufacturerImage.TabIndex = 24;
             this.manufacturerImage.TabStop = false;
             // 
@@ -357,19 +361,6 @@
             this.editCardButton.Text = "Edit Card";
             this.editCardButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.editCardButton.UseVisualStyleBackColor = false;
-            // 
-            // importGameImageButton
-            // 
-            this.importGameImageButton.BackColor = System.Drawing.Color.Gray;
-            this.importGameImageButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.importGameImageButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.importGameImageButton.Location = new System.Drawing.Point(280, 520);
-            this.importGameImageButton.Name = "importGameImageButton";
-            this.importGameImageButton.Size = new System.Drawing.Size(130, 23);
-            this.importGameImageButton.TabIndex = 26;
-            this.importGameImageButton.Text = "Import  Game Image";
-            this.importGameImageButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.importGameImageButton.UseVisualStyleBackColor = false;
             // 
             // pictureBox1
             // 
@@ -641,6 +632,52 @@
             this.saveImage.UseVisualStyleBackColor = false;
             this.saveImage.Click += new System.EventHandler(this.saveImage_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.Ivory;
+            this.label2.Location = new System.Drawing.Point(310, 324);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(61, 13);
+            this.label2.TabIndex = 73;
+            this.label2.Text = "Card Image";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.Ivory;
+            this.label3.Location = new System.Drawing.Point(291, 546);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(102, 13);
+            this.label3.TabIndex = 74;
+            this.label3.Text = "Manufacturer Image";
+            // 
+            // importManImageButton
+            // 
+            this.importManImageButton.BackColor = System.Drawing.Color.Gray;
+            this.importManImageButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.importManImageButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.importManImageButton.Location = new System.Drawing.Point(280, 520);
+            this.importManImageButton.Name = "importManImageButton";
+            this.importManImageButton.Size = new System.Drawing.Size(60, 23);
+            this.importManImageButton.TabIndex = 75;
+            this.importManImageButton.Text = " Import";
+            this.importManImageButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.importManImageButton.UseVisualStyleBackColor = false;
+            // 
+            // saveManImageButton
+            // 
+            this.saveManImageButton.BackColor = System.Drawing.Color.Gray;
+            this.saveManImageButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saveManImageButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.saveManImageButton.Location = new System.Drawing.Point(346, 520);
+            this.saveManImageButton.Name = "saveManImageButton";
+            this.saveManImageButton.Size = new System.Drawing.Size(67, 23);
+            this.saveManImageButton.TabIndex = 76;
+            this.saveManImageButton.Text = "Save";
+            this.saveManImageButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.saveManImageButton.UseVisualStyleBackColor = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -648,6 +685,10 @@
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(861, 720);
+            this.Controls.Add(this.saveManImageButton);
+            this.Controls.Add(this.importManImageButton);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.saveImage);
             this.Controls.Add(this.currentGameRadio);
             this.Controls.Add(this.allGameRadio);
@@ -671,7 +712,6 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.playerListBox);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.importGameImageButton);
             this.Controls.Add(this.editCardButton);
             this.Controls.Add(this.manufacturerImage);
             this.Controls.Add(this.importCardImageButton);
@@ -736,7 +776,6 @@
         private System.Windows.Forms.Button importCardImageButton;
         private System.Windows.Forms.PictureBox manufacturerImage;
         private System.Windows.Forms.Button editCardButton;
-        private System.Windows.Forms.Button importGameImageButton;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ListBox playerListBox;
         private System.Windows.Forms.Button button1;
@@ -760,5 +799,9 @@
         private System.Windows.Forms.RadioButton allGameRadio;
         private System.Windows.Forms.RadioButton currentGameRadio;
         private System.Windows.Forms.Button saveImage;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button importManImageButton;
+        private System.Windows.Forms.Button saveManImageButton;
     }
 }

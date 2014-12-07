@@ -30,10 +30,11 @@ namespace CGProject
             InitializeComponent();
             populateGameList("");
             populatePlayListForGame();
-            if(!(gameListBox.Items.Count == 0)) gameListBox.SetSelected(0, true);
-            addCardButton.Enabled = false;
+            if (!(gameListBox.Items.Count == 0)) gameListBox.SetSelected(0, true);
+
             if(!allGameRadio.Checked) allGameRadio.PerformClick();
             importCardImageButton.Enabled = false;
+            if (!(cardListBox.Items.Count == 0)) cardListBox.SetSelected(0, true);
         }
 
         /**************************************************************************/
@@ -85,6 +86,7 @@ namespace CGProject
         private void gameListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             addCardButton.Enabled = true;
+
             if (!(gameListBox.SelectedIndex < 0))
             {
                 cardListBox.Items.Clear();
@@ -94,12 +96,14 @@ namespace CGProject
                     _current_game_id = _current_game_name.Substring(0, _current_game_name.IndexOf(":"));
                     populateCardList(searchCardTextBox.Text.ToString(), _current_game_name);
                     updateCardCount(_current_game_id);
+                    if (!(cardListBox.Items.Count == 0)) cardListBox.SetSelected(0, true);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
             }
+
         }
 
         private void addGamesButton_Click(object sender, EventArgs e)
@@ -326,6 +330,7 @@ namespace CGProject
 
             
         }
+
         private void saveImage_Click(object sender, EventArgs e)
         {
             if (!_card_path.Equals("") && !(cardImage.Image == null))
@@ -444,10 +449,12 @@ namespace CGProject
             }
             s.CloseConnection();
         }
+
         private void searchCardTextBox_Click(object sender, EventArgs e)
         {
             searchCardTextBox.Text = "";
         }
+
         private void searchCardTextBox_Leave(object sender, EventArgs e)
         {
             if (searchCardTextBox.Text.Equals(""))
@@ -455,6 +462,7 @@ namespace CGProject
                 searchCardTextBox.Text = "Search Cards...";
             }
         }
+
         private void searchCardTextBox_TextChanged(object sender, EventArgs e)
         {
             cardListBox.Items.Clear();
@@ -507,6 +515,29 @@ namespace CGProject
         private void cardImage_MouseLeave(object sender, EventArgs e)
         {
             Cursor = Cursors.Arrow;
+        }
+
+
+        private void cardImage_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                Server s = new Server();
+                byte[] image = s.MakeImageConnectionExtract("select * from ccdb.images, ccdb.card where ccdb.card.name = '" + cardListBox.SelectedItem.ToString() + "' and ccdb.card.id_image = ccdb.images.id_image ;");
+                if (image == null)
+                {
+                    return;
+                }
+
+                EnloargeImageForm enlargeImage = new EnloargeImageForm(image);
+                enlargeImage.ShowDialog();
+
+                s.CloseConnection();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
         /***************************************************************************/
         /*

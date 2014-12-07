@@ -111,7 +111,7 @@ namespace CGProject
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
         }
 
         private void createCardButton_Click(object sender, EventArgs e)
