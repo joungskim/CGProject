@@ -11,30 +11,28 @@ using MySql.Data.MySqlClient;
 
 namespace CGProject
 {
-
-    public partial class AddGame : Form
+    public partial class addPlayer : Form
     {
-
+        private int pID;
         private MySqlDataReader read;
-
-        public AddGame()
+        public addPlayer()
         {
             InitializeComponent();
-            companyTextBox.Clear();
-            nameTextBox.Clear();
         }
-
-        private void saveButton_Click(object sender, EventArgs e)
+        private void createPlayerButton_Click(object sender, EventArgs e)
         {
-            if(!companyTextBox.Text.ToString().Equals("") && !nameTextBox.Text.ToString().Equals(""))
+            if(!PlayerNameTextBox.Text.ToString().Equals("") && !PlayerNameTextBox.Text.ToString().Equals(""))
             {
                 Server s = new Server();
                 try
                 {
-                    read = s.MakeConnection("INSERT INTO ccdb.game " +
-                                                "(made_by, name) " +
+                    read = s.MakeConnection("INSERT INTO ccdb.player " +
+                                                "(player_name) " +
                                                 "VALUES " +
-                                                "('" + companyTextBox.Text.ToString() + "'" + ", '" + nameTextBox.Text.ToString() + "') ;");
+                                                "('" + PlayerNameTextBox.Text.ToString()+"') ;");
+                    //read = s.MakeConnection("Select MAX from ccdb.player ;");
+                    //read.Read();
+                    //pID = read.GetInt32("");
                 }
                 catch (Exception ex)
                 {
@@ -44,11 +42,6 @@ namespace CGProject
                 s.CloseConnection();
             }
 
-            this.Hide();
-        }
-
-        private void cancelButton_Click(object sender, EventArgs e)
-        {
             this.Hide();
         }
     }

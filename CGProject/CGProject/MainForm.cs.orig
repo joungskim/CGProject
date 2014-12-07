@@ -29,13 +29,17 @@ namespace CGProject
         {
             InitializeComponent();
             populateGameList("");
+<<<<<<< HEAD
             populatePlayListForGame();
-            populatePlayersListBox();
             if (!(gameListBox.Items.Count == 0)) gameListBox.SetSelected(0, true);
 
             if(!allGameRadio.Checked) allGameRadio.PerformClick();
             importCardImageButton.Enabled = false;
             if (!(cardListBox.Items.Count == 0)) cardListBox.SetSelected(0, true);
+=======
+            populatePlayersListBox();
+            if (!(gameListBox.Items.Count == 0)) gameListBox.SetSelected(0, true);
+>>>>>>> origin/AlexB
         }
 
         /**************************************************************************/
@@ -500,6 +504,7 @@ namespace CGProject
             }
         }
 
+<<<<<<< HEAD
         private void allGameRadio_CheckedChanged(object sender, EventArgs e)
         {
             if (allGameRadio.Checked && currentGameRadio.Checked)
@@ -507,41 +512,7 @@ namespace CGProject
                 currentGameRadio.PerformClick();
             }
         }
-
-        private void cardImage_MouseHover(object sender, EventArgs e)
-        {
-            Cursor = Cursors.Cross;
-        }
-
-        private void cardImage_MouseLeave(object sender, EventArgs e)
-        {
-            Cursor = Cursors.Arrow;
-        }
-        
-        private void cardImage_DoubleClick(object sender, EventArgs e)
-        {
-            try
-            {
-                Server s = new Server();
-                byte[] image = s.MakeImageConnectionExtract("select * from ccdb.images, ccdb.card where ccdb.card.name = '" + cardListBox.SelectedItem.ToString() + "' and ccdb.card.id_image = ccdb.images.id_image ;");
-                if (image == null)
-                {
-                    return;
-                }
-
-                EnloargeImageForm enlargeImage = new EnloargeImageForm(image);
-                enlargeImage.ShowDialog();
-
-                s.CloseConnection();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-       }
-
-
-
+=======
         /**************************************************************************/
         /* 
          * The Text box for players
@@ -601,16 +572,33 @@ namespace CGProject
                 read = s.MakeConnection(_querry_string);
                 read.Read();
                 player1NameTextBox.Text = read.GetString("player_name");
+>>>>>>> origin/AlexB
 
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                Application.Exit();
-            }
-            s.CloseConnection();
+        private void cardImage_MouseHover(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Cross;
         }
+
+<<<<<<< HEAD
+        private void cardImage_MouseLeave(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Arrow;
+        }
+
+
+        private void cardImage_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                Server s = new Server();
+                byte[] image = s.MakeImageConnectionExtract("select * from ccdb.images, ccdb.card where ccdb.card.name = '" + cardListBox.SelectedItem.ToString() + "' and ccdb.card.id_image = ccdb.images.id_image ;");
+                if (image == null)
+                {
+                    return;
+                }
+
+                EnloargeImageForm enlargeImage = new EnloargeImageForm(image);
+                enlargeImage.ShowDialog();
 
                 s.CloseConnection();
             }
@@ -644,6 +632,17 @@ namespace CGProject
            }
            s.CloseConnection();
         }
+=======
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Application.Exit();
+            }
+            s.CloseConnection();
+        }
+
+>>>>>>> origin/AlexB
 
         /**************************************************************************/
     }
