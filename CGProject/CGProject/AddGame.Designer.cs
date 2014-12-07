@@ -70,6 +70,7 @@
             // 
             // saveButton
             // 
+            this.saveButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.saveButton.Location = new System.Drawing.Point(28, 76);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 23);
@@ -80,6 +81,7 @@
             // 
             // cancelButton
             // 
+            this.cancelButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.cancelButton.Location = new System.Drawing.Point(129, 76);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
@@ -92,6 +94,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(223, 107);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
@@ -99,7 +102,10 @@
             this.Controls.Add(this.nameTextBox);
             this.Controls.Add(this.manufacturerLabel);
             this.Controls.Add(this.nameLabel);
+            this.ForeColor = System.Drawing.Color.LimeGreen;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "AddGame";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " ";
             this.ResumeLayout(false);
             this.PerformLayout();

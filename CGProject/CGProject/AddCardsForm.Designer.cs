@@ -43,6 +43,7 @@
             this.createCardButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.createdIndicatorLabel = new System.Windows.Forms.Label();
+            this.importNotificationLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // importCSVButton
@@ -201,7 +202,7 @@
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 57;
-            this.cancelButton.Text = "Cancel";
+            this.cancelButton.Text = "Close";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
@@ -216,13 +217,25 @@
             this.createdIndicatorLabel.Text = "Card Created!";
             this.createdIndicatorLabel.Visible = false;
             // 
+            // importNotificationLabel
+            // 
+            this.importNotificationLabel.AutoSize = true;
+            this.importNotificationLabel.ForeColor = System.Drawing.Color.LimeGreen;
+            this.importNotificationLabel.Location = new System.Drawing.Point(12, 169);
+            this.importNotificationLabel.Name = "importNotificationLabel";
+            this.importNotificationLabel.Size = new System.Drawing.Size(81, 13);
+            this.importNotificationLabel.TabIndex = 59;
+            this.importNotificationLabel.Text = "Cards Imported!";
+            this.importNotificationLabel.Visible = false;
+            // 
             // AddCardsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(284, 175);
+            this.ClientSize = new System.Drawing.Size(293, 188);
+            this.Controls.Add(this.importNotificationLabel);
             this.Controls.Add(this.createdIndicatorLabel);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.createCardButton);
@@ -241,6 +254,7 @@
             this.ForeColor = System.Drawing.Color.LimeGreen;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "AddCardsForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add Cards";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -264,5 +278,6 @@
         private System.Windows.Forms.Button createCardButton;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Label createdIndicatorLabel;
+        private System.Windows.Forms.Label importNotificationLabel;
     }
 }
