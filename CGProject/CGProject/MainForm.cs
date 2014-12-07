@@ -173,7 +173,6 @@ namespace CGProject
                 Server s = new Server();
                 try
                 {
-                    //SELECT COUNT(*) FROM fooTable;
                     string _querry_string = "Select Count(*) as count from ccdb.card as card where card.id_game = " + gameID + ";";
                     read = s.MakeConnection(_querry_string);
                     read.Read();
@@ -656,8 +655,8 @@ namespace CGProject
 
         private void addPlayerButton_Click(object sender, EventArgs e)
         {
-            addPlayer addPlayerForm = new addPlayer();
-            addPlayerForm.ShowDialog();
+            addPlayerForm addPlayerForm1 = new addPlayerForm();
+            addPlayerForm1.ShowDialog();
             playerListBox.Items.Clear();
             populatePlayersListBox();
         }
