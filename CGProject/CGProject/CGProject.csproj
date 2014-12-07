@@ -64,8 +64,6 @@
       <DependentUpon>AddGame.cs</DependentUpon>
     </Compile>
     <Compile Include="addPlayerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="addPlayerForm.Designer.cs">
       <DependentUpon>addPlayerForm.cs</DependentUpon>
     </Compile>

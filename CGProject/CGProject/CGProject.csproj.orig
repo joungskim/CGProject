@@ -63,12 +63,15 @@
     <Compile Include="AddGame.Designer.cs">
       <DependentUpon>AddGame.cs</DependentUpon>
     </Compile>
-    <Compile Include="addPlayer.cs">
+<<<<<<< HEAD
+    <Compile Include="addPlayerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="addPlayer.Designer.cs">
-      <DependentUpon>addPlayer.cs</DependentUpon>
+    <Compile Include="addPlayerForm.Designer.cs">
+      <DependentUpon>addPlayerForm.cs</DependentUpon>
     </Compile>
+=======
+>>>>>>> origin/JRBranch1
     <Compile Include="Card.cs" />
     <Compile Include="EnloargeImageForm.cs">
       <SubType>Form</SubType>
@@ -102,12 +105,13 @@
       <DependentUpon>AddGame.cs</DependentUpon>
     </EmbeddedResource>
 <<<<<<< HEAD
+    <EmbeddedResource Include="addPlayerForm.resx">
+      <DependentUpon>addPlayerForm.cs</DependentUpon>
+    </EmbeddedResource>
+=======
+>>>>>>> origin/JRBranch1
     <EmbeddedResource Include="EnloargeImageForm.resx">
       <DependentUpon>EnloargeImageForm.cs</DependentUpon>
-=======
-    <EmbeddedResource Include="addPlayer.resx">
-      <DependentUpon>addPlayer.cs</DependentUpon>
->>>>>>> origin/AlexB
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>

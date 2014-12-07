@@ -21,25 +21,50 @@ namespace CGProject
             InitializeComponent();
             this.gameId = gameId;
         }
+
+        /*
+         * Reads a comma separated data file one line at a time determining what attributes are included in what order then 
+         * inserting cards one at a time from the csv file until the file has been read.  It also keeps track of successful and failed
+         * number of cards added.
+         */
+         * */
         private void button1_Click(object sender, EventArgs e)
         {
-            Server s = new Server();
+            importNotificationLabel.Visible = false;
+
             string line;
+            int countAdded = 0;
+
             OpenFileDialog x = new OpenFileDialog();
             if (x.ShowDialog() == DialogResult.OK)
             {
+
                 System.IO.StreamReader file = new System.IO.StreamReader(x.FileName);
                 try
                 {
-                    string line1 = file.ReadLine();
+                    int fail = 0;
+                        string line1 = file.ReadLine();
+
                         while ((line = file.ReadLine()) != null)
                         {
                             if (!AddCard(line1, line.Split(',')))
                             {
-                               // MessageBox.Show("There was an error reading the file\nWith columns " + line1 + " and the line read in as " + line);
-                                
+                                fail++;
+
                             }
+
+                            else
+                            {
+                                importNotificationLabel.Visible = true;
+                                string temp = line.Split(',')[line1.Split(',').ToList<string>().IndexOf("name")];
+                                importNotificationLabel.Text = "Adding Card: " + temp;
+                                countAdded++;
+                            }
+
                         }
+                        importNotificationLabel.Text = "You have successfully uploaded: " + countAdded + " Cards.";
+                        if (fail > 0) MessageBox.Show("Failed to load " + fail + " cards");
+                }
                 }
                 catch(IOException ex)
                 {
@@ -47,72 +72,74 @@ namespace CGProject
                 }
             }
 
+  
         }
+        /*
+         * Function to add a single card to the DB.
+         */
         public bool AddCard(string colNames, string[] colVals)
         {
             try
             {
                 if (colNames.Contains("name"))
-                    {
-                        Server s = new Server();
-                        string[] colName = colNames.Split(',');
-                            string insert = "INSERT INTO ccdb.card (" + colNames + ",id_game) VALUES  (";
-                            for (int i = 0; i < colVals.Count() ;i++ )
+                {
+                    Server s = new Server();
+
+                    string[] colName = colNames.Split(',');
+                        string insert = "INSERT INTO ccdb.card (" + colNames + ",id_game) VALUES  (";
+                        for (int i = 0; i < colVals.Count() ;i++ )
+                        {
+                            if (colName[i] == "cost")
                             {
-                                if (colName[i] == "cost")
-                                {
-                                    insert += colVals[i] + ",";
-                                }
-                                else
-                                {
-                                    insert += "'" + colVals[i] + "'" + ",";
-                                }
+                                insert += colVals[i] + ",";
                             }
-                            insert += "'" + gameId + "') ;";
-                            read = s.MakeConnection(insert);
-                            s.CloseConnection();
+                            else
+                            {
+                                insert += "'" + colVals[i] + "'" + ",";
+                            }
                         }
-                    else
-                    {
-                        MessageBox.Show("File does not include required field name!");
+                        insert += "'" + gameId + "') ;";
+                        read = s.MakeConnection(insert);
+                        s.CloseConnection();
                     }
-<<<<<<< HEAD
+                else
+                {
+                    MessageBox.Show("File does not include required field name!");
+                }
                 return true;
             }catch (Exception ex)
             {
                 //MessageBox.Show(ex.Message);
                 return false;
-=======
-
-                    this.Hide();
-                }
-                catch(IOException ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
->>>>>>> 2c51cc6ce757807bf5350a01fb31f337165e9362
             }
-
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
         }
 
         private void createCardButton_Click(object sender, EventArgs e)
         {
             List<string> header = new List<string>();
             List<string> resultString = new List<string>();
+            string results = "";
+            int testInt;
 
             if(cardNameTextBox.Text.Equals(""))
             {
                 MessageBox.Show("You must enter a name.");
             }
 
+            else if(!(int.TryParse(costTextBox.Text, out testInt)) && !(costTextBox.Text.Equals("")))
+            {
+                MessageBox.Show("You must enter a number in Cost Field.");
+            }
+
             else
             {
                 header.Add("name");
+                resultString.Add(cardNameTextBox.Text.ToString());
 
                 if (!costTextBox.Text.Equals(""))
                 {
@@ -135,8 +162,61 @@ namespace CGProject
                     resultString.Add(typeTextBox1.Text.ToString());
                 }
 
-                //AddCard(header.ToArray(),resultString.ToArray());
+                for(int i = 0; i < header.Count() - 1; i++)
+                {
+                    results += header[i] + ",";
+                }
+                results += header[header.Count() - 1];
+
+                AddCard(results,resultString.ToArray());
+
+
+
+                cardNameTextBox.Clear();
+                costTextBox.Clear();
+                rarityTextBox.Clear();
+                descriptionRichTextBox.Clear();
+                typeTextBox1.Clear();
+
+                createdIndicatorLabel.Visible = true;
             }
+
         }
+
+        /**************************************************************************
+         * All click functions that are aesthetic towards the form.
+         */
+
+        private void cardNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            createdIndicatorLabel.Visible = false;
+            importNotificationLabel.Visible = false;
+        }
+
+        private void rarityTextBox_TextChanged(object sender, EventArgs e)
+        {
+            createdIndicatorLabel.Visible = false;
+            importNotificationLabel.Visible = false;
+        }
+
+        private void costTextBox_TextChanged(object sender, EventArgs e)
+        {
+            createdIndicatorLabel.Visible = false;
+            importNotificationLabel.Visible = false;
+        }
+
+        private void typeTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            createdIndicatorLabel.Visible = false;
+            importNotificationLabel.Visible = false;
+        }
+
+        private void descriptionRichTextBox_TextChanged(object sender, EventArgs e)
+        {
+            createdIndicatorLabel.Visible = false;
+            importNotificationLabel.Visible = false;
+        }
+
+        /**************************************************************************/
     }
 }
