@@ -18,10 +18,16 @@ namespace CGProject
         private Point _offset;
         private Point _start_point = new Point(0, 0);
         private string _querry_string;
+<<<<<<< HEAD
+        private string _current_player_id;
+        private string _current_plady_name;
+=======
         private string _current_card_image_path;
         private string _current_game_id;
         private string _current_game_name;
         private string _card_path;
+        private string _game_path;
+>>>>>>> d3a4c4c329007423823babe8b1bfd45f4e175dd7
 
         private MySqlDataReader read;
 
@@ -29,17 +35,15 @@ namespace CGProject
         {
             InitializeComponent();
             populateGameList("");
-<<<<<<< HEAD
             populatePlayListForGame();
+            populatePlayersListBox();
             if (!(gameListBox.Items.Count == 0)) gameListBox.SetSelected(0, true);
 
             if(!allGameRadio.Checked) allGameRadio.PerformClick();
             importCardImageButton.Enabled = false;
             if (!(cardListBox.Items.Count == 0)) cardListBox.SetSelected(0, true);
-=======
-            populatePlayersListBox();
-            if (!(gameListBox.Items.Count == 0)) gameListBox.SetSelected(0, true);
->>>>>>> origin/AlexB
+            saveImage.Enabled = false;
+            saveManImageButton.Enabled = false;
         }
 
         /**************************************************************************/
@@ -90,9 +94,22 @@ namespace CGProject
          */
         private void gameListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+<<<<<<< HEAD
+            cardListBox.Items.Clear();
+            try
+            {
+                string selected = gameListBox.SelectedItem.ToString();
+                string selectedID = selected.Substring(0, selected.IndexOf(":"));
+                populateCardList(searchCardTextBox.Text.ToString(), selectedID);
+                updateCardCount(selectedID);
+                updateHistory(selectedID);
+            }
+            catch (Exception ex)
+=======
             addCardButton.Enabled = true;
 
             if (!(gameListBox.SelectedIndex < 0))
+>>>>>>> d3a4c4c329007423823babe8b1bfd45f4e175dd7
             {
                 cardListBox.Items.Clear();
                 try
@@ -102,6 +119,7 @@ namespace CGProject
                     populateCardList(searchCardTextBox.Text.ToString(), _current_game_name);
                     updateCardCount(_current_game_id);
                     if (!(cardListBox.Items.Count == 0)) cardListBox.SetSelected(0, true);
+                    displaySelectedGameImage();
                 }
                 catch (Exception ex)
                 {
@@ -109,6 +127,44 @@ namespace CGProject
                 }
             }
 
+        }
+
+        private void updateHistory(string selectedID)
+        {
+            if(!gameListBox.SelectedIndex.Equals(-1))
+            {
+                Server s = new Server();
+                try
+                {
+                    _querry_string = "Select player.name as name, hist.playthrough as play from ccdb.history as hist, ccdb.game as game, ccdb.card as card where game.id_game = " + selectedID +
+                        " and card.id_game = game.id_game and hist.id_card = card.id_card and card.id_card = hist.id_card ORDER BY hist.playthrough and hist.id_player = player.id_player";
+                    read = s.MakeConnection(_querry_string);
+                    int playNum = 0;
+                    int count = 0;
+                    string temp = "";
+                    while (read.Read())
+                    {
+                        int NewplayNum = read.GetInt32("play");
+                        if(NewplayNum == playNum)
+                        {
+                            temp += read.GetString("name") + " ";
+                        }
+                        else
+                        {
+                            if (playNum > 0) playthroughHistoryList.Items.Add(temp);
+                            temp = count++ + read.GetString("name") + " ";
+                            playNum = NewplayNum;
+                        }
+                    }
+                    playthroughHistoryList.Items.Add(temp);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    Application.Exit();
+                }
+                s.CloseConnection();
+            }
         }
 
         private void addGamesButton_Click(object sender, EventArgs e)
@@ -199,6 +255,90 @@ namespace CGProject
             if (searchGameTextBox.Text.Equals(""))
             {
                 searchGameTextBox.Text = "Search Games...";
+            }
+        }
+
+        private string importGameImageFunction()
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "JPG Files(*.jpg)|*.jpg|PNG Files (*.png)|*.png|All Files (*.*)|*.*";
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                saveManImageButton.Enabled = true;
+                string picPath = dlg.FileName.ToString();
+                gameImage.ImageLocation = picPath;
+                gameImage.SizeMode = PictureBoxSizeMode.StretchImage;
+                return picPath;
+            }
+
+            return "";
+        }
+
+        private void importManImageButton_Click(object sender, EventArgs e)
+        {
+            _game_path = importGameImageFunction();
+        }
+
+
+        private void saveManImageButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!_game_path.Equals("") && !(gameImage.Image == null))
+                {
+                    int imageId;
+                    Server s = new Server();
+                    string insert;
+                    using (var ms = new MemoryStream())
+                    {
+                        gameImage.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        insert = "INSERT INTO ccdb.images (image) VALUES (?Image)";
+                        s.MakeImageConnectionInsert(insert, ms.ToArray());
+                    }
+
+                    insert = " Select Max(ccdb.images.id_image) as id_image From ccdb.images ;";
+                    read = s.MakeConnection(insert);
+                    read.Read();
+                    imageId = read.GetInt32("id_image");
+                    s.CloseConnection();
+
+                    insert = "UPDATE ccdb.game SET id_image = " + imageId + " WHERE ccdb.game.id_game = '" + _current_game_id + "' ; ";
+                    read = s.MakeConnection(insert);
+                    read.Read();
+                    s.CloseConnection();
+
+                    displaySelectedGameImage();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            saveManImageButton.Enabled = false;
+        }
+       
+        private void displaySelectedGameImage()
+        {
+            try
+            {
+                Server s = new Server();
+                byte[] image = s.MakeImageConnectionExtract("select * from ccdb.images, ccdb.game where ccdb.game.id_game = '" + _current_game_id + "' and ccdb.game.id_image = ccdb.images.id_image ;");
+                if (image == null)
+                {
+                    gameImage.Image = null;
+                    return;
+                }
+
+                MemoryStream stream = new MemoryStream(image);
+                gameImage.Image = System.Drawing.Bitmap.FromStream(stream);
+                gameImage.SizeMode = PictureBoxSizeMode.StretchImage;
+                //Image.FromStream(stream);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -332,17 +472,16 @@ namespace CGProject
         private void importCardImageButton_Click(object sender, EventArgs e)
         {
             _card_path = importCardImageFunction();
-
             
         }
 
         private void saveImage_Click(object sender, EventArgs e)
         {
-            if (!_card_path.Equals("") && !(cardImage.Image == null))
+            try
             {
-                int imageId;
-                try
+                if (!_card_path.Equals("") && !(cardImage.Image == null))
                 {
+                    int imageId;
                     Server s = new Server();
                     string insert;
                     using (var ms = new MemoryStream())
@@ -364,12 +503,14 @@ namespace CGProject
                     s.CloseConnection();
 
                     displaySelectedCardImage();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
+
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            saveImage.Enabled = false;
         }
 
         //gets the card path and sets the card image picture to the selected image
@@ -380,6 +521,7 @@ namespace CGProject
 
             if (dlg.ShowDialog() == DialogResult.OK)
             {
+                saveImage.Enabled = true;
                 string picPath = dlg.FileName.ToString();
                 cardImage.ImageLocation = picPath;
                 cardImage.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -397,6 +539,7 @@ namespace CGProject
                 byte[] image = s.MakeImageConnectionExtract("select * from ccdb.images, ccdb.card where ccdb.card.name = '" + cardListBox.SelectedItem.ToString() + "' and ccdb.card.id_image = ccdb.images.id_image ;");
                 if (image == null)
                 {
+                    cardImage.Image = null;
                     return;
                 }
                 
@@ -478,14 +621,6 @@ namespace CGProject
 
 
         /**************************************************************************/
-        /* Card Information and Images
-         * This contains anything that deals with Information or images relating to cards/games/players
-         */
-
-
-
-
-        /**************************************************************************/
         /* All Events Aesthetics
          * All the event inserts for the MainForm
          */
@@ -504,7 +639,6 @@ namespace CGProject
             }
         }
 
-<<<<<<< HEAD
         private void allGameRadio_CheckedChanged(object sender, EventArgs e)
         {
             if (allGameRadio.Checked && currentGameRadio.Checked)
@@ -512,7 +646,41 @@ namespace CGProject
                 currentGameRadio.PerformClick();
             }
         }
-=======
+
+        private void cardImage_MouseHover(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Cross;
+        }
+
+        private void cardImage_MouseLeave(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Arrow;
+        }
+        
+        private void cardImage_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                Server s = new Server();
+                byte[] image = s.MakeImageConnectionExtract("select * from ccdb.images, ccdb.card where ccdb.card.name = '" + cardListBox.SelectedItem.ToString() + "' and ccdb.card.id_image = ccdb.images.id_image ;");
+                if (image == null)
+                {
+                    return;
+                }
+
+                EnloargeImageForm enlargeImage = new EnloargeImageForm(image);
+                enlargeImage.ShowDialog();
+
+                s.CloseConnection();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+       }
+
+
+
         /**************************************************************************/
         /* 
          * The Text box for players
@@ -557,6 +725,24 @@ namespace CGProject
                 string[] selectedID = selected.Split(':');
                 populatePlayerInformation(selectedID[0].ToString());
 
+<<<<<<< HEAD
+        private void AddPlay_Click(object sender, EventArgs e)
+        {
+            if (cardListBox.SelectedIndex.Equals(-1) || gameListBox.SelectedIndex.Equals(-1) || playerListBox.SelectedIndex.Equals(-1))
+                MessageBox.Show("You do not have all the nessisary fields selected");
+            else
+            {
+                _querry_string = "select max(ccdb.play.playthrough) as max from ccdb.play.playthrough;";
+                Server s = new Server();
+                read = s.MakeConnection(_querry_string);
+                read.Read();
+                _querry_string = "insert into ccdb.play(ccdb.play.id_player,ccdb.play.playthrough) VALUES( '" + playerListBox.SelectedItem.ToString() + "'," + (read.GetInt32("max") + 1) + ");";
+                s.MakeConnection(_querry_string);
+                s.CloseConnection();
+            }
+        }
+
+=======
             }
             catch (Exception ex)
             {
@@ -572,39 +758,14 @@ namespace CGProject
                 read = s.MakeConnection(_querry_string);
                 read.Read();
                 player1NameTextBox.Text = read.GetString("player_name");
->>>>>>> origin/AlexB
-
-        private void cardImage_MouseHover(object sender, EventArgs e)
-        {
-            Cursor = Cursors.Cross;
-        }
-
-<<<<<<< HEAD
-        private void cardImage_MouseLeave(object sender, EventArgs e)
-        {
-            Cursor = Cursors.Arrow;
-        }
+>>>>>>> d3a4c4c329007423823babe8b1bfd45f4e175dd7
 
 
-        private void cardImage_DoubleClick(object sender, EventArgs e)
-        {
-            try
-            {
-                Server s = new Server();
-                byte[] image = s.MakeImageConnectionExtract("select * from ccdb.images, ccdb.card where ccdb.card.name = '" + cardListBox.SelectedItem.ToString() + "' and ccdb.card.id_image = ccdb.images.id_image ;");
-                if (image == null)
-                {
-                    return;
-                }
-
-                EnloargeImageForm enlargeImage = new EnloargeImageForm(image);
-                enlargeImage.ShowDialog();
-
-                s.CloseConnection();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
+                Application.Exit();
             }
         }
         /***************************************************************************/
@@ -632,17 +793,7 @@ namespace CGProject
            }
            s.CloseConnection();
         }
-=======
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                Application.Exit();
-            }
-            s.CloseConnection();
-        }
 
->>>>>>> origin/AlexB
 
         /**************************************************************************/
     }
