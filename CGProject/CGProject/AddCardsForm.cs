@@ -43,7 +43,6 @@ namespace CGProject
                 try
                 {
                     string line1 = file.ReadLine();
-                    int index = 0;
 
                         while ((line = file.ReadLine()) != null)
                         {

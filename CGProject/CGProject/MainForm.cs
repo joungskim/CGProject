@@ -29,6 +29,7 @@ namespace CGProject
         {
             InitializeComponent();
             populateGameList("");
+            populatePlayListForGame();
             if(!(gameListBox.Items.Count == 0)) gameListBox.SetSelected(0, true);
             addCardButton.Enabled = false;
             if(!allGameRadio.Checked) allGameRadio.PerformClick();
@@ -398,8 +399,6 @@ namespace CGProject
                 MessageBox.Show(ex.ToString());
             }
         }
-        
-
         //populates the Information text box fields for the Card
         private void populateInformationFields(string cardID)
         {
@@ -445,12 +444,10 @@ namespace CGProject
             }
             s.CloseConnection();
         }
-
         private void searchCardTextBox_Click(object sender, EventArgs e)
         {
             searchCardTextBox.Text = "";
         }
-
         private void searchCardTextBox_Leave(object sender, EventArgs e)
         {
             if (searchCardTextBox.Text.Equals(""))
@@ -458,7 +455,6 @@ namespace CGProject
                 searchCardTextBox.Text = "Search Cards...";
             }
         }
-
         private void searchCardTextBox_TextChanged(object sender, EventArgs e)
         {
             cardListBox.Items.Clear();
@@ -512,10 +508,31 @@ namespace CGProject
         {
             Cursor = Cursors.Arrow;
         }
-
-
-
-
+        /***************************************************************************/
+        /*
+         * 
+            Play history?
+         * 
+         *  
+         */
+       private void populatePlayListForGame()
+       {
+           Server s = new Server();
+           try
+           {
+               read = s.MakeConnection("Select * from ccdb.history ;");
+               while (read.Read())
+               {
+                   playthroughHistoryList.Items.Add(read.GetInt32("playthrough") + ": " + read.GetInt32("id_player")+"     "+read.GetInt32("play_num")+"   "+read.GetInt32("id_card"));
+               }
+           }
+           catch (Exception ex)
+           {
+               MessageBox.Show(ex.Message);
+               Application.Exit();
+           }
+           s.CloseConnection();
+        }
 
         /**************************************************************************/
     }
