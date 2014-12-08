@@ -575,6 +575,7 @@
             this.GameEnd.Text = "Selected Player Wins";
             this.GameEnd.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.GameEnd.UseVisualStyleBackColor = false;
+            this.GameEnd.Click += new System.EventHandler(this.GameEnd_Click);
             // 
             // deleteCardButton
             // 

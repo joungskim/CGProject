@@ -96,6 +96,7 @@ namespace CGProject
         private void gameListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             addCardButton.Enabled = true;
+            GameEnd.Enabled = false;
             playthroughHistoryList.Items.Clear();
             player1HistoryListBox.Items.Clear();
             playerListBox.Items.Clear();
@@ -657,14 +658,16 @@ namespace CGProject
                 Server s = new Server();
                 try
                 {
-                    read = s.MakeConnection("SELECT Distinct play.gameplay_num as p, player.player_name as n, play.id_playthrough as selected FROM ccdb.playgame as play, ccdb.player as player, ccdb.history as hist " +
+                    _querry_string = "SELECT Distinct play.gameplay_num as p, player.player_name as n, play.id_playthrough as selected FROM ccdb.record as record, ccdb.playgame as play, ccdb.player as player, ccdb.history as hist " +
                     "WHERE play.id_game = " + _current_game_id + " and play.gameplay_num = " + (playthroughHistoryList.SelectedIndex + 1) + " and play.id_playthrough = hist.playthrough and hist.id_player = player.id_player " +
-                    "Order By n;");
+                    "Order By n;";
+                    read = s.MakeConnection(_querry_string);
                     while (read.Read())
                     {
                         playerListBox.Items.Add(read.GetString("n"));
                         _selected_history = read.GetInt32("selected");
                     }
+
                 }
                 catch (Exception ex)
                 {
@@ -672,6 +675,10 @@ namespace CGProject
                     Application.Exit();
                 }
                 s.CloseConnection();
+            }
+            else
+            {
+                GameEnd.Enabled = false;
             }
         }
 
@@ -709,6 +716,15 @@ namespace CGProject
                 else
                 {
                     MessageBox.Show("An Error Occured could not load player data!");
+                }
+                _querry_string = "Select * from ccdb.record where ccdb.record.id_playthrough = " + _selected_history;
+                read = s.MakeConnection(_querry_string);
+                if (read.Read())
+                {
+                    if (read.IsDBNull(2))
+                    {
+                        GameEnd.Enabled = true;
+                    }
                 }
             }
             catch (Exception ex)
@@ -951,6 +967,11 @@ namespace CGProject
                     _card_name = read.GetString("card");
                     cardListBox.SelectedIndex = (cardListBox.FindString(_card_name));
                 }
+        }
+
+        private void GameEnd_Click(object sender, EventArgs e)
+        {
+            string s = "step";
         }
 
 
