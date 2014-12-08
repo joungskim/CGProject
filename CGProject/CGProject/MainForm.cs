@@ -26,6 +26,7 @@ namespace CGProject
         private string _player_path;
         private string _player_id;
         private string _player_name;
+        private int _selected_history;
 
         private MySqlDataReader read;
 
@@ -34,7 +35,6 @@ namespace CGProject
             InitializeComponent();
             populateGameList("");
             populatePlayListForGame();
-            populatePlayersListBox();
             if (!(gameListBox.Items.Count == 0)) gameListBox.SetSelected(0, true);
             if (!(playerListBox.Items.Count == 0)) playerListBox.SetSelected(0, true);
             if(!allGameRadio.Checked) allGameRadio.PerformClick();
@@ -648,21 +648,28 @@ namespace CGProject
          */
         private void populatePlayersListBox()
         {
-            Server s = new Server();
-            try
+            if (!playthroughHistoryList.SelectedIndex.Equals(-1))
             {
-                read = s.MakeConnection("Select * from ccdb.player ;");
-                while (read.Read())
+                playerListBox.Items.Clear();
+                Server s = new Server();
+                try
                 {
-                    playerListBox.Items.Add(read.GetInt32("id_player") + ": " + read.GetString("player_name"));
+                    read = s.MakeConnection("SELECT Distinct play.gameplay_num as p, player.player_name as n, play.id_playthrough as selected FROM ccdb.playgame as play, ccdb.player as player, ccdb.history as hist " +
+                    "WHERE play.id_game = " + _current_game_id + " and play.gameplay_num = " + (playthroughHistoryList.SelectedIndex + 1) + " and play.id_playthrough = hist.playthrough and hist.id_player = player.id_player " +
+                    "Order By n;");
+                    while (read.Read())
+                    {
+                        playerListBox.Items.Add(read.GetString("n"));
+                        _selected_history = read.GetInt32("selected");
+                    }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    Application.Exit();
+                }
+                s.CloseConnection();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                Application.Exit();
-            }
-            s.CloseConnection();
         }
 
         //adds the player
@@ -679,12 +686,24 @@ namespace CGProject
             //cardListBox.Items.Clear();
             try
             {
-                string selected = playerListBox.SelectedItem.ToString();
-                string[] selectedID = selected.Split(':');
-                _player_id = selectedID[0];
-                _player_name = selectedID[1];
-                populatePlayerInformation(selectedID[0].ToString());
-                displaySelectedPlayerImage();
+                Server s = new Server();
+                int count = 0;
+                bool insure;
+                _querry_string = "SELECT Distinct player.id_player as id, play.gameplay_num as p, player.player_name as n, play.id_playthrough as selected FROM ccdb.playgame as play, ccdb.player as player, ccdb.history as hist " +
+                    "WHERE play.id_game = " + _current_game_id + " and play.gameplay_num = " + (playthroughHistoryList.SelectedIndex + 1) + " and play.id_playthrough = hist.playthrough and hist.id_player = player.id_player " +
+                    "Order By n;";
+                read = s.MakeConnection(_querry_string);
+                while ((insure = read.Read()) && count != playerListBox.SelectedIndex)
+                {
+                    count++;
+                }
+                if (insure)
+                {
+                    _player_id = read.GetInt32("id").ToString();
+                    _player_name = read.GetString("n");
+                    populatePlayerInformation(_player_id);
+                    displaySelectedPlayerImage();
+                }
             }
             catch (Exception ex)
             {
@@ -882,15 +901,30 @@ namespace CGProject
             }
         }
 
+        private void playthroughHistoryList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            populatePlayersListBox();
+            populateGameHistory();
 
+        }
 
+        private void populateGameHistory()
+        {
+            if(!playthroughHistoryList.SelectedIndex.Equals(-1))
+            {
+                player1HistoryListBox.Items.Clear();
+                _querry_string = "Select player.player_name as name, card.name as card, hist.play_num as num from ccdb.card as card, ccdb.player as player, ccdb.history as hist where " +
+                    "hist.playthrough = '" + _selected_history + "' and hist.id_card = card.id_card and player.id_player = hist.id_player ORDER BY num;";
+                Server s = new Server();
+                read = s.MakeConnection(_querry_string);
+                while (read.Read())
+                {
+                    string temp = "Play " + read.GetInt32(/*the play number*/"num") + ": " + "Player: " + read.GetString(/*The Player name*/"name") + " plays the card " + read.GetString(/*then name of the card*/"card");
+                    player1HistoryListBox.Items.Add(temp);
+                }
+                s.CloseConnection();
+            }
+        }
 
- 
-
-
-
-
-
-        /**************************************************************************/
     }
 }

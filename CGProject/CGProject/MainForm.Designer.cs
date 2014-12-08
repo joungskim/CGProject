@@ -421,6 +421,7 @@
             this.playthroughHistoryList.Name = "playthroughHistoryList";
             this.playthroughHistoryList.Size = new System.Drawing.Size(431, 147);
             this.playthroughHistoryList.TabIndex = 34;
+            this.playthroughHistoryList.SelectedIndexChanged += new System.EventHandler(this.playthroughHistoryList_SelectedIndexChanged);
             // 
             // player1NameLabel
             // 
