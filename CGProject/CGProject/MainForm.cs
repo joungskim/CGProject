@@ -276,13 +276,18 @@ namespace CGProject
                 byte[] image = s.MakeImageConnectionExtract("select * from ccdb.images, ccdb.game where ccdb.game.id_game = '" + _current_game_id + "' and ccdb.game.id_image = ccdb.images.id_image ;");
                 if (image == null)
                 {
-                    gameImage.Image = null;
+                    image = s.MakeImageConnectionExtract("Select * from ccdb.images where ccdb.images.id_image = '44'");
+                    MemoryStream stream = new MemoryStream(image);
+                    gameImage.Image = System.Drawing.Bitmap.FromStream(stream);
+                    gameImage.SizeMode = PictureBoxSizeMode.StretchImage;
                     return;
                 }
-
-                MemoryStream stream = new MemoryStream(image);
-                gameImage.Image = System.Drawing.Bitmap.FromStream(stream);
-                gameImage.SizeMode = PictureBoxSizeMode.StretchImage;
+                else
+                {
+                    MemoryStream stream = new MemoryStream(image);
+                    gameImage.Image = System.Drawing.Bitmap.FromStream(stream);
+                    gameImage.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
                 //Image.FromStream(stream);
             }
             catch (Exception ex)
@@ -488,12 +493,17 @@ namespace CGProject
                 byte[] image = s.MakeImageConnectionExtract("select * from ccdb.images, ccdb.card where ccdb.card.name = '" + cardListBox.SelectedItem.ToString() + "' and ccdb.card.id_image = ccdb.images.id_image ;");
                 if (image == null)
                 {
-                    cardImage.Image = null;
+                    image = s.MakeImageConnectionExtract("Select * from ccdb.images where ccdb.images.id_image = '44'");
+                    MemoryStream stream = new MemoryStream(image);
+                    cardImage.Image = System.Drawing.Bitmap.FromStream(stream);
                     return;
                 }
-                
-                MemoryStream stream = new MemoryStream(image);
-                cardImage.Image = System.Drawing.Bitmap.FromStream(stream); 
+
+                else
+                {
+                    MemoryStream stream = new MemoryStream(image);
+                    cardImage.Image = System.Drawing.Bitmap.FromStream(stream);
+                }
                 //Image.FromStream(stream);
             }
             catch (Exception ex)
