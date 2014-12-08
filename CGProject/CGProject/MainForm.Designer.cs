@@ -547,6 +547,7 @@
             this.player1HistoryListBox.Name = "player1HistoryListBox";
             this.player1HistoryListBox.Size = new System.Drawing.Size(431, 303);
             this.player1HistoryListBox.TabIndex = 62;
+            this.player1HistoryListBox.SelectedIndexChanged += new System.EventHandler(this.player1HistoryListBox_SelectedIndexChanged);
             // 
             // AddPlay
             // 

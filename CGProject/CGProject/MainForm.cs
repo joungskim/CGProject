@@ -22,10 +22,11 @@ namespace CGProject
         private string _current_game_id;
         private string _current_game_name;
         private string _card_path;
+        private int _card_id;
+        private string _card_name;
         private string _game_path;
         private string _player_path;
         private string _player_id;
-        private string _player_name;
         private int _selected_history;
 
         private MySqlDataReader read;
@@ -700,9 +701,12 @@ namespace CGProject
                 if (insure)
                 {
                     _player_id = read.GetInt32("id").ToString();
-                    _player_name = read.GetString("n");
                     populatePlayerInformation(_player_id);
                     displaySelectedPlayerImage();
+                }
+                else
+                {
+                    MessageBox.Show("An Error Occured could not load player data!");
                 }
             }
             catch (Exception ex)
@@ -924,6 +928,25 @@ namespace CGProject
                 }
                 s.CloseConnection();
             }
+        }
+
+        private void player1HistoryListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int count = 0;
+            bool insure;
+            _querry_string = "select card.name as card from ccdb.card as card, ccdb.player as player, ccdb.history as hist where " +
+                    "hist.playthrough = " + _selected_history + " and hist.id_card = card.id_card and player.id_player = hist.id_player ORDER BY play_num;";
+                Server s = new Server();
+                read = s.MakeConnection(_querry_string);
+                while ((insure = read.Read()) && count != player1HistoryListBox.SelectedIndex)
+                {
+                    count++;
+                }
+                if (insure)
+                {
+                    _card_name = read.GetString("card");
+                    cardListBox.SelectedIndex = (cardListBox.FindString(_card_name));
+                }
         }
 
     }
