@@ -693,7 +693,6 @@ namespace CGProject
 
         private void playerListBox_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            //cardListBox.Items.Clear();
             try
             {
                 Server s = new Server();
@@ -743,6 +742,7 @@ namespace CGProject
                 read.Read();
                 player1NameTextBox.Text = read.GetString("player_name");
 
+                //TODO:  Querry the database and find how many records the selected id_player is in and calculate win loss percentages and we need to add currenlty playing % otherwise this is going to be weird;
                 _querry_string = "";
                 
 
@@ -971,9 +971,19 @@ namespace CGProject
 
         private void GameEnd_Click(object sender, EventArgs e)
         {
-            string s = "step";
+            //TODO:  Need to set the current record of the selected playthrough for the winning player to true and the other players to false;  SUGEST a trigger that when a player gets a win insert then all players with null win for that playthrough get false;
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //TODO:  Need to be able to add new playthorugh of games, when you do it should insert a new record, history, and playthrough
+        }
 
+        private void fileSystemWatcher1_Changed(object sender, FileSystemEventArgs e)
+        {
+
+        }
+        //TODO:  Need a dropdown selector to choose either Alphabetical, by cost, type, or rarity to sort cards
+        //TODO: need a selector to choose to display games by manufacturer
     }
 }

@@ -83,9 +83,11 @@
             this.playerSaveButton = new System.Windows.Forms.Button();
             this.addPlayerButton = new System.Windows.Forms.Button();
             this.deletePlayerButton = new System.Windows.Forms.Button();
+            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             ((System.ComponentModel.ISupportInitialize)(this.cardImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gameImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
             // exitButton
@@ -397,6 +399,7 @@
             this.button1.Text = "Edit Games";
             this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // aboutButton
             // 
@@ -745,6 +748,12 @@
             this.deletePlayerButton.UseVisualStyleBackColor = false;
             this.deletePlayerButton.Click += new System.EventHandler(this.deletePlayerButton_Click);
             // 
+            // fileSystemWatcher1
+            // 
+            this.fileSystemWatcher1.EnableRaisingEvents = true;
+            this.fileSystemWatcher1.SynchronizingObject = this;
+            this.fileSystemWatcher1.Changed += new System.IO.FileSystemEventHandler(this.fileSystemWatcher1_Changed);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -817,6 +826,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cardImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gameImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -878,5 +888,6 @@
         private System.Windows.Forms.Button playerSaveButton;
         private System.Windows.Forms.Button addPlayerButton;
         private System.Windows.Forms.Button deletePlayerButton;
+        private System.IO.FileSystemWatcher fileSystemWatcher1;
     }
 }
