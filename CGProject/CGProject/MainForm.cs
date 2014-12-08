@@ -96,7 +96,9 @@ namespace CGProject
         private void gameListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             addCardButton.Enabled = true;
-
+            playthroughHistoryList.Items.Clear();
+            player1HistoryListBox.Items.Clear();
+            playerListBox.Items.Clear();
             if (!(gameListBox.SelectedIndex < 0))
             {
                 cardListBox.Items.Clear();
@@ -725,6 +727,8 @@ namespace CGProject
                 read.Read();
                 player1NameTextBox.Text = read.GetString("player_name");
 
+                _querry_string = "";
+                
 
             }
             catch (Exception ex)
@@ -948,6 +952,7 @@ namespace CGProject
                     cardListBox.SelectedIndex = (cardListBox.FindString(_card_name));
                 }
         }
+
 
     }
 }

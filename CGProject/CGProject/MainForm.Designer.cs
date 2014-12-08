@@ -69,7 +69,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.player1HistoryListBox = new System.Windows.Forms.ListBox();
             this.AddPlay = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.GameEnd = new System.Windows.Forms.Button();
             this.deleteCardButton = new System.Windows.Forms.Button();
             this.gameCardCountLabel = new System.Windows.Forms.Label();
             this.allGameRadio = new System.Windows.Forms.RadioButton();
@@ -563,18 +563,18 @@
             this.AddPlay.UseVisualStyleBackColor = false;
             this.AddPlay.Click += new System.EventHandler(this.AddPlay_Click);
             // 
-            // button2
+            // GameEnd
             // 
-            this.button2.BackColor = System.Drawing.Color.Gray;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button2.Location = new System.Drawing.Point(575, 346);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(130, 23);
-            this.button2.TabIndex = 67;
-            this.button2.Text = "Import Card Image";
-            this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.button2.UseVisualStyleBackColor = false;
+            this.GameEnd.BackColor = System.Drawing.Color.Gray;
+            this.GameEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GameEnd.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.GameEnd.Location = new System.Drawing.Point(725, 376);
+            this.GameEnd.Name = "GameEnd";
+            this.GameEnd.Size = new System.Drawing.Size(122, 23);
+            this.GameEnd.TabIndex = 67;
+            this.GameEnd.Text = "Selected Player Wins";
+            this.GameEnd.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.GameEnd.UseVisualStyleBackColor = false;
             // 
             // deleteCardButton
             // 
@@ -721,9 +721,9 @@
             this.addPlayerButton.BackColor = System.Drawing.Color.Gray;
             this.addPlayerButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addPlayerButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.addPlayerButton.Location = new System.Drawing.Point(727, 347);
+            this.addPlayerButton.Location = new System.Drawing.Point(631, 347);
             this.addPlayerButton.Name = "addPlayerButton";
-            this.addPlayerButton.Size = new System.Drawing.Size(120, 23);
+            this.addPlayerButton.Size = new System.Drawing.Size(91, 23);
             this.addPlayerButton.TabIndex = 79;
             this.addPlayerButton.Text = "Add Player";
             this.addPlayerButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
@@ -735,7 +735,7 @@
             this.deletePlayerButton.BackColor = System.Drawing.Color.Gray;
             this.deletePlayerButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.deletePlayerButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.deletePlayerButton.Location = new System.Drawing.Point(727, 376);
+            this.deletePlayerButton.Location = new System.Drawing.Point(727, 347);
             this.deletePlayerButton.Name = "deletePlayerButton";
             this.deletePlayerButton.Size = new System.Drawing.Size(120, 23);
             this.deletePlayerButton.TabIndex = 80;
@@ -764,7 +764,7 @@
             this.Controls.Add(this.allGameRadio);
             this.Controls.Add(this.gameCardCountLabel);
             this.Controls.Add(this.deleteCardButton);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.GameEnd);
             this.Controls.Add(this.AddPlay);
             this.Controls.Add(this.player1HistoryListBox);
             this.Controls.Add(this.textBox10);
@@ -863,7 +863,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ListBox player1HistoryListBox;
         private System.Windows.Forms.Button AddPlay;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button GameEnd;
         private System.Windows.Forms.Button deleteCardButton;
         private System.Windows.Forms.Label gameCardCountLabel;
         private System.Windows.Forms.RadioButton allGameRadio;
