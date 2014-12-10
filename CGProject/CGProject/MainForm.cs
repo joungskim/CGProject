@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using MySql.Data.MySqlClient;
+using System.Timers;
 
 namespace CGProject
 {
@@ -28,6 +29,8 @@ namespace CGProject
         private string _player_path;
         private string _player_id;
         private int _selected_history;
+        private System.Timers.Timer timer = new System.Timers.Timer();
+        private int chatBoxIndex;
 
         private MySqlDataReader read;
 
@@ -36,6 +39,7 @@ namespace CGProject
             InitializeComponent();
             populateGameList("");
             populatePlayListForGame();
+            populateChatBox();
             if (!(gameListBox.Items.Count == 0)) gameListBox.SetSelected(0, true);
             if (!(playerListBox.Items.Count == 0)) playerListBox.SetSelected(0, true);
             if(!allGameRadio.Checked) allGameRadio.PerformClick();
@@ -44,6 +48,10 @@ namespace CGProject
             saveImage.Enabled = false;
             saveManImageButton.Enabled = false;
             playerSaveButton.Enabled = false;
+            timer.Elapsed += new ElapsedEventHandler(timerElapsed);
+            timer.Interval = 10000;
+            timer.Start();
+            chatBoxIndex = 0;
         }
 
         /**************************************************************************/
@@ -1004,6 +1012,57 @@ namespace CGProject
             //TODO:  Need to be able to add new playthrough of games, when you do it should insert a new record, history, and playthrough
         }
 
+        /***************************************************************************
+         * Chat Box Updates 
+         * Anything that deals with the chat box.
+        */
+
+        private void timerElapsed(object sender, ElapsedEventArgs e)
+        {
+            populateChatBox();
+        }
+
+        private void populateChatBox()
+        {
+            string thisQuery;
+            Server s = new Server();
+            try
+            {
+                thisQuery = "Select * from ccdb.chat where id_chat > " + chatBoxIndex + " ;";
+                read = s.MakeConnection(thisQuery);
+                while (read.Read())
+                {
+                    this.Invoke((MethodInvoker)(()=>chatListBox.Items.Add(read.GetString("chat"))));
+                }
+
+                thisQuery = "Select Max(ccdb.chat.id_chat) as chat From ccdb.chat ;";
+                read = s.MakeConnection(thisQuery);
+                read.Read();
+                this.Invoke((MethodInvoker)(() => chatBoxIndex = read.GetInt32("chat")));
+                if(chatListBox.Items.Count > 0) this.Invoke((MethodInvoker)(()=>chatListBox.SetSelected(chatListBox.Items.Count - 1, true)));
+            }
+            catch (Exception ex)
+            {
+            }
+            s.CloseConnection();
+        }
+
+        private void sendMessageButton_Click(object sender, EventArgs e)
+        {
+            if(!chatRichTextBox.Equals(""))
+            {
+                Server s = new Server();
+                List<string> names = new List<string>();
+                names.Add("chat");
+                List<string> values = new List<string>();
+                values.Add(Server.user + ": " +chatRichTextBox.ToString());
+                s.MakeConnectionInsertParse("chat", names, values);
+                populateChatBox();
+                chatRichTextBox.Clear();
+            }
+        }
+
+        /***************************************************************************/
         private void fileSystemWatcher1_Changed(object sender, FileSystemEventArgs e)
         {
 
@@ -1013,6 +1072,20 @@ namespace CGProject
         {
 
         }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fileSystemWatcher2_Changed(object sender, FileSystemEventArgs e)
+        {
+
+        }
+
+
+
+
         //TODO:  Need a dropdown selector to choose either Alphabetical, by cost, type, or rarity to sort cards
         /*\  _quwerry_string = select
          * 

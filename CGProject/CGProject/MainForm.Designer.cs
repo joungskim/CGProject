@@ -84,13 +84,19 @@
             this.addPlayerButton = new System.Windows.Forms.Button();
             this.deletePlayerButton = new System.Windows.Forms.Button();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.sortCardsBy = new System.Windows.Forms.ComboBox();
             this.generateGames = new System.Windows.Forms.Button();
+            this.chatListBox = new System.Windows.Forms.ListBox();
+            this.chatRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.sendMessageButton = new System.Windows.Forms.Button();
+            this.fileSystemWatcher2 = new System.IO.FileSystemWatcher();
             ((System.ComponentModel.ISupportInitialize)(this.cardImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gameImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher2)).BeginInit();
             this.SuspendLayout();
             // 
             // exitButton
@@ -98,7 +104,7 @@
             this.exitButton.BackColor = System.Drawing.Color.Black;
             this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.exitButton.Location = new System.Drawing.Point(824, 11);
+            this.exitButton.Location = new System.Drawing.Point(1036, 12);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(24, 24);
             this.exitButton.TabIndex = 0;
@@ -111,7 +117,7 @@
             this.minimizeButton.BackColor = System.Drawing.Color.Black;
             this.minimizeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.minimizeButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.minimizeButton.Location = new System.Drawing.Point(794, 11);
+            this.minimizeButton.Location = new System.Drawing.Point(1006, 12);
             this.minimizeButton.Name = "minimizeButton";
             this.minimizeButton.Size = new System.Drawing.Size(24, 24);
             this.minimizeButton.TabIndex = 2;
@@ -409,7 +415,7 @@
             this.aboutButton.BackColor = System.Drawing.Color.Black;
             this.aboutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.aboutButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.aboutButton.Location = new System.Drawing.Point(764, 11);
+            this.aboutButton.Location = new System.Drawing.Point(976, 12);
             this.aboutButton.Name = "aboutButton";
             this.aboutButton.Size = new System.Drawing.Size(24, 24);
             this.aboutButton.TabIndex = 32;
@@ -755,7 +761,6 @@
             // 
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
-            this.fileSystemWatcher1.Changed += new System.IO.FileSystemEventHandler(this.fileSystemWatcher1_Changed);
             // 
             // sortCardsBy
             // 
@@ -766,6 +771,7 @@
             this.sortCardsBy.TabIndex = 81;
             // 
             // generateGames
+            // chatListBox
             // 
             this.generateGames.BackColor = System.Drawing.Color.Gray;
             this.generateGames.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -779,14 +785,77 @@
             this.generateGames.UseVisualStyleBackColor = false;
             this.generateGames.Click += new System.EventHandler(this.button2_Click);
             // 
+            this.chatListBox.BackColor = System.Drawing.Color.Black;
+            this.chatListBox.ForeColor = System.Drawing.Color.LimeGreen;
+            this.chatListBox.FormattingEnabled = true;
+            this.chatListBox.Location = new System.Drawing.Point(852, 41);
+            this.chatListBox.Name = "chatListBox";
+            this.chatListBox.Size = new System.Drawing.Size(208, 537);
+            this.chatListBox.TabIndex = 82;
+            this.chatListBox.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            // 
+            // chatRichTextBox
+            // 
+            this.chatRichTextBox.Location = new System.Drawing.Point(853, 604);
+            this.chatRichTextBox.Name = "chatRichTextBox";
+            this.chatRichTextBox.Size = new System.Drawing.Size(207, 75);
+            this.chatRichTextBox.TabIndex = 83;
+            this.chatRichTextBox.Text = "";
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(0, 0);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(55, 13);
+            this.linkLabel1.TabIndex = 85;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "linkLabel1";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.Ivory;
+            this.label4.Location = new System.Drawing.Point(853, 588);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(39, 13);
+            this.label4.TabIndex = 86;
+            this.label4.Text = "CHAT:";
+            // 
+            // sendMessageButton
+            // 
+            this.sendMessageButton.BackColor = System.Drawing.Color.Gray;
+            this.sendMessageButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sendMessageButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.sendMessageButton.Location = new System.Drawing.Point(853, 684);
+            this.sendMessageButton.Name = "sendMessageButton";
+            this.sendMessageButton.Size = new System.Drawing.Size(97, 23);
+            this.sendMessageButton.TabIndex = 87;
+            this.sendMessageButton.Text = "Send Message";
+            this.sendMessageButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.sendMessageButton.UseVisualStyleBackColor = false;
+            this.sendMessageButton.Click += new System.EventHandler(this.sendMessageButton_Click);
+            // 
+            // fileSystemWatcher2
+            // 
+            this.fileSystemWatcher2.EnableRaisingEvents = true;
+            this.fileSystemWatcher2.SynchronizingObject = this;
+            this.fileSystemWatcher2.Changed += new System.IO.FileSystemEventHandler(this.fileSystemWatcher2_Changed);
+            // 
             // MainForm
             // 
+            this.AcceptButton = this.sendMessageButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(861, 720);
+            this.ClientSize = new System.Drawing.Size(1073, 720);
             this.Controls.Add(this.generateGames);
+            this.Controls.Add(this.sendMessageButton);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.linkLabel1);
+            this.Controls.Add(this.chatRichTextBox);
+            this.Controls.Add(this.chatListBox);
             this.Controls.Add(this.sortCardsBy);
             this.Controls.Add(this.deletePlayerButton);
             this.Controls.Add(this.addPlayerButton);
@@ -854,6 +923,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gameImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -917,7 +987,12 @@
         private System.Windows.Forms.Button deletePlayerButton;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
         private System.Windows.Forms.ComboBox sortCardsBy;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.ListBox chatListBox;
         private System.Windows.Forms.Button generateGames;
+        private System.Windows.Forms.Button sendMessageButton;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.RichTextBox chatRichTextBox;
+        private System.IO.FileSystemWatcher fileSystemWatcher2;
     }
 }
