@@ -32,7 +32,6 @@ namespace CGProject
         {
             importNotificationLabel.Visible = false;
             int count = 0;
-            int countIns = 0;
             Server s = new Server();
             string line;
             int countAdded = 0;
@@ -63,7 +62,7 @@ namespace CGProject
                             countAdded++;
                         }
                     }
-                    importNotificationLabel.Text = "Cards inserted: " + countAdded + " - Cards not inserted: " + countIns;
+                    importNotificationLabel.Text = "Cards inserted: " + countAdded + " - Cards not inserted: " + count;
                     file.Close();
                 }
                 catch(IOException ex)

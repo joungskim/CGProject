@@ -658,7 +658,9 @@ namespace CGProject
                 Server s = new Server();
                 try
                 {
-                    _querry_string = "SELECT Distinct play.gameplay_num as p, player.player_name as n, play.id_playthrough as selected FROM ccdb.record as record, ccdb.playgame as play, ccdb.player as player, ccdb.history as hist " +
+                    _querry_string = "SELECT Distinct play.gameplay_num as p, player.player_name as n, play.id_playthrough as selected " +
+                    "FROM ccdb.record as record, (SELECT count(x.id_game) as gameplay_num, y.id_playthrough, y.id_game from ccdb.playgame1 as x, ccdb.playgame1 as y where y.id_game = x.id_game and y.id_game = " +
+                    _current_game_id + " and x.id_playthrough <= y.id_playthrough group by y.id_playthrough) as play, ccdb.player as player, ccdb.history as hist " +
                     "WHERE play.id_game = " + _current_game_id + " and play.gameplay_num = " + (playthroughHistoryList.SelectedIndex + 1) + " and play.id_playthrough = hist.playthrough and hist.id_player = player.id_player " +
                     "Order By n;";
                     read = s.MakeConnection(_querry_string);
@@ -699,7 +701,8 @@ namespace CGProject
                 int count = 0;
                 bool insure;
                 _querry_string = "SELECT Distinct player.id_player as id, play.gameplay_num as p, player.player_name as n, play.id_playthrough as selected FROM " +
-                    "(SELECT count(x.id_game) as gameplay_num, y.id_playthrough, y.id_game from playgame1  as x, playgame1 as y where y.id_game = x.id_game and y.id_game = " + _current_game_id + " and x.id_playthrough <= y.id_playthrough group by y.id_playthrough) as play" + 
+                    "(SELECT count(x.id_game) as gameplay_num, y.id_playthrough, y.id_game from ccdb.playgame1  as x, ccdb.playgame1 as y where y.id_game = x.id_game and y.id_game = " + 
+                    _current_game_id + " and x.id_playthrough <= y.id_playthrough group by y.id_playthrough) as play" + 
                     ", ccdb.player as player, ccdb.history as hist " +
                     "WHERE  play.gameplay_num = " + (playthroughHistoryList.SelectedIndex + 1) + " and play.id_playthrough = hist.playthrough and hist.id_player = player.id_player " +
                     "Order By n;";
@@ -942,8 +945,15 @@ namespace CGProject
 
         private void playthroughHistoryList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            populatePlayersListBox();
-            populateGameHistory();
+            if (!playthroughHistoryList.SelectedItem.ToString().Contains('-'))
+            {
+                populatePlayersListBox();
+                populateGameHistory();
+            }
+            else
+            {
+
+            }
 
         }
 
@@ -995,6 +1005,11 @@ namespace CGProject
         }
 
         private void fileSystemWatcher1_Changed(object sender, FileSystemEventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
         {
 
         }

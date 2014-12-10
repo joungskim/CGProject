@@ -86,6 +86,7 @@
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.sortCardsBy = new System.Windows.Forms.ComboBox();
+            this.generateGames = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.cardImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gameImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerPictureBox)).BeginInit();
@@ -587,7 +588,7 @@
             this.deleteCardButton.BackColor = System.Drawing.Color.Gray;
             this.deleteCardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.deleteCardButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.deleteCardButton.Location = new System.Drawing.Point(102, 295);
+            this.deleteCardButton.Location = new System.Drawing.Point(102, 293);
             this.deleteCardButton.Name = "deleteCardButton";
             this.deleteCardButton.Size = new System.Drawing.Size(75, 23);
             this.deleteCardButton.TabIndex = 68;
@@ -764,6 +765,20 @@
             this.sortCardsBy.Size = new System.Drawing.Size(73, 21);
             this.sortCardsBy.TabIndex = 81;
             // 
+            // generateGames
+            // 
+            this.generateGames.BackColor = System.Drawing.Color.Gray;
+            this.generateGames.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.generateGames.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.generateGames.Location = new System.Drawing.Point(561, 11);
+            this.generateGames.Name = "generateGames";
+            this.generateGames.Size = new System.Drawing.Size(130, 23);
+            this.generateGames.TabIndex = 82;
+            this.generateGames.Text = "Who is playing a game";
+            this.generateGames.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.generateGames.UseVisualStyleBackColor = false;
+            this.generateGames.Click += new System.EventHandler(this.button2_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -771,6 +786,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(861, 720);
+            this.Controls.Add(this.generateGames);
             this.Controls.Add(this.sortCardsBy);
             this.Controls.Add(this.deletePlayerButton);
             this.Controls.Add(this.addPlayerButton);
@@ -902,5 +918,6 @@
         private System.IO.FileSystemWatcher fileSystemWatcher1;
         private System.Windows.Forms.ComboBox sortCardsBy;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Button generateGames;
     }
 }
