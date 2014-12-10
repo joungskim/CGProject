@@ -37,21 +37,24 @@ namespace CGProject
         public MainForm()
         {
             InitializeComponent();
+            LoadMainForm();
+
+        }
+
+        public void LoadMainForm()
+        {
             populateGameList("");
             populatePlayListForGame();
-            populateChatBox();
             if (!(gameListBox.Items.Count == 0)) gameListBox.SetSelected(0, true);
             if (!(playerListBox.Items.Count == 0)) playerListBox.SetSelected(0, true);
-            if(!allGameRadio.Checked) allGameRadio.PerformClick();
+            if (!allGameRadio.Checked) allGameRadio.PerformClick();
             importCardImageButton.Enabled = false;
             if (!(cardListBox.Items.Count == 0)) cardListBox.SetSelected(0, true);
             saveImage.Enabled = false;
             saveManImageButton.Enabled = false;
             playerSaveButton.Enabled = false;
-            timer.Elapsed += new ElapsedEventHandler(timerElapsed);
-            timer.Interval = 10000;
-            timer.Start();
             chatBoxIndex = 0;
+            populateChatBox();
         }
 
         /**************************************************************************/
@@ -1017,11 +1020,6 @@ namespace CGProject
          * Anything that deals with the chat box.
         */
 
-        private void timerElapsed(object sender, ElapsedEventArgs e)
-        {
-            populateChatBox();
-        }
-
         private void populateChatBox()
         {
             string thisQuery;
@@ -1049,17 +1047,22 @@ namespace CGProject
 
         private void sendMessageButton_Click(object sender, EventArgs e)
         {
-            if(!chatRichTextBox.Equals(""))
+            if(!chatRichTextBox.Text.Equals(""))
             {
                 Server s = new Server();
                 List<string> names = new List<string>();
                 names.Add("chat");
                 List<string> values = new List<string>();
-                values.Add(Server.user + ": " +chatRichTextBox.ToString());
+                values.Add(Server.user + " (" + DateTime.Now.ToShortTimeString() + ")" + " : " + chatRichTextBox.Text);
                 s.MakeConnectionInsertParse("chat", names, values);
                 populateChatBox();
                 chatRichTextBox.Clear();
             }
+        }
+
+        private void refreshButton_Click(object sender, EventArgs e)
+        {
+            populateChatBox();
         }
 
         /***************************************************************************/
@@ -1082,6 +1085,8 @@ namespace CGProject
         {
 
         }
+
+
 
 
 
