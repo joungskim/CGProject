@@ -86,10 +86,22 @@ namespace CGProject
                 //inserts values into @ prepared statements.
                 for (int i = 0; i < listAtNames.Count; i++)
                 {
-                    string temp = listAtNames[i];
-                    param = new MySqlParameter(temp, MySqlDbType.VarChar, 1000);
-                    param.Value = valValues[i].ToString();
-                    cmd.Parameters.Add(param);
+                    int n;
+                    if (!(int.TryParse(valValues[i], out n)))
+                    {
+                        string temp = listAtNames[i];
+                        param = new MySqlParameter(temp, MySqlDbType.VarChar, 1000);
+                        param.Value = valValues[i].ToString();
+                        cmd.Parameters.Add(param);
+                    }
+
+                    else
+                    {
+                        string temp = listAtNames[i];
+                        param = new MySqlParameter(temp, MySqlDbType.Int32, 1000);
+                        param.Value = valValues[i].ToString();
+                        cmd.Parameters.Add(param);
+                    }
                 }
                 /*
                 for (int i = 0; i < listAtNames.Count; i++)
