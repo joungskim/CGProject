@@ -17,31 +17,101 @@ namespace CGProject
         public static string user;
         public static string pass;
         
-        private  MySqlConnection myConn;
-        
+        private MySqlConnection myConn;
+        private MySqlCommand cmd;
 
                 
   	public MySqlDataReader MakeConnection(string query)
         {
-                string myConnection = "datasource=70.179.174.145;port=3306;username=" + user + ";password=" + pass;
-                myConn = new MySqlConnection(myConnection);
-                MySqlCommand cb = new MySqlCommand(query,myConn);
-                MySqlDataReader myReader;
-                myConn.Open();
+            //string myConnection = "datasource=70.179.174.145;port=3306;username=" + user + ";password=" + pass;
+            string myConnection = "datasource=localhost;port=3306;username=" + user + ";password=" + pass;
+            myConn = new MySqlConnection(myConnection);
+            MySqlCommand cb = new MySqlCommand(query,myConn);
+            MySqlDataReader myReader;
+            myConn.Open();
 
-                myReader = cb.ExecuteReader();
-                return myReader;
+            myReader = cb.ExecuteReader();
+            return myReader;
         }
         public void CloseConnection()
         {
-                myConn.Close();
+            myConn.Close();
+        }
+
+        /*************************************************************************
+         * Insert with prepared statement. 
+         * The tableName represents the table which you would like to insert into
+         * valNames gives the names of the table columns in List<string>
+         * valValues gives the values of the correspoding valName
+         * So if you had two list TEST1 and TEST2
+         * TEST1[0] <=> TEST2[0] are connected
+         */
+        public void MakeConnectionInsertParse(string tableName, List<string> valNames, List<string> valValues)
+        {
+            try
+            {
+                //string myConnection = "datasource=70.179.174.145;port=3306;username=" + user + ";password=" + pass;
+
+                //builds the names of the tables to string;
+                string atName = "(" + valNames[0].ToString() + "";
+                string valName = "('@j0'";
+                List<string> listAtNames = new List<string>();
+                listAtNames.Add("@j0");
+
+                for (int i = 1; i < valNames.Count; i++)
+                {
+                    atName += ", " + valNames[i];
+                }
+                atName += ")";
+
+                //builds the values string for prepared statement
+                for (int i = 1; i < valValues.Count; i++)
+                {
+                    valName += ", '@j" + i + "'";
+                    listAtNames.Add("@j" + i);
+                }
+                valName += ")";
+
+                string query = "Insert into ccdb." + tableName + " " + atName + " VALUES " + valName + " ;";
+
+                //sets the command text
+                string myConnection = "datasource=localhost;port=3306;username=" + user + ";password=" + pass;
+
+                myConn = new MySql.Data.MySqlClient.MySqlConnection(myConnection);
+                cmd = new MySqlCommand(query, myConn);
+
+                myConn.Open();
+
+
+                //inserts values into @ prepared statements.
+                for (int i = 0; i < listAtNames.Count; i++)
+                {
+                    MySqlParameter param = new MySqlParameter(listAtNames[i], MySqlDbType.VarChar, 1000);
+                    param.Value = valValues[i];
+                    cmd.Parameters.Add(param);
+                }
+                /*
+                for (int i = 0; i < listAtNames.Count; i++)
+                {
+                    cmd.Parameters[listAtNames[i]].Value = valValues[i].ToString();
+                }
+                 */
+                cmd.Prepare();
+                cmd.ExecuteNonQuery();
+            }
+
+            catch(MySqlException ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
 
 
         public void MakeImageConnectionInsert(string query, byte[] image)
         {
-            using (myConn = new MySqlConnection("datasource=70.179.174.145;port=3306;username=" + user + ";password=" + pass))
+            //using (myConn = new MySqlConnection("datasource=70.179.174.145;port=3306;username=" + user + ";password=" + pass))
+            using (myConn = new MySqlConnection("datasource=localhost;port=3306;username=" + user + ";password=" + pass));
             using (var cmd = myConn.CreateCommand())
             {
                 myConn.Open();
@@ -58,7 +128,9 @@ namespace CGProject
         //THIS WORKS PERFECT NO TOUCHY
         public byte[] MakeImageConnectionExtract(string querry)
         {
-            using (myConn = new MySqlConnection("datasource=70.179.174.145;port=3306;username=" + user + ";password=" + pass))
+            //using (myConn = new MySqlConnection("datasource=70.179.174.145;port=3306;username=" + user + ";password=" + pass))
+            using (myConn = new MySqlConnection("datasource=localhost;port=3306;username=" + user + ";password=" + pass));
+            string myConnection = "localhost;port=3306;username=" + user + ";password=" + pass;
             using (var cmd = myConn.CreateCommand())
             {
                 myConn.Open();
