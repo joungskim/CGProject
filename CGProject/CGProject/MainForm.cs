@@ -698,8 +698,10 @@ namespace CGProject
                 Server s = new Server();
                 int count = 0;
                 bool insure;
-                _querry_string = "SELECT Distinct player.id_player as id, play.gameplay_num as p, player.player_name as n, play.id_playthrough as selected FROM ccdb.playgame as play, ccdb.player as player, ccdb.history as hist " +
-                    "WHERE play.id_game = " + _current_game_id + " and play.gameplay_num = " + (playthroughHistoryList.SelectedIndex + 1) + " and play.id_playthrough = hist.playthrough and hist.id_player = player.id_player " +
+                _querry_string = "SELECT Distinct player.id_player as id, play.gameplay_num as p, player.player_name as n, play.id_playthrough as selected FROM " +
+                    "(SELECT count(x.id_game) as gameplay_num, y.id_playthrough, y.id_game from playgame1  as x, playgame1 as y where y.id_game = x.id_game and y.id_game = " + _current_game_id + " and x.id_playthrough <= y.id_playthrough group by y.id_playthrough) as play" + 
+                    ", ccdb.player as player, ccdb.history as hist " +
+                    "WHERE  play.gameplay_num = " + (playthroughHistoryList.SelectedIndex + 1) + " and play.id_playthrough = hist.playthrough and hist.id_player = player.id_player " +
                     "Order By n;";
                 read = s.MakeConnection(_querry_string);
                 while ((insure = read.Read()) && count != playerListBox.SelectedIndex)
@@ -737,14 +739,28 @@ namespace CGProject
             Server s = new Server();
             try
             {
-                _querry_string = "Select * from ccdb.player as player where player.id_player = '" + id_player + "' ;"; //Need to change card.name to card.id_card
+                _querry_string = "Select * from ccdb.player as player where player.id_player = '" + id_player + "' ;"; 
                 read = s.MakeConnection(_querry_string);
                 read.Read();
                 player1NameTextBox.Text = read.GetString("player_name");
 
-                //TODO:  Querry the database and find how many records the selected id_player is in and calculate win loss percentages and we need to add currenlty playing % otherwise this is going to be weird;
-                _querry_string = "";
-                
+                if (currentGameRadio.Checked) _querry_string = "SELECT id_player, SUM(win)/count(*) as win_p, (count(*)-SUM(win))/count(*) as loss_p, SUM(win) as win, count(*)-SUM(win) as loss FROM ccdb.record where win IS NOT NULL and id_player = " + _player_id + " group by id_player;";
+                else _querry_string = "SELECT id_player, SUM(win)/count(*) as win_p, (count(*)-SUM(win))/count(*) as loss_p, SUM(win) as win, count(*)-SUM(win) as loss FROM ccdb.record, ccdb.playgame1 where win IS NOT NULL and record.id_playthrough = playgame1.id_playthrough and id_player = " + _player_id + " and playgame1.id_game = " + _current_game_id + " group by id_player;";
+                read = s.MakeConnection(_querry_string);
+                if (read.Read())
+                {
+                    player1WinPercent.Text = Convert.ToString(read.GetDouble("win_p") * 100);
+                    player1LossPercent.Text = Convert.ToString(read.GetDouble("loss_p") * 100);
+                    player1LossCount.Text = read.GetInt32("loss").ToString();
+                    player1WinCount.Text = read.GetInt32("win").ToString();
+                }
+                else
+                {
+                    player1WinPercent.Text = "N/A";
+                    player1LossPercent.Text = "N/A";
+                    player1LossCount.Text = "0";
+                    player1WinCount.Text = "0";
+                }
 
             }
             catch (Exception ex)
@@ -829,7 +845,6 @@ namespace CGProject
                 MemoryStream stream = new MemoryStream(image);
                 playerPictureBox.Image = System.Drawing.Bitmap.FromStream(stream);
                 playerPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                //Image.FromStream(stream);
             }
             catch (Exception ex)
             {
@@ -976,7 +991,7 @@ namespace CGProject
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //TODO:  Need to be able to add new playthorugh of games, when you do it should insert a new record, history, and playthrough
+            //TODO:  Need to be able to add new playthrough of games, when you do it should insert a new record, history, and playthrough
         }
 
         private void fileSystemWatcher1_Changed(object sender, FileSystemEventArgs e)
@@ -984,6 +999,9 @@ namespace CGProject
 
         }
         //TODO:  Need a dropdown selector to choose either Alphabetical, by cost, type, or rarity to sort cards
+        /*\  _quwerry_string = select
+         * 
+         */
         //TODO: need a selector to choose to display games by manufacturer
     }
 }

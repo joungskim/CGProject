@@ -62,10 +62,10 @@
             this.player1NameTextBox = new System.Windows.Forms.TextBox();
             this.loss1Label = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.player1WinTextBox = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.player1WinPercent = new System.Windows.Forms.TextBox();
+            this.player1LossPercent = new System.Windows.Forms.TextBox();
+            this.player1WinCount = new System.Windows.Forms.TextBox();
+            this.player1LossCount = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.player1HistoryListBox = new System.Windows.Forms.ListBox();
             this.AddPlay = new System.Windows.Forms.Button();
@@ -84,6 +84,8 @@
             this.addPlayerButton = new System.Windows.Forms.Button();
             this.deletePlayerButton = new System.Windows.Forms.Button();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.sortCardsBy = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.cardImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gameImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerPictureBox)).BeginInit();
@@ -203,7 +205,7 @@
             this.searchCardTextBox.ForeColor = System.Drawing.Color.LimeGreen;
             this.searchCardTextBox.Location = new System.Drawing.Point(13, 298);
             this.searchCardTextBox.Name = "searchCardTextBox";
-            this.searchCardTextBox.Size = new System.Drawing.Size(120, 20);
+            this.searchCardTextBox.Size = new System.Drawing.Size(83, 20);
             this.searchCardTextBox.TabIndex = 9;
             this.searchCardTextBox.Text = "Search Cards...";
             this.searchCardTextBox.Click += new System.EventHandler(this.searchCardTextBox_Click);
@@ -479,57 +481,57 @@
             this.label5.TabIndex = 48;
             this.label5.Text = "Win Total";
             // 
-            // player1WinTextBox
+            // player1WinPercent
             // 
-            this.player1WinTextBox.AccessibleName = "";
-            this.player1WinTextBox.BackColor = System.Drawing.Color.White;
-            this.player1WinTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.player1WinTextBox.ForeColor = System.Drawing.Color.Black;
-            this.player1WinTextBox.Location = new System.Drawing.Point(631, 253);
-            this.player1WinTextBox.Name = "player1WinTextBox";
-            this.player1WinTextBox.ReadOnly = true;
-            this.player1WinTextBox.Size = new System.Drawing.Size(91, 13);
-            this.player1WinTextBox.TabIndex = 49;
-            this.player1WinTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.player1WinPercent.AccessibleName = "";
+            this.player1WinPercent.BackColor = System.Drawing.Color.White;
+            this.player1WinPercent.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.player1WinPercent.ForeColor = System.Drawing.Color.Black;
+            this.player1WinPercent.Location = new System.Drawing.Point(631, 253);
+            this.player1WinPercent.Name = "player1WinPercent";
+            this.player1WinPercent.ReadOnly = true;
+            this.player1WinPercent.Size = new System.Drawing.Size(91, 13);
+            this.player1WinPercent.TabIndex = 49;
+            this.player1WinPercent.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox5
+            // player1LossPercent
             // 
-            this.textBox5.AccessibleName = "";
-            this.textBox5.BackColor = System.Drawing.Color.White;
-            this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox5.ForeColor = System.Drawing.Color.Black;
-            this.textBox5.Location = new System.Drawing.Point(631, 279);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(91, 13);
-            this.textBox5.TabIndex = 50;
-            this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.player1LossPercent.AccessibleName = "";
+            this.player1LossPercent.BackColor = System.Drawing.Color.White;
+            this.player1LossPercent.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.player1LossPercent.ForeColor = System.Drawing.Color.Black;
+            this.player1LossPercent.Location = new System.Drawing.Point(631, 279);
+            this.player1LossPercent.Name = "player1LossPercent";
+            this.player1LossPercent.ReadOnly = true;
+            this.player1LossPercent.Size = new System.Drawing.Size(91, 13);
+            this.player1LossPercent.TabIndex = 50;
+            this.player1LossPercent.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox6
+            // player1WinCount
             // 
-            this.textBox6.AccessibleName = "";
-            this.textBox6.BackColor = System.Drawing.Color.White;
-            this.textBox6.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox6.ForeColor = System.Drawing.Color.Black;
-            this.textBox6.Location = new System.Drawing.Point(631, 305);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(91, 13);
-            this.textBox6.TabIndex = 51;
-            this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.player1WinCount.AccessibleName = "";
+            this.player1WinCount.BackColor = System.Drawing.Color.White;
+            this.player1WinCount.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.player1WinCount.ForeColor = System.Drawing.Color.Black;
+            this.player1WinCount.Location = new System.Drawing.Point(631, 305);
+            this.player1WinCount.Name = "player1WinCount";
+            this.player1WinCount.ReadOnly = true;
+            this.player1WinCount.Size = new System.Drawing.Size(91, 13);
+            this.player1WinCount.TabIndex = 51;
+            this.player1WinCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox10
+            // player1LossCount
             // 
-            this.textBox10.AccessibleName = "";
-            this.textBox10.BackColor = System.Drawing.Color.White;
-            this.textBox10.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox10.ForeColor = System.Drawing.Color.Black;
-            this.textBox10.Location = new System.Drawing.Point(631, 328);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.ReadOnly = true;
-            this.textBox10.Size = new System.Drawing.Size(91, 13);
-            this.textBox10.TabIndex = 54;
-            this.textBox10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.player1LossCount.AccessibleName = "";
+            this.player1LossCount.BackColor = System.Drawing.Color.White;
+            this.player1LossCount.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.player1LossCount.ForeColor = System.Drawing.Color.Black;
+            this.player1LossCount.Location = new System.Drawing.Point(631, 328);
+            this.player1LossCount.Name = "player1LossCount";
+            this.player1LossCount.ReadOnly = true;
+            this.player1LossCount.Size = new System.Drawing.Size(91, 13);
+            this.player1LossCount.TabIndex = 54;
+            this.player1LossCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label9
             // 
@@ -585,9 +587,9 @@
             this.deleteCardButton.BackColor = System.Drawing.Color.Gray;
             this.deleteCardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.deleteCardButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.deleteCardButton.Location = new System.Drawing.Point(139, 295);
+            this.deleteCardButton.Location = new System.Drawing.Point(102, 295);
             this.deleteCardButton.Name = "deleteCardButton";
-            this.deleteCardButton.Size = new System.Drawing.Size(119, 23);
+            this.deleteCardButton.Size = new System.Drawing.Size(75, 23);
             this.deleteCardButton.TabIndex = 68;
             this.deleteCardButton.Text = "Delete Card";
             this.deleteCardButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
@@ -754,6 +756,14 @@
             this.fileSystemWatcher1.SynchronizingObject = this;
             this.fileSystemWatcher1.Changed += new System.IO.FileSystemEventHandler(this.fileSystemWatcher1_Changed);
             // 
+            // sortCardsBy
+            // 
+            this.sortCardsBy.FormattingEnabled = true;
+            this.sortCardsBy.Location = new System.Drawing.Point(183, 295);
+            this.sortCardsBy.Name = "sortCardsBy";
+            this.sortCardsBy.Size = new System.Drawing.Size(73, 21);
+            this.sortCardsBy.TabIndex = 81;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -761,6 +771,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(861, 720);
+            this.Controls.Add(this.sortCardsBy);
             this.Controls.Add(this.deletePlayerButton);
             this.Controls.Add(this.addPlayerButton);
             this.Controls.Add(this.playerSaveButton);
@@ -777,11 +788,11 @@
             this.Controls.Add(this.GameEnd);
             this.Controls.Add(this.AddPlay);
             this.Controls.Add(this.player1HistoryListBox);
-            this.Controls.Add(this.textBox10);
+            this.Controls.Add(this.player1LossCount);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.player1WinTextBox);
+            this.Controls.Add(this.player1WinCount);
+            this.Controls.Add(this.player1LossPercent);
+            this.Controls.Add(this.player1WinPercent);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.loss1Label);
             this.Controls.Add(this.player1NameTextBox);
@@ -867,10 +878,10 @@
         private System.Windows.Forms.TextBox player1NameTextBox;
         private System.Windows.Forms.Label loss1Label;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox player1WinTextBox;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.TextBox player1WinPercent;
+        private System.Windows.Forms.TextBox player1LossPercent;
+        private System.Windows.Forms.TextBox player1WinCount;
+        private System.Windows.Forms.TextBox player1LossCount;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ListBox player1HistoryListBox;
         private System.Windows.Forms.Button AddPlay;
@@ -889,5 +900,7 @@
         private System.Windows.Forms.Button addPlayerButton;
         private System.Windows.Forms.Button deletePlayerButton;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
+        private System.Windows.Forms.ComboBox sortCardsBy;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
