@@ -243,7 +243,8 @@
             // rarityLabel
             // 
             this.rarityLabel.AutoSize = true;
-            this.rarityLabel.ForeColor = System.Drawing.Color.Ivory;
+            this.rarityLabel.BackColor = System.Drawing.Color.Transparent;
+            this.rarityLabel.ForeColor = System.Drawing.Color.Black;
             this.rarityLabel.Location = new System.Drawing.Point(277, 67);
             this.rarityLabel.Name = "rarityLabel";
             this.rarityLabel.Size = new System.Drawing.Size(34, 13);
@@ -266,7 +267,8 @@
             // costLabel
             // 
             this.costLabel.AutoSize = true;
-            this.costLabel.ForeColor = System.Drawing.Color.Ivory;
+            this.costLabel.BackColor = System.Drawing.Color.Transparent;
+            this.costLabel.ForeColor = System.Drawing.Color.Black;
             this.costLabel.Location = new System.Drawing.Point(277, 94);
             this.costLabel.Name = "costLabel";
             this.costLabel.Size = new System.Drawing.Size(28, 13);
@@ -276,7 +278,8 @@
             // typeLabel
             // 
             this.typeLabel.AutoSize = true;
-            this.typeLabel.ForeColor = System.Drawing.Color.Ivory;
+            this.typeLabel.BackColor = System.Drawing.Color.Transparent;
+            this.typeLabel.ForeColor = System.Drawing.Color.Black;
             this.typeLabel.Location = new System.Drawing.Point(277, 121);
             this.typeLabel.Name = "typeLabel";
             this.typeLabel.Size = new System.Drawing.Size(31, 13);
@@ -312,7 +315,8 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.Ivory;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(277, 159);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 13);
@@ -440,7 +444,8 @@
             // player1NameLabel
             // 
             this.player1NameLabel.AutoSize = true;
-            this.player1NameLabel.ForeColor = System.Drawing.Color.Ivory;
+            this.player1NameLabel.BackColor = System.Drawing.Color.Transparent;
+            this.player1NameLabel.ForeColor = System.Drawing.Color.Black;
             this.player1NameLabel.Location = new System.Drawing.Point(558, 227);
             this.player1NameLabel.Name = "player1NameLabel";
             this.player1NameLabel.Size = new System.Drawing.Size(67, 13);
@@ -450,7 +455,8 @@
             // win1Label
             // 
             this.win1Label.AutoSize = true;
-            this.win1Label.ForeColor = System.Drawing.Color.Ivory;
+            this.win1Label.BackColor = System.Drawing.Color.Transparent;
+            this.win1Label.ForeColor = System.Drawing.Color.Black;
             this.win1Label.Location = new System.Drawing.Point(558, 253);
             this.win1Label.Name = "win1Label";
             this.win1Label.Size = new System.Drawing.Size(37, 13);
@@ -473,7 +479,8 @@
             // loss1Label
             // 
             this.loss1Label.AutoSize = true;
-            this.loss1Label.ForeColor = System.Drawing.Color.Ivory;
+            this.loss1Label.BackColor = System.Drawing.Color.Transparent;
+            this.loss1Label.ForeColor = System.Drawing.Color.Black;
             this.loss1Label.Location = new System.Drawing.Point(558, 279);
             this.loss1Label.Name = "loss1Label";
             this.loss1Label.Size = new System.Drawing.Size(40, 13);
@@ -483,7 +490,8 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.Ivory;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.ForeColor = System.Drawing.Color.Black;
             this.label5.Location = new System.Drawing.Point(558, 305);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 13);
@@ -545,7 +553,8 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.ForeColor = System.Drawing.Color.Ivory;
+            this.label9.BackColor = System.Drawing.Color.Transparent;
+            this.label9.ForeColor = System.Drawing.Color.Black;
             this.label9.Location = new System.Drawing.Point(558, 328);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(56, 13);
@@ -608,7 +617,8 @@
             // gameCardCountLabel
             // 
             this.gameCardCountLabel.AutoSize = true;
-            this.gameCardCountLabel.ForeColor = System.Drawing.Color.Ivory;
+            this.gameCardCountLabel.BackColor = System.Drawing.Color.Transparent;
+            this.gameCardCountLabel.ForeColor = System.Drawing.Color.Black;
             this.gameCardCountLabel.Location = new System.Drawing.Point(280, 279);
             this.gameCardCountLabel.Name = "gameCardCountLabel";
             this.gameCardCountLabel.Size = new System.Drawing.Size(91, 13);
@@ -618,27 +628,29 @@
             // allGameRadio
             // 
             this.allGameRadio.AutoSize = true;
-            this.allGameRadio.ForeColor = System.Drawing.Color.LimeGreen;
+            this.allGameRadio.BackColor = System.Drawing.Color.Transparent;
+            this.allGameRadio.ForeColor = System.Drawing.Color.Black;
             this.allGameRadio.Location = new System.Drawing.Point(539, 200);
             this.allGameRadio.Name = "allGameRadio";
             this.allGameRadio.Size = new System.Drawing.Size(72, 17);
             this.allGameRadio.TabIndex = 70;
             this.allGameRadio.TabStop = true;
             this.allGameRadio.Text = "All Games";
-            this.allGameRadio.UseVisualStyleBackColor = true;
+            this.allGameRadio.UseVisualStyleBackColor = false;
             this.allGameRadio.CheckedChanged += new System.EventHandler(this.allGameRadio_CheckedChanged);
             // 
             // currentGameRadio
             // 
             this.currentGameRadio.AutoSize = true;
-            this.currentGameRadio.ForeColor = System.Drawing.Color.Lime;
+            this.currentGameRadio.BackColor = System.Drawing.Color.Transparent;
+            this.currentGameRadio.ForeColor = System.Drawing.Color.Black;
             this.currentGameRadio.Location = new System.Drawing.Point(637, 200);
             this.currentGameRadio.Name = "currentGameRadio";
             this.currentGameRadio.Size = new System.Drawing.Size(90, 17);
             this.currentGameRadio.TabIndex = 71;
             this.currentGameRadio.TabStop = true;
             this.currentGameRadio.Text = "Current Game";
-            this.currentGameRadio.UseVisualStyleBackColor = true;
+            this.currentGameRadio.UseVisualStyleBackColor = false;
             this.currentGameRadio.CheckedChanged += new System.EventHandler(this.currentGameRadio_CheckedChanged);
             // 
             // saveImage
@@ -658,7 +670,8 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.Ivory;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(310, 321);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(61, 13);
@@ -867,6 +880,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1223, 720);
             this.Controls.Add(this.refreshButton);
