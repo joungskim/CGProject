@@ -466,7 +466,7 @@ namespace CGProject
                     imageId = read.GetInt32("id_image");
                     s.CloseConnection();
 
-                    insert = "UPDATE ccdb.card SET id_image = " + imageId + " WHERE ccdb.card.name = '" + cardListBox.SelectedItem.ToString() + "' and ccdb.card.id_game = '" + _current_game_id + "' ; ";
+                    insert = "UPDATE ccdb.card SET ccdb.card.id_image = " + imageId + " WHERE ccdb.card.name = '" + cardListBox.SelectedItem.ToString() + "' and ccdb.card.id_game = '" + _current_game_id + "' ; ";
                     read = s.MakeConnection(insert);
                     read.Read();
                     s.CloseConnection();
