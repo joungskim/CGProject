@@ -968,9 +968,30 @@ namespace CGProject
             }
             else
             {
-
+                playerListBox.Items.Clear();
+                string temp = playthroughHistoryList.SelectedItem.ToString().Substring(7, playthroughHistoryList.SelectedItem.ToString().IndexOf(':') - 7);
+                _selected_history = Convert.ToInt32(temp);
+                populatePlayersByPlayNum();
+                populateGameHistory();
             }
 
+        }
+
+        private void populatePlayersByPlayNum()
+        {
+           
+            _querry_string = "SELECT player.player_name as pname, rec.id_playthrough as play FROM ccdb.record as rec, ccdb.player as player, ccdb.playgame1 as pg WHERE rec.id_playthrough = " + _selected_history + " and rec.id_playthrough = pg.id_playthrough and rec.id_player = player.id_player Order By play;";
+            try
+            {
+                Server s = new Server();
+                read = s.MakeConnection(_querry_string);
+                while (read.Read())
+                {
+                    playerListBox.Items.Add(read.GetString("pname"));
+                }
+                s.CloseConnection();
+            }catch(Exception ex)
+            { }
         }
 
         private void populateGameHistory()
