@@ -1027,19 +1027,17 @@ namespace CGProject
 
         private void populateChatBox()
         {
-            string thisQuery;
             Server s = new Server();
             try
             {
-                thisQuery = "Select * from ccdb.chat where id_chat > " + chatBoxIndex + " ;";
-                read = s.MakeConnection(thisQuery);
+                _querry_string = "Select * from ccdb.chat where id_chat > " + chatBoxIndex + " ;";
+                read = s.MakeConnection(_querry_string);
                 while (read.Read())
                 {
                     this.Invoke((MethodInvoker)(()=>chatListBox.Items.Add(read.GetString("chat"))));
                 }
-
-                thisQuery = "Select Max(ccdb.chat.id_chat) as chat From ccdb.chat ;";
-                read = s.MakeConnection(thisQuery);
+                _querry_string = "Select Max(ccdb.chat.id_chat) as chat From ccdb.chat ;";
+                read = s.MakeConnection(_querry_string);
                 read.Read();
                 this.Invoke((MethodInvoker)(() => chatBoxIndex = read.GetInt32("chat")));
                 if(chatListBox.Items.Count > 0) this.Invoke((MethodInvoker)(()=>chatListBox.SetSelected(chatListBox.Items.Count - 1, true)));
@@ -1078,9 +1076,38 @@ namespace CGProject
 
         private void button2_Click(object sender, EventArgs e)
         {
-            _querry_string = "SELECT game.name, player.player_name, rec.id_playthrough " +
+            Server s = new Server();
+            playthroughHistoryList.Items.Clear();
+            player1HistoryListBox.Items.Clear();
+            playerListBox.Items.Clear();
+            _querry_string = "SELECT DISTINCT game.name as gname, player.player_name as pname, rec.id_playthrough as play " +
             "FROM ccdb.record as rec, ccdb.player as player, ccdb.game as game, ccdb.playgame1 as pg " +
-            "WHERE rec.win IS NULL and rec.id_playthrough = pg.id_playthrough and pg.id_game = game.id_game and rec.id_player = player.id_player;";
+            "WHERE rec.win IS NULL and rec.id_playthrough = pg.id_playthrough and pg.id_game = game.id_game and rec.id_player = player.id_player ORDER BY play;";
+            try
+            {
+                read = s.MakeConnection(_querry_string);
+                int playNum = 0;
+                string temp = "";
+                while (read.Read())
+                {
+                    int NewplayNum = read.GetInt32("play");
+                    if (NewplayNum == playNum)
+                    {
+                        temp += read.GetString("pname") + " ";
+                    }
+                    else
+                    {
+                        if (playNum > 0) playthroughHistoryList.Items.Add(temp);
+                        temp = "Game # " + NewplayNum + ": " + read.GetString("gname") + "- " + read.GetString("pname") + " ";
+                        playNum = NewplayNum;
+                    }
+                }
+                playthroughHistoryList.Items.Add(temp);
+
+            }
+            catch (Exception ex)
+            { }
+            s.CloseConnection();
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
