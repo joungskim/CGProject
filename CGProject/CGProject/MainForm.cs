@@ -37,6 +37,11 @@ namespace CGProject
         public MainForm()
         {
             InitializeComponent();
+            sortCardsBy.Text = "SelectSort";
+            sortCardsBy.Items.Add("name");
+            sortCardsBy.Items.Add("cost");
+            sortCardsBy.Items.Add("type");
+            sortCardsBy.Items.Add("rarity");
             LoadMainForm();
 
         }
@@ -118,7 +123,7 @@ namespace CGProject
                 {
                     _current_game_name = gameListBox.SelectedItem.ToString();
                     _current_game_id = _current_game_name.Substring(0, _current_game_name.IndexOf(":"));
-                    populateCardList(searchCardTextBox.Text.ToString(), _current_game_name);
+                    populateCardList(searchCardTextBox.Text.ToString(), _current_game_id);
                     updateCardCount(_current_game_id);
                     if (!(cardListBox.Items.Count == 0)) cardListBox.SetSelected(0, true);
                     displaySelectedGameImage();
@@ -317,48 +322,43 @@ namespace CGProject
          */
 
         //populates the card list when called.
-        private void populateCardList(string search, string gameID)
+        private void populateCardList(string search, string gameID ,string sortBy = "")
         {
-            if (!search.Equals("Search Cards...") && !search.Equals(""))
-            {
-                Server s = new Server();
-                try
-                {
-                    _querry_string = "Select * from ccdb.card as card, ccdb.game as game where card.id_game = game.id_game and"
-                    + " game.id_game = '" + gameID + "' and card.name like '%" + search + "%' ;";
-                    read = s.MakeConnection(_querry_string);
-                    while (read.Read())
-                    {
-                        cardListBox.Items.Add(read.GetString("name"));
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    Application.Exit();
-                }
-                s.CloseConnection();
+            string sort = "";
+            if (sortBy != "" && sortBy != "SelectSort") {
+                sort = "ORDER BY card." + sortBy; 
+                if(sortBy != "name") sort += ", name";
             }
+            Server s = new Server();
+            try
+            {
+                if (!search.Equals("Search Cards...") && !search.Equals(""))
+                {
 
-            else
-            {
-                Server s = new Server();
-                try
-                {
-                    _querry_string = "Select * from ccdb.card where ccdb.card.id_game = '" + gameID + "' ;";
+                    _querry_string = "Select * from ccdb.card as card, ccdb.game as game where card.id_game = game.id_game and"
+                    + " game.id_game = '" + gameID + "' and card.name like '%" + search + "%' " + sort + ";";
                     read = s.MakeConnection(_querry_string);
                     while (read.Read())
                     {
                         cardListBox.Items.Add(read.GetString("name"));
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show(ex.Message);
-                    Application.Exit();
+                    _querry_string = "Select * from ccdb.card where ccdb.card.id_game = " + gameID + " " + sort + ";";
+                    read = s.MakeConnection(_querry_string);
+                    while (read.Read())
+                    {
+                        cardListBox.Items.Add(read.GetString("name"));
+                    }
                 }
-                s.CloseConnection();
-            }
+           }
+           catch (Exception ex)
+           {
+                MessageBox.Show(ex.Message);
+                Application.Exit();
+           }
+           s.CloseConnection();
         }
 
         //opens the addcard dialogue and refreshes the list of cards.
@@ -589,9 +589,7 @@ namespace CGProject
         private void searchCardTextBox_TextChanged(object sender, EventArgs e)
         {
             cardListBox.Items.Clear();
-            string selected = gameListBox.SelectedItem.ToString();
-            string selectedID = selected.Substring(0, selected.IndexOf(":"));
-            populateCardList(searchCardTextBox.Text.ToString(), selectedID);
+            populateCardList(searchCardTextBox.Text.ToString(), _current_game_id, sortCardsBy.Text);
         }
 
 
@@ -880,9 +878,9 @@ namespace CGProject
                 Server s = new Server();
                 try
                 {
-                    _querry_string = "SELECT Distinct play.playthrough as p, player.player_name as n FROM ccdb.history as play, ccdb.player as player, (select ccdb.card.id_card as id, ccdb.card.name as cname " +
-                        "from ccdb.card, ccdb.game where ccdb.card.id_game = ccdb.game.id_game and ccdb.game.id_game = " + _current_game_id + ") as temp where play.id_card = temp.id and player.id_player = play.id_player " +
-                        "ORDER BY playthrough;";
+                    _querry_string = "SELECT Distinct play.playthrough as p, player.player_name as n FROM ccdb.history as play, ccdb.player as player, ccdb.record as record, ccdb.playgame1 as game " +
+                    "where game.id_game = " + _current_game_id + " and game.id_playthrough = play.playthrough and play.id_player = player.id_player " + 
+                    "ORDER BY playthrough;";
                     read = s.MakeConnection(_querry_string);
                     int playNum = 0;
                     int count = 0;
@@ -1073,7 +1071,9 @@ namespace CGProject
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            _querry_string = "SELECT game.name, player.player_name, rec.id_playthrough " +
+            "FROM ccdb.record as rec, ccdb.player as player, ccdb.game as game, ccdb.playgame1 as pg " +
+            "WHERE rec.win IS NULL and rec.id_playthrough = pg.id_playthrough and pg.id_game = game.id_game and rec.id_player = player.id_player;";
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -1086,15 +1086,17 @@ namespace CGProject
 
         }
 
+        private void sortCardsBy_TextChanged(object sender, EventArgs e)
+        {
+            if (sortCardsBy.Text != "SelectSort")
+            {
+                cardListBox.Items.Clear();
+                populateCardList(searchCardTextBox.Text.ToString(), _current_game_id, sortCardsBy.Text);
+            }
 
-
-
-
-
-        //TODO:  Need a dropdown selector to choose either Alphabetical, by cost, type, or rarity to sort cards
-        /*\  _quwerry_string = select
-         * 
-         */
+        }
+          
+         
         //TODO: need a selector to choose to display games by manufacturer
     }
 }

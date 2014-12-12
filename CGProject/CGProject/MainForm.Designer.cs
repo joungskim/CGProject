@@ -771,6 +771,7 @@
             this.sortCardsBy.Name = "sortCardsBy";
             this.sortCardsBy.Size = new System.Drawing.Size(73, 21);
             this.sortCardsBy.TabIndex = 81;
+            this.sortCardsBy.TextChanged += new System.EventHandler(this.sortCardsBy_TextChanged);
             // 
             // generateGames
             // 
