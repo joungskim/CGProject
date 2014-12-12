@@ -606,17 +606,24 @@ namespace CGProject
 
         private void currentGameRadio_CheckedChanged(object sender, EventArgs e)
         {
-            if(currentGameRadio.Checked && allGameRadio.Checked)
+            if (currentGameRadio.Checked && allGameRadio.Checked)
             {
                 allGameRadio.PerformClick();
+            }
+            if (!playerListBox.SelectedIndex.Equals(-1))
+            {
+                populatePlayerInformation(_player_id);
             }
         }
 
         private void allGameRadio_CheckedChanged(object sender, EventArgs e)
-        {
-            if (allGameRadio.Checked && currentGameRadio.Checked)
+        {if (allGameRadio.Checked && currentGameRadio.Checked)
             {
                 currentGameRadio.PerformClick();
+            }
+            if (!playerListBox.SelectedIndex.Equals(-1))
+            {
+                populatePlayerInformation(_player_id);
             }
         }
 
@@ -756,7 +763,7 @@ namespace CGProject
                 read.Read();
                 player1NameTextBox.Text = read.GetString("player_name");
 
-                if (currentGameRadio.Checked) _querry_string = "SELECT id_player, SUM(win)/count(*) as win_p, (count(*)-SUM(win))/count(*) as loss_p, SUM(win) as win, count(*)-SUM(win) as loss FROM ccdb.record where win IS NOT NULL and id_player = " + _player_id + " group by id_player;";
+                if (allGameRadio.Checked) _querry_string = "SELECT id_player, SUM(win)/count(*) as win_p, (count(*)-SUM(win))/count(*) as loss_p, SUM(win) as win, count(*)-SUM(win) as loss FROM ccdb.record where win IS NOT NULL and id_player = " + _player_id + " group by id_player;";
                 else _querry_string = "SELECT id_player, SUM(win)/count(*) as win_p, (count(*)-SUM(win))/count(*) as loss_p, SUM(win) as win, count(*)-SUM(win) as loss FROM ccdb.record, ccdb.playgame1 where win IS NOT NULL and record.id_playthrough = playgame1.id_playthrough and id_player = " + _player_id + " and playgame1.id_game = " + _current_game_id + " group by id_player;";
                 read = s.MakeConnection(_querry_string);
                 if (read.Read())
