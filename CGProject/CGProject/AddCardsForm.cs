@@ -76,8 +76,41 @@ namespace CGProject
         }
 
         //This is wrong? No DataBase is getting added anymore. 5:25PM
+        //Looks like this works, I just imported?  2:14 pm 12/18/2014
         public bool AddCard(string colNames, string[] colVals)
         {
+            /* 
+            //Not sure why code isn't working here?
+            try
+            {
+                if (colNames.Contains("name"))
+                {
+                    Server s = new Server();
+                    List<string> temp1 = new List<string>();
+                    List<string> temp2 = new List<string>();
+                    string[] colName = colNames.Split(',');
+
+                    for(int i = 0; i < colName.Length; i++)
+                    {
+                        temp1.Add(colName[i]);
+                        temp2.Add(colVals[i]);
+                    }
+
+                    s.MakeConnectionInsertParse("card", temp1, temp2);
+                    s.CloseConnection();
+                }
+                else
+                {
+                    MessageBox.Show("File does not include required field name!");
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);
+                return false;
+            }
+            */
             try
             {
                 if (colNames.Contains("name"))
