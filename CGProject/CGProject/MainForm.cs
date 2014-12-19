@@ -928,7 +928,7 @@ namespace CGProject
                         else
                         {
                             if (playNum > 0) playthroughHistoryList.Items.Add(temp);
-                            temp = ++count + ": " + read.GetString("n") + " ";
+                            temp = read.GetInt32("p") + ": " + read.GetString("n") + " ";
                             playNum = NewplayNum;
                         }
                     }
@@ -996,9 +996,10 @@ namespace CGProject
             if (playthroughHistoryList.SelectedIndex == -1) return;
             if (!playthroughHistoryList.SelectedItem.ToString().Contains('-') && !playthroughHistoryList.SelectedItem.ToString().Contains('='))
             {
+                string temp = playthroughHistoryList.SelectedItem.ToString().Substring(0, playthroughHistoryList.SelectedItem.ToString().IndexOf(':'));
+                _selected_history = Convert.ToInt32(temp);
                 populatePlayersListBox();
                 populateGameHistory();
-
             }
             else
             {
@@ -1031,27 +1032,34 @@ namespace CGProject
 
         private void endGame()
         {
-            if (playthroughHistoryList.SelectedItem.ToString().Contains("= No players in game"))
-            {
-                AddPlayerGame.Enabled = true;
-                GameEnd.Enabled = false;
-                return;
-            }
+            bool newGame = true;
+
             _querry_string = "Select * from ccdb.record where ccdb.record.id_playthrough = " + _selected_history + ";";
             Server s = new Server();
             read = s.MakeConnection(_querry_string);
-            read.Read();
-            var checkNull = read.GetOrdinal("win");
+            while (read.Read())
+            {
+                var checkNull = read.GetOrdinal("win");
 
-            if (!read.IsDBNull(checkNull))
-            {
-                GameEnd.Enabled = false;
-                AddPlayerGame.Enabled = false;
+                if (!read.IsDBNull(checkNull))
+                {
+                    GameEnd.Enabled = false;
+                    AddPlayerGame.Enabled = false;
+                }
+                else
+                {
+                    GameEnd.Enabled = true;
+                    AddPlayerGame.Enabled = true;
+                }
+                newGame = false;
+                break;
             }
-            else
+            if (newGame)
             {
-                GameEnd.Enabled = true;
+                populatePlayersByPlayNum();
                 AddPlayerGame.Enabled = true;
+                GameEnd.Enabled = false;
+                return;
             }
         }
 
@@ -1077,6 +1085,7 @@ namespace CGProject
         {
             if (!playthroughHistoryList.SelectedIndex.Equals(-1))
             {
+                bool works = false;
                 player1HistoryListBox.Items.Clear();
                 _querry_string = "Select player.player_name as name, card.name as card, hist.play_num as num from ccdb.card as card, ccdb.player as player, ccdb.history as hist where " +
                     "hist.playthrough = '" + _selected_history + "' and hist.id_card = card.id_card and player.id_player = hist.id_player ORDER BY num;";
@@ -1086,8 +1095,10 @@ namespace CGProject
                 {
                     string temp = "Play " + read.GetInt32(/*the play number*/"num") + ": " + "Player: " + read.GetString(/*The Player name*/"name") + " plays the card " + read.GetString(/*then name of the card*/"card");
                     player1HistoryListBox.Items.Add(temp);
+                    works = true;
                 }
                 s.CloseConnection();
+                if (!works) populatePlayersByPlayNum();
             }
         }
 
@@ -1272,7 +1283,10 @@ namespace CGProject
 
         private void DeletePlaythrough_Click(object sender, EventArgs e)
         {
-            //TODO delete a playthrough, if foreign keys are set up correctly will cascade detete all the rest as expected
+            //delete a playthrough, if foreign keys are set up correctly will cascade detete all the rest as expected
+            Server s = new Server();
+            string deleteValue = "SET SQL_SAFE_UPDATES = 0; Delete from ccdb.playgame1 where ccdb.playgame1.id_playthrough = '" + _selected_history + "' ;";
+            read = s.MakeConnection(deleteValue);
         }
 
         private void AddPlayerGame_Click(object sender, EventArgs e)
