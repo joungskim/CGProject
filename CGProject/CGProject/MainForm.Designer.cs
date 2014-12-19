@@ -95,6 +95,7 @@
             this.fileSystemWatcher2 = new System.IO.FileSystemWatcher();
             this.refreshButton = new System.Windows.Forms.Button();
             this.DeletePlaythrough = new System.Windows.Forms.Button();
+            this.AddPlayerGame = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.cardImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gameImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerPictureBox)).BeginInit();
@@ -739,11 +740,11 @@
             this.addPlayerButton.BackColor = System.Drawing.Color.Gray;
             this.addPlayerButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addPlayerButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.addPlayerButton.Location = new System.Drawing.Point(631, 347);
+            this.addPlayerButton.Location = new System.Drawing.Point(631, 375);
             this.addPlayerButton.Name = "addPlayerButton";
             this.addPlayerButton.Size = new System.Drawing.Size(91, 23);
             this.addPlayerButton.TabIndex = 79;
-            this.addPlayerButton.Text = "Add Player";
+            this.addPlayerButton.Text = "Add New Player";
             this.addPlayerButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.addPlayerButton.UseVisualStyleBackColor = false;
             this.addPlayerButton.Click += new System.EventHandler(this.addPlayerButton_Click);
@@ -753,9 +754,9 @@
             this.deletePlayerButton.BackColor = System.Drawing.Color.Gray;
             this.deletePlayerButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.deletePlayerButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.deletePlayerButton.Location = new System.Drawing.Point(727, 347);
+            this.deletePlayerButton.Location = new System.Drawing.Point(631, 347);
             this.deletePlayerButton.Name = "deletePlayerButton";
-            this.deletePlayerButton.Size = new System.Drawing.Size(120, 23);
+            this.deletePlayerButton.Size = new System.Drawing.Size(91, 23);
             this.deletePlayerButton.TabIndex = 80;
             this.deletePlayerButton.Text = "Delete Player";
             this.deletePlayerButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
@@ -781,7 +782,7 @@
             this.generateGames.BackColor = System.Drawing.Color.Gray;
             this.generateGames.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.generateGames.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.generateGames.Location = new System.Drawing.Point(561, 11);
+            this.generateGames.Location = new System.Drawing.Point(555, 11);
             this.generateGames.Name = "generateGames";
             this.generateGames.Size = new System.Drawing.Size(130, 23);
             this.generateGames.TabIndex = 82;
@@ -870,7 +871,7 @@
             this.DeletePlaythrough.BackColor = System.Drawing.Color.Gray;
             this.DeletePlaythrough.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DeletePlaythrough.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.DeletePlaythrough.Location = new System.Drawing.Point(697, 11);
+            this.DeletePlaythrough.Location = new System.Drawing.Point(691, 11);
             this.DeletePlaythrough.Name = "DeletePlaythrough";
             this.DeletePlaythrough.Size = new System.Drawing.Size(150, 23);
             this.DeletePlaythrough.TabIndex = 89;
@@ -878,6 +879,20 @@
             this.DeletePlaythrough.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.DeletePlaythrough.UseVisualStyleBackColor = false;
             this.DeletePlaythrough.Click += new System.EventHandler(this.DeletePlaythrough_Click);
+            // 
+            // AddPlayerGame
+            // 
+            this.AddPlayerGame.BackColor = System.Drawing.Color.Gray;
+            this.AddPlayerGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AddPlayerGame.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.AddPlayerGame.Location = new System.Drawing.Point(728, 347);
+            this.AddPlayerGame.Name = "AddPlayerGame";
+            this.AddPlayerGame.Size = new System.Drawing.Size(118, 23);
+            this.AddPlayerGame.TabIndex = 90;
+            this.AddPlayerGame.Text = "Add Player To Game";
+            this.AddPlayerGame.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.AddPlayerGame.UseVisualStyleBackColor = false;
+            this.AddPlayerGame.Click += new System.EventHandler(this.AddPlayerGame_Click);
             // 
             // MainForm
             // 
@@ -887,6 +902,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1223, 720);
+            this.Controls.Add(this.AddPlayerGame);
             this.Controls.Add(this.DeletePlaythrough);
             this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.generateGames);
@@ -1035,5 +1051,6 @@
         private System.IO.FileSystemWatcher fileSystemWatcher2;
         private System.Windows.Forms.Button refreshButton;
         private System.Windows.Forms.Button DeletePlaythrough;
+        private System.Windows.Forms.Button AddPlayerGame;
     }
 }

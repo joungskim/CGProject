@@ -30,9 +30,6 @@ namespace CGProject
                                                 "(player_name) " +
                                                 "VALUES " +
                                                 "('" + PlayerNameTextBox.Text.ToString()+"') ;");
-                    //read = s.MakeConnection("Select MAX from ccdb.player ;");
-                    //read.Read();
-                    //pID = read.GetInt32("");
                 }
                 catch (Exception ex)
                 {

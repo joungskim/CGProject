@@ -16,6 +16,8 @@ namespace CGProject
     {
 
         private MySqlDataReader read;
+        private bool update = false;
+        private string id_game;
 
         public AddGame()
         {
@@ -24,17 +26,43 @@ namespace CGProject
             nameTextBox.Clear();
         }
 
+        public void SetField(string name, string comp)
+        {
+            nameTextBox.Text = name;
+            companyTextBox.Text = comp;
+        }
+
+        public string Id_game
+        { set { id_game = value; } }
+
+        public bool Update
+        {
+            set
+            {
+                update = value;
+            }
+        }
+
         private void saveButton_Click(object sender, EventArgs e)
         {
-            if(!companyTextBox.Text.ToString().Equals("") && !nameTextBox.Text.ToString().Equals(""))
+            if (!companyTextBox.Text.ToString().Equals("") && !nameTextBox.Text.ToString().Equals(""))
             {
+                string insertUpdate;
                 Server s = new Server();
                 try
                 {
-                    read = s.MakeConnection("INSERT INTO ccdb.game " +
+                    if (update)
+                    {
+                        insertUpdate = "UPDATE ccdb.game SET made_by = '" + companyTextBox.Text.ToString() + "'" + ", name= '" + nameTextBox.Text.ToString() + "' where id_game = '" + "" + "';";
+                    }
+                    else
+                    {
+                        insertUpdate = "INSERT INTO ccdb.game " +
                                                 "(made_by, name) " +
                                                 "VALUES " +
-                                                "('" + companyTextBox.Text.ToString() + "'" + ", '" + nameTextBox.Text.ToString() + "') ;");
+                                                "('" + companyTextBox.Text.ToString() + "'" + ", '" + nameTextBox.Text.ToString() + "') ;";
+                    }
+                    read = s.MakeConnection(insertUpdate);
                 }
                 catch (Exception ex)
                 {
@@ -43,12 +71,15 @@ namespace CGProject
                 }
                 s.CloseConnection();
             }
-
+            update = false;
+            id_game = "";
             this.Hide();
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
+            update = false;
+            id_game = "";
             this.Hide();
         }
     }
