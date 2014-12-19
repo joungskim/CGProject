@@ -189,7 +189,7 @@
             this.createCardButton.Name = "createCardButton";
             this.createCardButton.Size = new System.Drawing.Size(75, 23);
             this.createCardButton.TabIndex = 56;
-            this.createCardButton.Text = "Create Card";
+            this.createCardButton.Text = "Save Card";
             this.createCardButton.UseVisualStyleBackColor = true;
             this.createCardButton.Click += new System.EventHandler(this.createCardButton_Click);
             // 

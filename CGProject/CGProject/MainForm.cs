@@ -1279,22 +1279,23 @@ namespace CGProject
             //Displays the add game form with the current selected game information and will perfom update rather than insert upon save click.
             //Untested
             AddGame addForm = new AddGame();
-            addForm.ShowDialog();
-            addForm.Update = true;
             addForm.Id_game = _current_game_id;
+            addForm.Update = true;
             try
             {
                 _querry_string = "Select * From ccdb.game Where ccdb.game.id_game = '" + _current_game_id + "';";
                 Server s = new Server();
                 read = s.MakeConnection(_querry_string);
                 read.Read();
-                addForm.SetField(read.GetString("name"), read.GetString("made_by"));
+                addForm.SetField(read.GetString("name"), read.GetString("made_by"),_current_game_id);
                 s.CloseConnection();
             }
             catch (Exception ex)
             {
 
             }
+            addForm.ShowDialog();
+            gameListBox.Items.Clear();
             populateGameList(searchGameTextBox.Text.ToString());
         }
 
@@ -1302,6 +1303,7 @@ namespace CGProject
         {
             //edit current current card = import info to form then save = update
             AddCardsForm addForm = new AddCardsForm(Convert.ToInt32(_current_game_id));
+            addForm.UpdateDisplay(cardNameTextBox.Text,costTextBox.Text,rarityTextBox.Text,descriptionRichTextBox.Text,typeTextBox.Text,_card_id);
             addForm.ShowDialog();
             populateInformationFields(cardListBox.SelectedItem.ToString());
         }

@@ -16,12 +16,24 @@ namespace CGProject
     {
         private MySqlDataReader read;
         private int gameId;
+        private int cardId;
+        private bool update = false;
         public AddCardsForm(int gameId)
         {
             InitializeComponent();
             this.gameId = gameId;
         }
-        
+
+        public void UpdateDisplay(string name, string cost, string rarity, string desciption, string type, int ID)
+        {
+            cardNameTextBox.Text = name;
+            if (cost != "N/A") costTextBox.Text = cost;
+            if (rarity != "N/A") rarityTextBox.Text = rarity;
+            if (desciption != "No Description Available") descriptionRichTextBox.Text = desciption;
+            if (type != "N/A") typeTextBox1.Text = type;
+            cardId = ID;
+            update = true;
+        }
 
         /*
          * This isn't actually adding cards to the database
@@ -55,7 +67,7 @@ namespace CGProject
 
                         else
                         {
-                            
+
                             importNotificationLabel.Visible = true;
                             string temp = line.Split(',')[line1.Split(',').ToList<string>().IndexOf("name")];
                             importNotificationLabel.Text = "Adding Card: " + temp;
@@ -65,14 +77,14 @@ namespace CGProject
                     importNotificationLabel.Text = "Cards inserted: " + countAdded + " - Cards not inserted: " + count;
                     file.Close();
                 }
-                catch(IOException ex)
+                catch (IOException ex)
                 {
 
                 }
 
             }
 
-  
+
         }
 
         //This is wrong? No DataBase is getting added anymore. 5:25PM
@@ -118,28 +130,29 @@ namespace CGProject
                     Server s = new Server();
 
                     string[] colName = colNames.Split(',');
-                        string insert = "INSERT INTO ccdb.card (" + colNames + ",id_game) VALUES  (";
-                        for (int i = 0; i < colVals.Count() ;i++ )
+                    string insert = "INSERT INTO ccdb.card (" + colNames + ",id_game) VALUES  (";
+                    for (int i = 0; i < colVals.Count(); i++)
+                    {
+                        if (colName[i] == "cost")
                         {
-                            if (colName[i] == "cost")
-                            {
-                                insert += colVals[i] + ",";
-                            }
-                            else
-                            {
-                                insert += "'" + colVals[i] + "'" + ",";
-                            }
+                            insert += colVals[i] + ",";
                         }
-                        insert += "'" + gameId + "') ;";
-                        read = s.MakeConnection(insert);
-                        s.CloseConnection();
+                        else
+                        {
+                            insert += "'" + colVals[i] + "'" + ",";
+                        }
                     }
+                    insert += "" + gameId + ") ;";
+                    read = s.MakeConnection(insert);
+                    s.CloseConnection();
+                }
                 else
                 {
                     MessageBox.Show("File does not include required field name!");
                 }
                 return true;
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 //MessageBox.Show(ex.Message);
                 return false;
@@ -158,12 +171,12 @@ namespace CGProject
             string results = "";
             int testInt;
 
-            if(cardNameTextBox.Text.Equals(""))
+            if (cardNameTextBox.Text.Equals(""))
             {
                 MessageBox.Show("You must enter a name.");
             }
 
-            else if(!(int.TryParse(costTextBox.Text, out testInt)) && !(costTextBox.Text.Equals("")))
+            else if (!(int.TryParse(costTextBox.Text, out testInt)) && !(costTextBox.Text.Equals("")))
             {
                 MessageBox.Show("You must enter a number in Cost Field.");
             }
@@ -183,26 +196,25 @@ namespace CGProject
                     header.Add("rarity");
                     resultString.Add(rarityTextBox.Text.ToString());
                 }
-                if(!descriptionRichTextBox.Text.Equals(""))
+                if (!descriptionRichTextBox.Text.Equals(""))
                 {
                     header.Add("description");
                     resultString.Add(descriptionRichTextBox.Text.ToString());
                 }
-                if(!typeTextBox1.Text.Equals(""))
+                if (!typeTextBox1.Text.Equals(""))
                 {
                     header.Add("type");
                     resultString.Add(typeTextBox1.Text.ToString());
                 }
 
-                for(int i = 0; i < header.Count() - 1; i++)
+                for (int i = 0; i < header.Count() - 1; i++)
                 {
                     results += header[i] + ",";
                 }
                 results += header[header.Count() - 1];
 
-                AddCard(results,resultString.ToArray());
-
-
+                if (update) { UpdateCard(results, resultString.ToArray()); }
+                else AddCard(results, resultString.ToArray());
 
                 cardNameTextBox.Clear();
                 costTextBox.Clear();
@@ -211,6 +223,44 @@ namespace CGProject
                 typeTextBox1.Clear();
 
                 createdIndicatorLabel.Visible = true;
+            }
+
+        }
+
+        private void UpdateCard(string colNames, string[] colVals)
+        {
+            try
+            {
+                if (colNames.Contains("name"))
+                {
+                    Server s = new Server();
+
+                    string[] colName = colNames.Split(',');
+                    string insert = "UPDATE ccdb.card SET ";
+                    for (int i = 0; i < colVals.Count(); i++)
+                    {
+                        if (colName[i] == "cost")
+                        {
+                            insert += "ccdb.card." + colName[i] + "=" + colVals[i] + ",";
+                        }
+                        else
+                        {
+                            insert += "ccdb.card." + colName[i] + "='" + colVals[i] + "'" + ",";
+                        }
+                    }
+                    insert = insert.Substring(0, insert.Length - 1);
+                    insert += " where id_card=" + cardId + ";";
+                    read = s.MakeConnection(insert);
+                    s.CloseConnection();
+                }
+                else
+                {
+                    MessageBox.Show("File does not include required field name!");
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);
             }
 
         }

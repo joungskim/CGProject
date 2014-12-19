@@ -26,10 +26,11 @@ namespace CGProject
             nameTextBox.Clear();
         }
 
-        public void SetField(string name, string comp)
+        public void SetField(string name, string comp, string gameID)
         {
             nameTextBox.Text = name;
             companyTextBox.Text = comp;
+            id_game = gameID;
         }
 
         public string Id_game
@@ -53,7 +54,7 @@ namespace CGProject
                 {
                     if (update)
                     {
-                        insertUpdate = "UPDATE ccdb.game SET made_by = '" + companyTextBox.Text.ToString() + "'" + ", name= '" + nameTextBox.Text.ToString() + "' where id_game = '" + "" + "';";
+                        insertUpdate = "UPDATE ccdb.game SET made_by = '" + companyTextBox.Text.ToString() + "'" + ", name= '" + nameTextBox.Text.ToString() + "' where id_game = '" + id_game + "';";
                     }
                     else
                     {
