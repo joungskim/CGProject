@@ -990,17 +990,23 @@ namespace CGProject
 
         private void AddPlay_Click(object sender, EventArgs e)
         {
-            if (cardListBox.SelectedIndex.Equals(-1) || gameListBox.SelectedIndex.Equals(-1) || playerListBox.SelectedIndex.Equals(-1))
+            if (cardListBox.SelectedIndex.Equals(-1) || Convert.ToInt32(_current_game_id) < 0 || playerListBox.SelectedIndex.Equals(-1))
                 MessageBox.Show("You do not have all the nessisary fields selected");
             else
             {
-                _querry_string = "select max(ccdb.play.playthrough) as max from ccdb.play.playthrough;";
+                string temp;
                 Server s = new Server();
+                _querry_string = "select max(ccdb.history.play_num) as max from ccdb.history where ccdb.history.playthrough = " + _selected_history + ";";
                 read = s.MakeConnection(_querry_string);
                 read.Read();
-                _querry_string = "insert into ccdb.play(ccdb.play.id_player,ccdb.play.playthrough) VALUES( '" + playerListBox.SelectedItem.ToString() + "'," + (read.GetInt32("max") + 1) + ");";
+                var checkNull = read.GetOrdinal("max");
+                if (!read.IsDBNull(checkNull)) { temp = (read.GetInt32("max") + 1).ToString(); }
+                else { temp = "1"; }
+                _querry_string = "insert into ccdb.history(ccdb.history.id_player,ccdb.history.playthrough,ccdb.history.id_card,ccdb.history.play_num) VALUES( " + _player_id + "," + _selected_history + "," + _card_id + "," + temp + ");";
+                s.CloseConnection();
                 s.MakeConnection(_querry_string);
                 s.CloseConnection();
+                populateGameHistory();
             }
         }
 
@@ -1011,7 +1017,8 @@ namespace CGProject
             {
                 string temp = playthroughHistoryList.SelectedItem.ToString().Substring(0, playthroughHistoryList.SelectedItem.ToString().IndexOf(':'));
                 _selected_history = Convert.ToInt32(temp);
-                populatePlayersListBox();
+                playerListBox.Items.Clear();
+                populatePlayersByPlayNum();
                 populateGameHistory();
             }
             else
@@ -1079,7 +1086,7 @@ namespace CGProject
         private void populatePlayersByPlayNum()
         {
 
-            _querry_string = "SELECT player.player_name as pname, rec.id_playthrough as play FROM ccdb.record as rec, ccdb.player as player, ccdb.playgame1 as pg WHERE rec.id_playthrough = " + _selected_history + " and rec.id_playthrough = pg.id_playthrough and rec.id_player = player.id_player Order By play;";
+            _querry_string = "SELECT Distinct player.player_name as pname, rec.id_playthrough as play FROM ccdb.record as rec, ccdb.player as player, ccdb.playgame1 as pg WHERE rec.id_playthrough = " + _selected_history + " and rec.id_playthrough = pg.id_playthrough and rec.id_player = player.id_player Order By play;";
             try
             {
                 Server s = new Server();
@@ -1145,9 +1152,14 @@ namespace CGProject
         {
             //add new playthrough of games
             Server s = new Server();
-            _querry_string = "INSERT INTO ccdb.playgame1 (id_game) VALUES (" + _current_game_id + ")";
+            _querry_string = "Select Max(ccdb.playgame1.id_playthrough) as ID from ccdb.playgame1;";
+            read = s.MakeConnection(_querry_string);
+            read.Read();
+            _querry_string = "INSERT INTO ccdb.playgame1 (id_game,id_playthrough) VALUES (" + _current_game_id + "," + (read.GetInt32("ID") + 1 ) + ")";
+            s.CloseConnection();
             s.MakeConnection(_querry_string);
             s.CloseConnection();
+            populatePlayListForGame();
         }
 
 
@@ -1300,6 +1312,10 @@ namespace CGProject
             Server s = new Server();
             string deleteValue = "SET SQL_SAFE_UPDATES = 0; Delete from ccdb.playgame1 where ccdb.playgame1.id_playthrough = '" + _selected_history + "' ;";
             read = s.MakeConnection(deleteValue);
+            playthroughHistoryList.Items.Clear();
+            player1HistoryListBox.Items.Clear();
+            playerListBox.Items.Clear();
+            populatePlayListForGame();
         }
 
         private void AddPlayerGame_Click(object sender, EventArgs e)
