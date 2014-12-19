@@ -945,6 +945,7 @@ namespace CGProject
 
         private void AddPlay_Click(object sender, EventArgs e)
         {
+            //Todo make sure that the selected card is part of the right game
             if (cardListBox.SelectedIndex.Equals(-1) || gameListBox.SelectedIndex.Equals(-1) || playerListBox.SelectedIndex.Equals(-1))
                 MessageBox.Show("You do not have all the nessisary fields selected");
             else
@@ -965,6 +966,7 @@ namespace CGProject
             {
                 populatePlayersListBox();
                 populateGameHistory();
+                //Todo set property for current game to the the game selected, deselect the current game, set cards list to the current game card list
             }
             else
             {
@@ -1038,7 +1040,7 @@ namespace CGProject
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //TODO:  Need to be able to add new playthrough of games, when you do it should insert a new record, history, and playthrough
+            //TODO:  Need to be able to add new playthrough of games, when you do it should insert a new triggers(record, history), and playthrough
         }
 
         /***************************************************************************
@@ -1150,8 +1152,21 @@ namespace CGProject
             }
 
         }
+
+        private void editGameButton_Click(object sender, EventArgs e)
+        {
+            //TODO edit current game = name, manufacturer
+        }
+
+        private void editCardButton_Click(object sender, EventArgs e)
+        {
+            //TODO edit current current card = import info to form then save = update
+        }
+
+        private void DeletePlaythrough_Click(object sender, EventArgs e)
+        {
+            //TODO delete a playthrough, if foreign keys are set up correctly will cascade detete all the rest as expected
+        }
           
-         
-        //TODO: need a selector to choose to display games by manufacturer
     }
 }

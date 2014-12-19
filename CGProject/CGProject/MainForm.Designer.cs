@@ -94,6 +94,7 @@
             this.sendMessageButton = new System.Windows.Forms.Button();
             this.fileSystemWatcher2 = new System.IO.FileSystemWatcher();
             this.refreshButton = new System.Windows.Forms.Button();
+            this.DeletePlaythrough = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.cardImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gameImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerPictureBox)).BeginInit();
@@ -194,6 +195,7 @@
             this.editGameButton.Text = "Edit Game";
             this.editGameButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.editGameButton.UseVisualStyleBackColor = false;
+            this.editGameButton.Click += new System.EventHandler(this.editGameButton_Click);
             // 
             // cardListBox
             // 
@@ -378,6 +380,7 @@
             this.editCardButton.Text = "Edit Card";
             this.editCardButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.editCardButton.UseVisualStyleBackColor = false;
+            this.editCardButton.Click += new System.EventHandler(this.editCardButton_Click);
             // 
             // playerPictureBox
             // 
@@ -405,9 +408,9 @@
             this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.button1.Location = new System.Drawing.Point(414, 194);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(119, 23);
+            this.button1.Size = new System.Drawing.Size(133, 23);
             this.button1.TabIndex = 31;
-            this.button1.Text = "Edit Games";
+            this.button1.Text = "New Game";
             this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -619,7 +622,7 @@
             // 
             this.allGameRadio.AutoSize = true;
             this.allGameRadio.ForeColor = System.Drawing.Color.LimeGreen;
-            this.allGameRadio.Location = new System.Drawing.Point(539, 200);
+            this.allGameRadio.Location = new System.Drawing.Point(553, 200);
             this.allGameRadio.Name = "allGameRadio";
             this.allGameRadio.Size = new System.Drawing.Size(72, 17);
             this.allGameRadio.TabIndex = 70;
@@ -862,6 +865,20 @@
             this.refreshButton.UseVisualStyleBackColor = false;
             this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
+            // DeletePlaythrough
+            // 
+            this.DeletePlaythrough.BackColor = System.Drawing.Color.Gray;
+            this.DeletePlaythrough.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeletePlaythrough.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.DeletePlaythrough.Location = new System.Drawing.Point(697, 11);
+            this.DeletePlaythrough.Name = "DeletePlaythrough";
+            this.DeletePlaythrough.Size = new System.Drawing.Size(150, 23);
+            this.DeletePlaythrough.TabIndex = 89;
+            this.DeletePlaythrough.Text = "Delete Game";
+            this.DeletePlaythrough.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.DeletePlaythrough.UseVisualStyleBackColor = false;
+            this.DeletePlaythrough.Click += new System.EventHandler(this.DeletePlaythrough_Click);
+            // 
             // MainForm
             // 
             this.AcceptButton = this.sendMessageButton;
@@ -870,6 +887,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1223, 720);
+            this.Controls.Add(this.DeletePlaythrough);
             this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.generateGames);
             this.Controls.Add(this.sendMessageButton);
@@ -1016,5 +1034,6 @@
         private System.Windows.Forms.RichTextBox chatRichTextBox;
         private System.IO.FileSystemWatcher fileSystemWatcher2;
         private System.Windows.Forms.Button refreshButton;
+        private System.Windows.Forms.Button DeletePlaythrough;
     }
 }
