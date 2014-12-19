@@ -742,7 +742,20 @@ namespace CGProject
                     }
                     else
                     {
-                        MessageBox.Show("An Error Occured could not load player data!");
+                        _querry_string = "Select player.player_name, player.id_player from ccdb.player, ccdb.record where ccdb.record.id_player = player.id_player and record.id_playthrough=" + _selected_history + " Order by id_player;";
+                        count = 0;
+                        read = s.MakeConnection(_querry_string);
+                        while ((insure = read.Read()) && count != playerListBox.SelectedIndex)
+                        {
+                            count++;
+                        }
+                        if (insure)
+                        {
+                            _player_id = read.GetInt32("id_player").ToString();
+                            populatePlayerInformation(_player_id);
+                            displaySelectedPlayerImage();
+                        }
+                        else { MessageBox.Show("An Error Occured could not load player data!"); }
                     }
                     _querry_string = "Select * from ccdb.record where ccdb.record.id_playthrough = " + _selected_history;
                     read = s.MakeConnection(_querry_string);
