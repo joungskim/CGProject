@@ -379,6 +379,7 @@ namespace CGProject
                 MessageBox.Show(ex.Message);
                 Application.Exit();
             }
+            //TODO trigger to delete cards with same id_game and name
         }
 
         //deletes the current selected card if a card is selected.
@@ -677,32 +678,12 @@ namespace CGProject
                 Server s = new Server();
                 try
                 {
-                    _querry_string = "SELECT Distinct play.gameplay_num as p, player.player_name as n, play.id_playthrough as selected, record.win as win " +
+                    _querry_string = "SELECT Distinct play.gameplay_num as p, player.player_name as n, play.id_playthrough as selected " +
                     "FROM ccdb.record as record, (SELECT count(x.id_game) as gameplay_num, y.id_playthrough, y.id_game from ccdb.playgame1 as x, ccdb.playgame1 as y where y.id_game = x.id_game and y.id_game = " +
                     _current_game_id + " and x.id_playthrough <= y.id_playthrough group by y.id_playthrough) as play, ccdb.player as player, ccdb.history as hist " +
                     "WHERE play.id_game = " + _current_game_id + " and play.gameplay_num = " + (playthroughHistoryList.SelectedIndex + 1) + " and play.id_playthrough = hist.playthrough and hist.id_player = player.id_player " +
                     "Order By n;";
                     read = s.MakeConnection(_querry_string);
-                    //Does the first read to make sure teh display should update and weather or not the buttons should be available.
-                    read.Read();
-                    var checkNull = read.GetOrdinal("n");
-                    if (!read.IsDBNull(checkNull))
-                    {
-                        playerListBox.Items.Add(read.GetString("n"));
-                        _selected_history = read.GetInt32("selected");
-                    }
-
-                    checkNull = read.GetOrdinal("win");
-                    if (read.IsDBNull(checkNull))
-                    {
-                        AddPlayerGame.Enabled = true;
-                        GameEnd.Enabled = true;
-                    }
-                    else
-                    {
-                        AddPlayerGame.Enabled = false;
-                        GameEnd.Enabled = false;
-                    }
 
                     while (read.Read())
                     {
@@ -737,9 +718,9 @@ namespace CGProject
         {
             try
             {
-                if (player1HistoryListBox.Items[0].ToString() == "Select a player..")
+                Server s = new Server();
+                if (!(playerListBox.Items[0].ToString() == "Select a player.."))
                 {
-                    Server s = new Server();
                     int count = 0;
                     bool insure;
                     _querry_string = "SELECT Distinct player.id_player as id, play.gameplay_num as p, player.player_name as n, play.id_playthrough as selected FROM " +
@@ -775,18 +756,25 @@ namespace CGProject
                 }
                 else
                 {
-                    if(player1HistoryListBox.SelectedIndex < 1) return;
+                    if(playerListBox.SelectedIndex > 0)
+                    { 
                     //add select player to the current playthrough and redisplay players
                     _player_id = playerListBox.SelectedItem.ToString().Substring(11,playerListBox.SelectedItem.ToString().IndexOf('-') - 11);
                     _querry_string = "INSERT INTO ccdb.record (id_player,id_playthrough) VALUES (" + _player_id +"," + _selected_history + ")";
+                    s.MakeConnection(_querry_string);
+                    s.CloseConnection();
+                    }
                     int temp = playthroughHistoryList.SelectedIndex;
-                    generateGames.PerformClick();
+                    if (playthroughHistoryList.SelectedItem.ToString().Contains('-')) { generateGames.PerformClick(); }
+                    else populatePlayListForGame();
                     playthroughHistoryList.SelectedIndex = temp;
+                    playerListBox.Items.Clear();
+                    populatePlayersByPlayNum();
                 }
             }
             catch (Exception ex)
             {
-
+                if(ex.ToString().Contains("duplicate")) MessageBox.Show("Player already in game");
             }
 
         }
@@ -919,16 +907,16 @@ namespace CGProject
         {
             if (!gameListBox.SelectedIndex.Equals(-1))
             {
+                int count = 0;
                 playthroughHistoryList.Items.Clear();
                 Server s = new Server();
                 try
                 {
-                    _querry_string = "SELECT Distinct play.playthrough as p, player.player_name as n FROM ccdb.history as play, ccdb.player as player, ccdb.record as record, ccdb.playgame1 as game " +
-                    "where game.id_game = " + _current_game_id + " and game.id_playthrough = play.playthrough and play.id_player = player.id_player " +
-                    "ORDER BY playthrough;";
+                    _querry_string = "SELECT Distinct play.id_playthrough as p, player.player_name as n FROM ccdb.record as play, ccdb.player as player, ccdb.playgame1 as game " +
+                    "where game.id_game = " + _current_game_id + " and game.id_playthrough = play.id_playthrough and play.id_player = player.id_player " +
+                    "ORDER BY play.id_playthrough;";
                     read = s.MakeConnection(_querry_string);
                     int playNum = 0;
-                    int count = 0;
                     string temp = "";
                     while (read.Read())
                     {
@@ -944,14 +932,20 @@ namespace CGProject
                             playNum = NewplayNum;
                         }
                     }
-                    playthroughHistoryList.Items.Add(temp);
+                    if(temp != "") playthroughHistoryList.Items.Add(temp);
+                    _querry_string = "SELECT ccdb.playgame1.id_playthrough, ccdb.game.name FROM ccdb.playgame1, ccdb.game where ccdb.playgame1.id_game = " + _current_game_id + " and ccdb.playgame1.id_game = ccdb.game.id_game and ccdb.playgame1.id_playthrough NOT IN (Select ccdb.record.id_playthrough from ccdb.record);";
+                    read = s.MakeConnection(_querry_string);
+                    while (read.Read())
+                    {
+                        playthroughHistoryList.Items.Add("Game # " + read.GetInt32("id_playthrough") + ": " + read.GetString("name") + "= No players in game");
+                    }
+                    s.CloseConnection();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                     Application.Exit();
                 }
-                s.CloseConnection();
             }
         }
 
@@ -1000,7 +994,7 @@ namespace CGProject
         private void playthroughHistoryList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (playthroughHistoryList.SelectedIndex == -1) return;
-            if (!playthroughHistoryList.SelectedItem.ToString().Contains('-'))
+            if (!playthroughHistoryList.SelectedItem.ToString().Contains('-') && !playthroughHistoryList.SelectedItem.ToString().Contains('='))
             {
                 populatePlayersListBox();
                 populateGameHistory();
@@ -1022,14 +1016,43 @@ namespace CGProject
                     read.Read();
                     _current_game_id = read.GetString("id_game");
                     s.CloseConnection();
-                    gameListBox.SelectedIndex = -1;
-                    cardListBox.Items.Clear();
-                    populateCardList(searchCardTextBox.Text.ToString(), _current_game_id);
-                    cardListBox.SelectedIndex = 0;
+                    if (playthroughHistoryList.SelectedItem.ToString().Contains('-'))
+                    {
+                        gameListBox.SelectedIndex = -1;
+                        cardListBox.Items.Clear();
+                        populateCardList(searchCardTextBox.Text.ToString(), _current_game_id);
+                        cardListBox.SelectedIndex = 0;
+                    }
                 }
                 catch (Exception Ex) { }
             }
+            endGame();
+        }
 
+        private void endGame()
+        {
+            if (playthroughHistoryList.SelectedItem.ToString().Contains("= No players in game"))
+            {
+                AddPlayerGame.Enabled = true;
+                GameEnd.Enabled = false;
+                return;
+            }
+            _querry_string = "Select * from ccdb.record where ccdb.record.id_playthrough = " + _selected_history + ";";
+            Server s = new Server();
+            read = s.MakeConnection(_querry_string);
+            read.Read();
+            var checkNull = read.GetOrdinal("win");
+
+            if (!read.IsDBNull(checkNull))
+            {
+                GameEnd.Enabled = false;
+                AddPlayerGame.Enabled = false;
+            }
+            else
+            {
+                GameEnd.Enabled = true;
+                AddPlayerGame.Enabled = true;
+            }
         }
 
         private void populatePlayersByPlayNum()
@@ -1089,12 +1112,18 @@ namespace CGProject
 
         private void GameEnd_Click(object sender, EventArgs e)
         {
-            //TODO:  Need to set the current record of the selected playthrough for the winning player to true and the other players to false;  SUGEST a trigger that when a player gets a win insert then all players with null win for that playthrough get false;
+            //set the current record of the selected playthrough for the winning player to true(1) and the other players to false(trigger)
+            _querry_string = "UPDATE ccdb.record SET win=1 where id_player = " + _player_id + " and id_playthrough = " + _selected_history;
+            //TODO trigger set all false for playthrough
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //TODO:  Need to be able to add new playthrough of games, when you do it should insert a new triggers(record, history), and playthrough
+            //add new playthrough of games
+            Server s = new Server();
+            _querry_string = "INSERT INTO ccdb.playgame1 (id_game) VALUES (" + _current_game_id + ")";
+            s.MakeConnection(_querry_string);
+            s.CloseConnection();
         }
 
 
