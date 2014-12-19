@@ -536,7 +536,7 @@ namespace CGProject
             Server s = new Server();
             try
             {
-                _querry_string = "Select * from ccdb.card as card, ccdb.game where ccdb.game.id_game = " + _current_game_id + " and card.name = '" + cardName + "' ;";
+                _querry_string = "Select * from ccdb.card left join ccdb.game ON ccdb.card.id_game = ccdb.game.id_game where game.id_game = " + _current_game_id + " and card.name = '" + cardName + "' ;";
                 read = s.MakeConnection(_querry_string);
                 read.Read();
 
