@@ -1007,6 +1007,7 @@ namespace CGProject
                 s.MakeConnection(_querry_string);
                 s.CloseConnection();
                 populateGameHistory();
+                GameEnd.Enabled = true;
             }
         }
 
@@ -1119,6 +1120,7 @@ namespace CGProject
                 }
                 s.CloseConnection();
                 if (!works) populatePlayersByPlayNum();
+                else GameEnd.Enabled = true;
             }
         }
 
@@ -1143,8 +1145,13 @@ namespace CGProject
 
         private void GameEnd_Click(object sender, EventArgs e)
         {
+            Server s = new Server();
             //set the current record of the selected playthrough for the winning player to true(1) and the other players to false(trigger)
             _querry_string = "UPDATE ccdb.record SET win=1 where id_player = " + _player_id + " and id_playthrough = " + _selected_history;
+             read = s.MakeConnection(_querry_string);
+             _querry_string = "UPDATE ccdb.record SET win=0 where id_playthrough = " + _selected_history + " and NOT record.win <=> 1;";
+             read = s.MakeConnection(_querry_string);
+             GameEnd.Enabled = false;
             //TODO trigger set all false for playthrough
         }
 
